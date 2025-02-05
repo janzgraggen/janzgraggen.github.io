@@ -1,42 +1,97 @@
+/* 1. Global Styles */
 body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
 }
 
-header {
-    background-color: #333;
+html {
+    scroll-behavior: smooth; /* Enables smooth scrolling */
+}
+
+/* 2. Navigation Styles */
+nav {
+    background: black; /* Background for the nav */
     color: white;
-    padding: 10px 0;
+    padding: 20px; /* Padding around the nav */
+    position: fixed; /* Keeps the nav fixed at the top */
+    width: 100px; /* Set a width for the nav box */
+    top: 20px; /* Align to the top with some margin */
+    right: 20px; /* Align to the left with some margin */
+    z-index: 1000; /* Ensure it stays above other content */
+    border-radius: 0px; /* Rounded corners for the nav box */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Optional shadow for depth */
+}
+
+nav .logo {
+    text-align: center; /* Center the logo */
+    margin-bottom: 20px; /* Space below the logo */
 }
 
 nav ul {
-    list-style-type: none;
-    padding: 0;
-    text-align: center;
+    list-style: none; /* Remove bullet points */
+    padding: 0; /* Remove default padding */
+    text-align: center; /* Center the links */
 }
 
 nav ul li {
-    display: inline;
-    margin: 0 15px;
+    margin: 10px 0; /* Space between navigation items */
 }
 
-nav ul li a {
+nav a {
     color: white;
     text-decoration: none;
+    padding: 10px; /* Add padding for better click area */
 }
 
-main {
-    padding: 20px;
-    text-align: center;
+nav a:hover {
+    background: rgba(255, 255, 255, 0.2); /* Light background on hover */
+    border-radius: 5px; /* Rounded corners on hover */
 }
 
-footer {
-    text-align: center;
-    padding: 10px 0;
-    background-color: #333;
-    color: white;
-    position: relative;
-    bottom: 0;
-    width: 100%;
+/* 3. Home Section Styles */
+#home {
+    background: url('images/background.jpg') no-repeat center center/cover; /* Background image */
+    color: white; /* Text color */
+    height: 100vh; /* Full height of the viewport */
+    display: flex; /* Flexbox for centering content */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    text-align: center; /* Center text */
+}
+
+.home-content {
+    background: rgba(0, 0, 0, 0.5); /* Semi-transparent background for text */
+    padding: 20px; /* Padding around text */
+    border-radius: 10px; /* Rounded corners */
+}
+
+/* 4. Section Styles */
+section {
+    padding: 100px 20px;
+    height: 100vh; /* Full height for each section */
+}
+
+/* 5. Project and Creativity Item Styles */
+.project, .creativity-item {
+    background: #f4f4f4; /* Light background for project items */
+    border: 1px solid #ccc; /* Border around items */
+    border-radius: 5px; /* Rounded corners */
+    padding: 20px; /* Padding inside the items */
+    margin: 20px 0; /* Margin between items */
+}
+
+h2 {
+    margin: 0; /* Remove default margin for h2 */
+}
+
+a {
+    display: inline-block; /* Make links block elements */
+    margin-top: 10px; /* Space above the link */
+    text-decoration: none; /* Remove underline */
+    color: #007BFF; /* Link color */
+}
+
+a:hover {
+    text-decoration: underline; /* Underline on hover */
 }
