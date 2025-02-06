@@ -50,6 +50,10 @@
     font-size: 18px; /* Adjust the font size for the paragraph */
     color: rgb(27, 94, 27); /* Change the color of the paragraph */
     display: block; /* Ensure the paragraph is displayed as a block element */
+    text-shadow: 
+        0 0 10px rgba(255, 255, 255, 0.99), /* White blur */
+        0 0 15px rgba(255, 255, 255, 0.9), /* White blur */
+        0 0 20px rgba(255, 255, 255, 0.8); /* Larger white blur */
 }
 
 /* Style for the p element */
@@ -64,4 +68,8 @@
     font-size: 18px; /* Adjust the font size for the paragraph */
     color: rgb(27, 94, 27); /* Change the color of the paragraph */
     display: block; /* Ensure the paragraph is displayed as a block element */
+    text-shadow: 
+        0 0 10px rgba(255, 255, 255, 0.9), /* White blur */
+        0 0 15px rgba(255, 255, 255, 0.8), /* White blur */
+        0 0 20px rgba(255, 255, 255, 0.7); /* Larger white blur */
 }
