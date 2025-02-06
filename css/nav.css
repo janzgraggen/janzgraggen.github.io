@@ -1,27 +1,40 @@
-
 /* 2. Navigation Styles */
 nav {
-    background: white; /* Background for the nav */
+    background: transparent; /* Background for the nav */
     color: black;
-    padding: 20px; /* Padding around the nav */
+    padding: 12px; /* Padding around the nav */
     position: fixed; /* Keeps the nav fixed at the top */
     width: 100px; /* Set a width for the nav box */
-    top: 20px; /* Align to the top with some margin */
-    right: 20px; /* Align to the left with some margin */
+    top: 80px; /* Align to the top with some margin */
+    right: 150px; /* Align to the left with some margin */
     z-index: 1000; /* Ensure it stays above other content */
-    border-radius: 0px; /* Rounded corners for the nav box */
-    /*box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Optional shadow for depth */
+    text-align: right; /* Align the text to the right */
+    height: 60px; /* Set a fixed height for the nav */
 }
 
 nav .logo {
-    text-align: center; /* Center the logo */
-    margin-bottom: 2px; /* Space below the logo */
+    text-align: right; /* Center the logo */
+    margin-bottom: 0; /* Space below the logo */
 }
+
+nav .logo-image {
+    width: 40px; /* Set the width of the logo image */
+    height: 40px; /* Set the height of the logo image */
+    border-radius: 50%; /* Make the image round */
+    object-fit: cover; /* Ensure the image covers the area without distortion */
+}
+
+
+nav .logo-image:hover {
+    transform: scale(1.1); /* Scale the logo image to 110% on hover */
+}
+
 
 nav ul {
     list-style: none; /* Remove bullet points */
     padding: 0; /* Remove default padding */
-    text-align: center; /* Center the links */
+    text-align: right; /* Align the links to the right*/
+    margin-top: 0; /* Remove margin above the list */
 }
 
 nav ul li {
@@ -30,20 +43,45 @@ nav ul li {
 
 nav a {
     color: black;
+    font-weight: bold; /* Make the font bold */
+    font-size: small;
     text-decoration: none;
     padding: 5px; /* Add padding for better click area */
+    position: relative; /* Position relative for pseudo-element */
+    transition: color 0.3s; /* Smooth transition for text color */
 }
 
 nav a:hover {
     background: rgba(255, 255, 255, 0); /* Light background on hover */
     border-radius: 5px; /* Rounded corners on hover */
+    font-size: smaller; /* Increase font size on hover */
+    color:green
 }
 
-/* Style for external links */
-.external-link {
-    color: gray; /* Change external link color to gray */
+nav .external-links {
+    display: grid; /* Use flexbox for alignment */
+    /*justify-content: grid-end; /* Align the logos to the right */
+    grid-template-columns: repeat(2, 1fr); /* Create a 2x2 grid */
+    direction: rtl; /* Set the direction to right-to-left */
+    margin-top: 0px; /* Space above the grid */
+    /*gap: 0px; /* Space between grid items */
+    max-width: 40px; /* Set a maximum width for the grid */
+    margin-left: 60px;
+    margin-top:-15px;
 }
 
-.external-link:hover {
-    color: darkgray; /* Darker gray on hover for external links */
+nav .external-links a {
+    display: block; /* Make the anchor a block element */
+    margin-left: 0px; /* Space between logos */
+}
+
+nav .external-links img {
+    width: 20px; /* Set a smaller width for the logos */
+    height: 20px; /* Set a smaller height for the logos */
+    object-fit: contain; /* Ensure logos maintain aspect ratio */
+    transition: transform 0.3s; /* Smooth transition for scaling */
+}
+
+nav .external-links img:hover {
+    transform: scale(1.1); /* Scale the logo on hover */
 }
