@@ -1,38 +1,67 @@
 
 /* 3. Home Section Styles */
 #home {
-    background: url('images/background.jpg') no-repeat center center/cover; /* Background image */
+    background: url('../assets/images/background.jpeg') no-repeat left center/cover; /* Updated background image path */
     color: black; /* Text color */
     height: 100vh; /* Full height of the viewport */
     display: flex; /* Flexbox for centering content */
-    /*justify-content: left; /* Center horizontally */
     align-items: center; /* Center vertically */
     text-align: center; /* Center text */
     font-size: 60px; /* Large font size */
-
 }
-
 .home-content {
     background: rgba(0, 0, 0, 0); /* Semi-transparent background for text */
-    padding: 10px; /* Padding around text */
-    border-radius: 10px; /* Rounded corners */
+    position: relative; /* Ensure the parent is positioned */
+    height: 100vh; /* Ensure it takes the full height of the viewport */
 }
 
 /* Style for the h1 element */
 .home-content h1 {
-    transform: rotate(270deg); /* Rotate the text 90 degrees */
-    /*transform-origin: left bottom; /* Adjust the origin point for rotation */
+    transform: rotate(270deg); /* Rotate the text 270 degrees */
     white-space: nowrap; /* Prevent text from wrapping */
-    font-size: 80px; /* Adjust the font size for the h1 */
-    color: black; /* Optional: Change the color of the h1 */
-    justify-content: top; /* Center horizontally */
+    font-size: 20; /* Use viewport width for responsive font size */
+    color: rgb(27, 94, 27); /* Change the color of the h1 */
+    letter-spacing: 0px; /* Adjust the spacing between characters */
+    margin-left: -200px; /* Adjust as needed */
+    margin-bottom: 20px; /* Add bottom margin for spacing */
+
+}
+
+/* Style for the h2 element */
+.home-content h2 {
+    transform: rotate(270deg); /* Rotate the text 270 degrees */
+    white-space: nowrap; /* Prevent text from wrapping */
+    font-size: 50; /* Use viewport width for responsive font size */
+    color: white; /* Change the color of the h2 */
+    letter-spacing: 0px; /* Adjust the spacing between characters */
+    margin-left: -100px; /* Adjust as needed */
+    margin-top: 20px; /* Add top margin for consistent spacing */
+}
+
+
+/* Style for the p element */
+.home-content p1 {
+    position: absolute; /* Position the paragraph absolutely */
+    bottom:290px; /* Adjust this value to position it as needed */
+    left: 200px; /* Adjust this value to position it as needed */
+    margin: 0; /* Remove default margin */
+    white-space: normal; /* Allow text to wrap normally */
+    text-align: left; /* Align text to the right */
+    font-size: 18px; /* Adjust the font size for the paragraph */
+    color: rgb(27, 94, 27); /* Change the color of the paragraph */
+    display: block; /* Ensure the paragraph is displayed as a block element */
 }
 
 /* Style for the p element */
-.home-content p {
-    margin: 10; /* Remove default margin */
-    text-align: right;
+.home-content p2 {
+    font-weight: bold;
+    position: absolute; /* Position the paragraph absolutely */
+    bottom: 180px; /* Adjust this value to position it as needed */
+    left: 200px; /* Adjust this value to position it as needed */
+    margin: 0; /* Remove default margin */
+    white-space: normal; /* Allow text to wrap normally */
+    text-align: left; /* Align text to the right */
     font-size: 18px; /* Adjust the font size for the paragraph */
-    color: grey; /* Optional: Change the color of the paragraph */
-    justify-content: right;
+    color: rgb(27, 94, 27); /* Change the color of the paragraph */
+    display: block; /* Ensure the paragraph is displayed as a block element */
 }
