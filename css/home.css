@@ -1,0 +1,38 @@
+
+/* 3. Home Section Styles */
+#home {
+    background: url('images/background.jpg') no-repeat center center/cover; /* Background image */
+    color: black; /* Text color */
+    height: 100vh; /* Full height of the viewport */
+    display: flex; /* Flexbox for centering content */
+    /*justify-content: left; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    text-align: center; /* Center text */
+    font-size: 60px; /* Large font size */
+
+}
+
+.home-content {
+    background: rgba(0, 0, 0, 0); /* Semi-transparent background for text */
+    padding: 10px; /* Padding around text */
+    border-radius: 10px; /* Rounded corners */
+}
+
+/* Style for the h1 element */
+.home-content h1 {
+    transform: rotate(270deg); /* Rotate the text 90 degrees */
+    /*transform-origin: left bottom; /* Adjust the origin point for rotation */
+    white-space: nowrap; /* Prevent text from wrapping */
+    font-size: 80px; /* Adjust the font size for the h1 */
+    color: black; /* Optional: Change the color of the h1 */
+    justify-content: top; /* Center horizontally */
+}
+
+/* Style for the p element */
+.home-content p {
+    margin: 10; /* Remove default margin */
+    text-align: right;
+    font-size: 18px; /* Adjust the font size for the paragraph */
+    color: grey; /* Optional: Change the color of the paragraph */
+    justify-content: right;
+}

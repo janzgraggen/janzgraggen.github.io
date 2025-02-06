@@ -1,0 +1,49 @@
+
+/* 2. Navigation Styles */
+nav {
+    background: white; /* Background for the nav */
+    color: black;
+    padding: 20px; /* Padding around the nav */
+    position: fixed; /* Keeps the nav fixed at the top */
+    width: 100px; /* Set a width for the nav box */
+    top: 20px; /* Align to the top with some margin */
+    right: 20px; /* Align to the left with some margin */
+    z-index: 1000; /* Ensure it stays above other content */
+    border-radius: 0px; /* Rounded corners for the nav box */
+    /*box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Optional shadow for depth */
+}
+
+nav .logo {
+    text-align: center; /* Center the logo */
+    margin-bottom: 2px; /* Space below the logo */
+}
+
+nav ul {
+    list-style: none; /* Remove bullet points */
+    padding: 0; /* Remove default padding */
+    text-align: center; /* Center the links */
+}
+
+nav ul li {
+    margin: 1px 0; /* Space between navigation items */
+}
+
+nav a {
+    color: black;
+    text-decoration: none;
+    padding: 5px; /* Add padding for better click area */
+}
+
+nav a:hover {
+    background: rgba(255, 255, 255, 0); /* Light background on hover */
+    border-radius: 5px; /* Rounded corners on hover */
+}
+
+/* Style for external links */
+.external-link {
+    color: gray; /* Change external link color to gray */
+}
+
+.external-link:hover {
+    color: darkgray; /* Darker gray on hover for external links */
+}
