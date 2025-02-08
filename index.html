@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="css/global.css">               <!-- Global styles -->
     <link rel="stylesheet" href="css/nav.css">                  <!-- Navigation styles -->
     <link rel="stylesheet" href="css/home.css">                 <!-- Home section styles -->
+    <link rel="stylesheet" href="css/about.css">                 <!-- Home section styles -->
     <link rel="stylesheet" href="css/projects.css">             <!-- Project section styles -->
     <link rel="stylesheet" href="css/creativity.css">           <!-- Creativity section styles -->
 </head>
@@ -16,7 +17,7 @@
 
 <body>
 
-    <nav>
+    <nav  id="nav" class="navbar-default">
         <div class="logo">
             <a href="#home">
                 <img src="assets/images/photo.jpeg" alt="Logo" class="logo-image">
@@ -24,25 +25,22 @@
         </div>
         
         <ul>
-            <li><a href="#about">ABOUT</a></li>
-            <li><a href="#projects">PROJECTS</a></li>
-            <li><a href="#creativity">CREATIVITY</a></li>
+            <li><a href="#about">/ABOUT</a></li>
+            <li><a href="#projects">/PROJECTS</a></li>
+            <li><a href="#creativity">/CREATIVE</a></li>
         </ul>
         
         <div class="external-links">
             <a href="https://linkedin.com/in/janzgraggen" target="_blank" class="external-link">
-                <img src="assets/icons/LI-In-Bug.png" alt="LinkedIn Logo">
+                <img id="linkedin-logo" src="assets/icons/LI-In-Bug.png" alt="LinkedIn Logo">
             </a>
             
             <a href="https://github.com/janzgraggen" target="_blank" class="external-link">
-                <img src="assets/icons/github-mark.png" alt="GitHub Logo">
+                <img id="github-logo" src="assets/icons/github-mark.png" alt="GitHub Logo">
             </a>
-            <!-- <a href="CV/cv.html" target="_blank" class="external-link">
-                <img src="assets/icons/CV.png" alt="">
-            </a> -->
-            <!-- Add more logos as needed -->
         </div>
     </nav>
+    <script src="js/nav.js"></script>
 
     <section id="home">
         <div class="home-content">
@@ -56,20 +54,31 @@
     <script src="js/background.js"></script>
 
     <section id="about">
-        <h1>About Me</h1>
-        <p>This is the about section. Here you can write a brief introduction about yourself, your background, and your interests.</p>
+        <h1 class="about-title">/About_me</h1> <!-- Move outside .about-content -->
+    
+        <div class="about-photo">
+            <img src="assets/images/about/meeSW.png" alt="About Photo">
+        </div>
+    
+        <div class="about-content">
+            <p>
+                Currently based in Lausanne, Switzerland, I am doing a master's in Computational Science and Engineering. My freaky interests lay in problem-solving, requiring a mathematical and algorithmic skill set, which I am currently applying in the field of NeuroAI, ML, and quantum computation. Otherwise, I spend my time traveling, in nature, doing sports, or engaging in creative work.
+            </p>
+        </div>
+        <script src="js/about.js"></script> 
     </section>
+    
 
     <section id="projects">
         <h1>Projects</h1>
         <div class="project">
             <h2>Project 1</h2>
-            <p>Description of Project 1. This could be a brief overview of what the project is about.</p>
+            <p>Coming soon...</p>
             <a href="https://link-to-your-project.com" target="_blank">View Project</a>
         </div>
         <div class="project">
             <h2>Project 2</h2>
-            <p>Description of Project 2. This could be a brief overview of what the project is about.</p>
+            <p>Coming soon..</p>
             <a href="https://link-to-your-project.com" target="_blank">View Project</a>
         </div>
     </section>
@@ -77,13 +86,13 @@
     <section id="creativity">
         <h1>Creativity</h1>
         <div class="creativity-item">
-            <h2>Creative Work 1</h2>
-            <p>Description of Creative Work 1. This could be a brief overview of your creative projects.</p>
+            <h2>Photography</h2>
+            <p>Coming soon..</p>
             <a href="https://link-to-your-creative-work.com" target="_blank">View Work</a>
         </div>
         <div class="creativity-item">
-            <h2>Creative Work 2</h2>
-            <p>Description of Creative Work 2. This could be a brief overview of your creative projects.</p>
+            <h2>Art</h2>
+            <p>Coming soon..</p>
             <a href="https://link-to-your-creative-work.com" target="_blank">View Work</a>
         </div>
     </section>

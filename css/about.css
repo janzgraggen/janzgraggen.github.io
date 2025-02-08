@@ -1,0 +1,68 @@
+/* About Section */
+#about {
+    background: url('../assets/images/about/about.jpeg') no-repeat left center/cover;
+    color: white;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 50px;
+    position: relative;
+}
+
+/* Position the title at the top-right of the page */
+.about-title {
+    position: absolute;
+    top: 180px;   /* Adjust as needed */
+    left: 90px; /* Adjust as needed */
+    font-size: 20px;
+    text-align: left;
+    margin: 0;
+}
+/* About Section Wrapper */
+.about-section {
+    display: flex;
+    align-items: center;
+    position: relative;
+    overflow: hidden; /* Ensures smooth animation without overflow */
+}
+
+/* About Content */
+.about-content {
+    max-width: 800px;
+    margin-left: 200px;
+    margin-right: 200px;
+    text-align: justify;
+    font-size: 1.2rem;
+    line-height: 1.6;
+    padding: 20px 0;
+    position: relative;
+    z-index: 2; /* Ensures text appears above image initially */
+}
+
+/* About Photo Container */
+.about-photo {
+    width: 800px; /* Match text width */
+    max-width: 100%; /* Ensures responsiveness */
+    position: absolute;
+    right: -100%; /* Start off-screen to the right */
+    top: 50%;
+    transform: translateY(-50%);
+    animation: swipeIn 1.5s ease-out forwards; /* Apply animation */
+}
+
+/* Image Styling */
+.about-photo img {
+    width: 100%;
+    clip-path: polygon(0% 0%, 100% 10%, 80% 100%, 0% 90%);
+}
+
+/* Animation */
+@keyframes swipeIn {
+    from {
+        right: -100%;
+    }
+    to {
+        right: 0;
+    }
+}
