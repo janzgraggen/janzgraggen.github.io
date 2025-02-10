@@ -46,19 +46,24 @@ document.addEventListener("DOMContentLoaded", function () {
         );
     }
 
-    // ScrollTrigger to play the fade-in animation when the section first enters the viewport
-    ScrollTrigger.create({
-        trigger: ".about-content",  // The section that will trigger the animation
-        start: "top 90%",  // When the section is near the viewport
-        once: true,  // Ensures the animation only runs once
-        onEnter: () => fadeInAboutContent()  // Trigger the animation when the section enters
-    });
+    // Check if the user came from the "CV/cv.html" page and prevent triggering the animations
+    if (document.referrer !== 'https://janzgraggen.github.io/CV/cv.html') {
 
-    // ScrollTrigger to play the animation when the section first enters the viewport
-    ScrollTrigger.create({
-        trigger: ".about-photo",  // The section that will trigger the animation
-        start: "top 90%",  // When the section is near the viewport
-        once: true,  // Ensures the animation only runs once
-        onEnter: () => playBoatEntrance()  // Trigger the animation when the section enters
-    });
+        // ScrollTrigger to play the fade-in animation when the section first enters the viewport
+        ScrollTrigger.create({
+            trigger: ".about-content",  // The section that will trigger the animation
+            start: "top 90%",  // When the section is near the viewport
+            once: true,  // Ensures the animation only runs once
+            onEnter: () => fadeInAboutContent()  // Trigger the animation when the section enters
+        });
+
+        // ScrollTrigger to play the animation when the section first enters the viewport
+        ScrollTrigger.create({
+            trigger: ".about-photo",  // The section that will trigger the animation
+            start: "top 90%",  // When the section is near the viewport
+            once: true,  // Ensures the animation only runs once
+            onEnter: () => playBoatEntrance()  // Trigger the animation when the section enters
+        });
+
+    }
 });
