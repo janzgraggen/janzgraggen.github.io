@@ -1,8 +1,8 @@
 const images = [
-    '../assets/images/background1SW.jpeg', // lowercase
-    '../assets/images/background2SW.jpeg',
-    '../assets/images/background3SW.jpeg',
-    '../assets/images/background4SW.jpeg',
+    '../assets/images/home/background1SW.jpeg', // lowercase
+    '../assets/images/home/background2SW.jpeg',
+    '../assets/images/home/background3SW.jpeg',
+    '../assets/images/home/background4SW.jpeg',
     // Add more images as needed
 ];
 
