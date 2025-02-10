@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         gsap.fromTo("#boat", 
             { 
-                x: -600,  // Start from the left outside of the screen
+                x: -660,  // Start from the left outside of the screen
                 y: 270,   // Start slightly below the screen (adjust this based on layout)
                 opacity: 1,
                 visibility: 'hidden', // Ensure it's not visible initially

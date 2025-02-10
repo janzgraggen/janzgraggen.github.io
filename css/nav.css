@@ -79,7 +79,7 @@ nav a:hover {
     background: rgba(255, 255, 255, 0); /* Light background on hover */
     border-radius: 5px; /* Rounded corners on hover */
     font-size: smaller; /* Increase font size on hover */
-    color:green
+    color:gray
 }
 
 nav .external-links {

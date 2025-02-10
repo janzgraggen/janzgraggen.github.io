@@ -34,6 +34,23 @@
     z-index: 2; /* Ensures text appears above image initially */
 }
 
+.about-content a{
+    font-weight: bold; /* Make the font bold */
+    font-size: 15px;
+    text-decoration: none;
+    padding: 5px; /* Add padding for better click area */
+    /*position: relative; /* Position relative for pseudo-element */
+    transition: color 0.1s; /* Smooth transition for text color */
+    transition: font-size 0.1s; /* Smooth transition for font size */
+    color: white;
+}
+
+.about-content a:hover {
+    background: rgba(255, 255, 255, 0); /* Light background on hover */
+    border-radius: 5px; /* Rounded corners on hover */
+    font-size: 16px; /* Increase font size on hover */
+    color:gray
+}
 
 /* About Section Wrapper */
 .about-section {
