@@ -109,3 +109,12 @@ nav .external-links img {
 nav .external-links img:hover {
     transform: scale(1.1); /* Scale the logo on hover */
 }
+
+#circle {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    position: fixed;
+    transition: all 0.01s ease-in-out;
+    right: 155px;
+}

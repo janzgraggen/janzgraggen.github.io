@@ -28,3 +28,49 @@ window.addEventListener('scroll', function() {
         }
     });
 });
+
+
+//––––––––––––––– CIRCLE
+const sectionConfig = {
+    "home": { color: "black", top: "108px"},
+    "about": { color: "white", top: "143px" },
+    "projects": { color: "black", top: "163px" },
+    "creativity": { color: "black", top: "182px"}
+};
+
+function updateCircle(sectionId) {
+    const circle = document.getElementById("circle");
+
+    if (sectionConfig[sectionId]) {
+        circle.style.backgroundColor = sectionConfig[sectionId].color;
+        circle.style.top = sectionConfig[sectionId].top;
+        circle.style.left = sectionConfig[sectionId].left;
+    }
+}
+
+function onScroll() {
+    const sections = Object.keys(sectionConfig);
+    let currentSection = sections[0]; // Default to first section
+
+    for (const section of sections) {
+        const element = document.getElementById(section);
+        if (element) {
+            const rect = element.getBoundingClientRect();
+
+            // Adjust this value to control how early the change happens
+            const threshold = window.innerHeight * 0.3; 
+
+            if (rect.top < threshold && rect.bottom > threshold) {
+                currentSection = section;
+            }
+        }
+    }
+
+    updateCircle(currentSection);
+    history.replaceState(null, null, `#${currentSection}`);
+}
+
+
+// Run when the page loads and when scrolling
+window.addEventListener("scroll", onScroll);
+window.addEventListener("load", onScroll);
