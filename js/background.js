@@ -1,8 +1,8 @@
 const images = [
-    '../assets/images/background1.jpeg',
-    '../assets/images/background2.jpeg',
-    '../assets/images/background3.jpeg',
-    '../assets/images/background4.jpeg',
+    '../assets/images/background1SW.jpeg',
+    '../assets/images/background2SW.jpeg',
+    '../assets/images/background3SW.jpeg',
+    '../assets/images/background4SW.jpeg',
     // Add more images as needed
 ];
 

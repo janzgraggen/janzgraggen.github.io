@@ -1,7 +1,7 @@
 
 /* 3. Home Section Styles */
 #home {
-    background: url('../assets/images/background.jpeg') no-repeat left center/cover; /* Updated background image path */
+    background: url('../assets/images/backgroundSW.jpeg') no-repeat left center/cover; /* Updated background image path */
     color: black; /* Text color */
     height: 100vh; /* Full height of the viewport */
     display: flex; /* Flexbox for centering content */
@@ -20,7 +20,7 @@
     transform: rotate(270deg); /* Rotate the text 270 degrees */
     white-space: nowrap; /* Prevent text from wrapping */
     font-size: 20; /* Use viewport width for responsive font size */
-    color: black; /* Change the color of the h1 */
+    color: orange; /* Change the color of the h1 */
     letter-spacing: 0px; /* Adjust the spacing between characters */
     margin-left: -200px; /* Adjust as needed */
     margin-bottom: 20px; /* Add bottom margin for spacing */
