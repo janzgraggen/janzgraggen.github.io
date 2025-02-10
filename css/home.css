@@ -8,6 +8,10 @@
     align-items: center; /* Center vertically */
     text-align: center; /* Center text */
     font-size: 60px; /* Large font size */
+    transition: background-image 1s ease-in-out; 
+
+
+    
 }
 .home-content {
     background: rgba(0, 0, 0, 0); /* Semi-transparent background for text */
