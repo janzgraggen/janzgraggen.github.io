@@ -24,8 +24,8 @@
         .markdown-body {
             box-sizing: border-box;
             min-width: 200px;
-            max-width: 980px;
-            margin: 0 auto;
+            max-width: 80%;
+            margin-left: 250;
             padding: 45px;
         }
 
@@ -52,10 +52,37 @@
             background-color: darkblue; /* Darker shade on hover */
         }
     </style>
+    <link rel="stylesheet" href="../css/global.css">               <!-- Global styles -->
+    <link rel="stylesheet" href="../css/nav.css">                  <!-- Navigation styles -->
 </head>
 
 <body>
-    <a href="../index.html#about" class="back-button">Go Back to Home</a>
+
+    <nav  id="nav" class="navbar-default">
+        <div class="logo">
+            <a href="../index.html#home">
+                <img src="../assets/images/photo.jpeg" alt="Logo" class="logo-image">
+            </a>
+        </div>
+        
+        <ul>
+            <li><a href="../index.html#about">/ABOUT</a></li>
+            <li><a href="../index.html#projects">/PROJECTS</a></li>
+            <li><a href="../index.html#creativity">/CREATIVE</a></li>
+        </ul>
+        
+        <div class="external-links">
+            <a href="https://linkedin.com/in/janzgraggen" target="_blank" class="external-link">
+                <img id="linkedin-logo" src="../assets/icons/LI-In-Bug.png" alt="LinkedIn Logo">
+            </a>
+            
+            <a href="https://github.com/janzgraggen" target="_blank" class="external-link">
+                <img id="github-logo" src="../assets/icons/github-mark.png" alt="GitHub Logo">
+            </a>
+        </div>
+    </nav>
+    <script src="js/nav.js"></script>
+
     <article class="markdown-body">
         <h1>Jan Zgraggen's CV</h1>
         <ul>
@@ -147,10 +174,3 @@
 
 </html>
 
-<button onclick="goBack()">Go Back</button>
-
-<script>
-function goBack() {
-    window.history.back();
-}
-</script>
