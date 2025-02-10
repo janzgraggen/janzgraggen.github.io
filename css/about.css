@@ -49,22 +49,7 @@
     top: 50%; /* Ensure it's visible */
     left: 0;
     transform: translateY(-50%);
+    visibility: hidden;    /* Ensure it's not visible initially */
+    transition: visibility 0s 0.1s, opacity 0s 0.1s; /* Ensure smooth visibility transition */
 }
 
-    /* About Photo Container
-    .about-photo {
-        width: 800px; /* Match text width */
-     /*    max-width: 100%; /* Ensures responsiveness */
-        /* position: absolute;
-        /*right: -100%; /* Start off-screen to the right */
-      /*   top: 50%;
-        transform: translateY(-50%);
-        animation: swipeIn 1.5s ease-out forwards; /* Apply animation */
-   /*  }
-
-    /* Image Styling */
-   /*  .about-photo img {
-        width: 100%;
-        clip-path: polygon(0% 0%, 100% 10%, 80% 100%, 0% 90%);
-    }
-    */
