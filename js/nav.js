@@ -6,6 +6,7 @@ window.addEventListener('scroll', function() {
     const offsetTop = 120;
     const linkedinLogo = document.getElementById('linkedin-logo');
     const githubLogo = document.getElementById('github-logo');
+    const homePhrase = document.getElementById("homephrase");
 
     sections.forEach(section => {
         const sectionTop = section.offsetTop;
@@ -14,7 +15,6 @@ window.addEventListener('scroll', function() {
         if (window.scrollY >= sectionTop - offsetTop && window.scrollY < sectionTop + sectionHeight - offsetTop) {
             navbar.className = ''; // Clear existing classes
             navbar.classList.add('nav-' + section.id); // Add new class based on section ID
-
             // Change image sources based on the active section
             if ((section.id === 'home') || (section.id === 'projects')|| (section.id === 'creativity')) {
                 // Default images for section home
@@ -25,9 +25,23 @@ window.addEventListener('scroll', function() {
                 linkedinLogo.src = 'assets/icons/LI-In-Bug-white.png'; // Alternate LinkedIn logo
                 githubLogo.src = 'assets/icons/github-mark-white.png'; // Alternate GitHub logo
             }
+            if (section.id === 'home'){
+                homePhrase.classList.add("show");
+                homePhrase.style.transition = "opacity 3s ease-in-out";
+                homePhrase.style.opacity = 1;
+
+            } else{
+                homePhrase.classList.remove("show");
+                homePhrase.style.transition = "opacity 0s ease-in-out";
+                homePhrase.style.opacity = 0;
+            }
         }
     });
 });
+
+
+
+
 
 
 //––––––––––––––– CIRCLE
@@ -58,7 +72,7 @@ function onScroll() {
             const rect = element.getBoundingClientRect();
 
             // Adjust this value to control how early the change happens
-            const threshold = window.innerHeight * 0.3; 
+            const threshold = window.innerHeight * 0.16; 
 
             if (rect.top < threshold && rect.bottom > threshold) {
                 currentSection = section;

@@ -24,7 +24,7 @@
     transform: rotate(270deg); /* Rotate the text 270 degrees */
     white-space: nowrap; /* Prevent text from wrapping */
     font-size: 20; /* Use viewport width for responsive font size */
-    color: black; /* Change the color of the h1 */
+    color: rgba(0, 0, 0, 0.501); /* Change the color of the h1 */
     letter-spacing: 0px; /* Adjust the spacing between characters */
     margin-left: -200px; /* Adjust as needed */
     margin-bottom: 20px; /* Add bottom margin for spacing */
@@ -36,45 +36,10 @@
     transform: rotate(270deg); /* Rotate the text 270 degrees */
     white-space: nowrap; /* Prevent text from wrapping */
     font-size: 50; /* Use viewport width for responsive font size */
-    color: white; /* Change the color of the h2 */
+    color: rgba(255, 255, 255, 0.571); /* Change the color of the h2 */
     letter-spacing: 0px; /* Adjust the spacing between characters */
     margin-left: -100px; /* Adjust as needed */
     margin-top: 20px; /* Add top margin for consistent spacing */
 }
 
 
-/* Style for the p element */
-.home-content p1 {
-    font-weight: bold;
-    position: absolute; /* Position the paragraph absolutely */
-    bottom:290px; /* Adjust this value to position it as needed */
-    left: 200px; /* Adjust this value to position it as needed */
-    margin: 0; /* Remove default margin */
-    white-space: normal; /* Allow text to wrap normally */
-    text-align: left; /* Align text to the right */
-    font-size: 28px; /* Adjust the font size for the paragraph */
-    color: black; /* Change the color of the paragraph */
-    display: block; /* Ensure the paragraph is displayed as a block element */
-    text-shadow: 
-        0 0 10px rgba(255, 255, 255, 0.99), /* White blur */
-        0 0 15px rgba(255, 255, 255, 0.9), /* White blur */
-        0 0 20px rgba(255, 255, 255, 0.8); /* Larger white blur */
-}
-
-/* Style for the p element */
-.home-content p2 {
-    font-weight: bold;
-    position: absolute; /* Position the paragraph absolutely */
-    bottom: 180px; /* Adjust this value to position it as needed */
-    left: 200px; /* Adjust this value to position it as needed */
-    margin: 0; /* Remove default margin */
-    white-space: normal; /* Allow text to wrap normally */
-    text-align: left; /* Align text to the right */
-    font-size: 18px; /* Adjust the font size for the paragraph */
-    color: black; /* Change the color of the paragraph */
-    display: block; /* Ensure the paragraph is displayed as a block element */
-    text-shadow: 
-        0 0 10px rgba(255, 255, 255, 0.9), /* White blur */
-        0 0 15px rgba(255, 255, 255, 0.8), /* White blur */
-        0 0 20px rgba(255, 255, 255, 0.7); /* Larger white blur */
-}

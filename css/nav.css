@@ -52,9 +52,6 @@ nav ul {
     margin-top: 0; /* Remove margin above the list */
 }
 
-
-
-
 nav ul li {
     margin: 1px 0; /* Space between navigation items */
 }
@@ -74,12 +71,20 @@ nav a {
     color: white; /* Change text color */
 }
 
+.nav-home a {  
+    /*background: lightblue; /* Change background for about */
+    color: rgba(0, 0, 0, 0.586); /* Change text color */
+}
 
 nav a:hover {
     background: rgba(255, 255, 255, 0); /* Light background on hover */
     border-radius: 5px; /* Rounded corners on hover */
     font-size: smaller; /* Increase font size on hover */
     color:gray
+}
+
+.nav-home a:hover{
+    color: black;
 }
 
 nav .external-links {
@@ -117,4 +122,62 @@ nav .external-links img:hover {
     position: fixed;
     transition: all 0.01s ease-in-out;
     right: 155px;
+}
+
+#homephrase {
+    font-weight: bold;
+    color: rgb(0, 0, 0);
+    font-size: small;
+    /*----------------*/
+    display: none; /* Initially hide the homephrase */
+    visibility: hidden; /* Initially hidden */
+    opacity: 0; /* Start with opacity 0 for fade effect */
+    transition: opacity 1s ease, visibility 1s ease; /* Smooth transition for opacity and visibility */
+}
+
+#homephrase.show {
+    display: block; /* Show the element */
+    opacity: 1; /* Fade in to full opacity */
+    visibility: visible; /* Make it visible */
+}
+#homephrase p:first-of-type {
+    position: absolute;
+    top: 26px; /* Adjust the top position as needed */
+    left: -50px; /* Adjust the left position as needed */
+    max-width: 600px;
+}
+
+#homephrase p:nth-of-type(2) {
+    position: absolute;
+    top: 46px; /* Adjust the top position as needed */
+    left: -113px; /* Adjust the left position as needed */
+    max-width: 600px;
+}
+
+#homephrase p:nth-of-type(3) {
+    position: absolute;
+    top: 46px; /* Adjust the top position as needed */
+    left: 110px; /* Adjust the left position as needed */
+    max-width: 600px;
+}
+
+#homephrase p:nth-of-type(4) {
+    position: absolute;
+    top: 66px; /* Adjust the top position as needed */
+    left: 12px; /* Adjust the left position as needed */
+    max-width: 600px;
+}
+
+#homephrase p:nth-of-type(5) {
+    position: absolute;
+    top: 85px; /* Adjust the top position as needed */
+    left: -14px; /* Adjust the left position as needed */
+    max-width: 600px;
+}
+
+#homephrase p:nth-of-type(6) {
+    position: absolute;
+    top: 85px; /* Adjust the top position as needed */
+    left: 110px; /* Adjust the left position as needed */
+    max-width: 600px;
 }
