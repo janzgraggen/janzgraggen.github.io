@@ -3,43 +3,29 @@
     background: url('../assets/images/about/aboutSW.jpeg') no-repeat left center/cover;
     color: white;
     height: 100vh;
-    display: flex;
     align-items: center;
-    justify-content: space-between;
-    padding: 50px;
-    position: relative;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
 }
 
 /* Position the title at the top-right of the page */
 .about-title {
-    position: absolute;
-    top: 180px;   /* Adjust as needed */
-    left: 90px; /* Adjust as needed */
     font-size: 20px;
-    text-align: left;
-    margin: 0;
 }
-
 /* About Content */
 .about-content {
-    max-width: 450px;
-    margin-left: 40px;
-    margin-right: 200px;
-    margin-top: 300px;
-    text-align: justify;
-    font-size: 1.2rem;
-    line-height: 1.6;
-    padding: 20px 0;
-    position: absolute;
-    z-index: 2; /* Ensures text appears above image initially */
+align-items: center;
+margin: 250px;
+margin-top: 0;
+text-align: justify;
 }
 
-.about-content a{
+.about-content a {
     font-weight: bold; /* Make the font bold */
     font-size: 15px;
     text-decoration: none;
     padding: 5px; /* Add padding for better click area */
-    /*position: relative; /* Position relative for pseudo-element */
     transition: color 0.1s; /* Smooth transition for text color */
     transition: font-size 0.1s; /* Smooth transition for font size */
     color: white;
@@ -51,22 +37,3 @@
     font-size: 16px; /* Increase font size on hover */
     color:gray
 }
-
-/* About Section Wrapper */
-.about-section {
-    display: flex;
-    align-items: center;
-    position: relative;
-    overflow: hidden; /* Ensures smooth animation without overflow */
-}
-
-.about-photo img {
-    position: absolute;
-    width: 650px; /* Adjust size */
-    top: 50%; /* Ensure it's visible */
-    left: 0;
-    transform: translateY(-50%);
-    visibility: hidden;    /* Ensure it's not visible initially */
-    transition: visibility 0s 0.1s, opacity 0s 0.1s; /* Ensure smooth visibility transition */
-}
-
