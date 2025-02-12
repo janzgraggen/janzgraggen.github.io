@@ -21,7 +21,7 @@
 /* About Content */
 .about-content {
     font-family: 'San Francisco', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-    font-size: 30px;
+    font-size: 2.4vw;
     font-weight: 1;
     margin: 250px;
     margin-top: 0;
@@ -46,7 +46,7 @@
 
 .about-content a {
     font-weight: bold; /* Make the font bold */
-    font-size: 15px;
+    font-size: 2vh;
     text-decoration: none;
     padding: 10px 20px; /* Add padding for better click area */
     transition: color 0.1s, font-size 0.1s, background-color 0.1s; /* Smooth transition for text color, font size, and background color */
@@ -68,5 +68,5 @@
 .about-link2:hover {
     background: rgb(91, 214, 255); /* Different background on hover */
     font-size: 16px; /* Increase font size on hover */
-    color: white; /* Change text color on hover */
+    color: black; /* Change text color on hover */
 }
