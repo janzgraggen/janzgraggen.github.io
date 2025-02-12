@@ -60,13 +60,13 @@
 /* Hover effects for the first link */
 .about-link1:hover {
     background: rgb(27, 255, 153); /* Light background on hover */
-    font-size: 16px; /* Increase font size on hover */
+    font-size: 2.2vh; /* Increase font size on hover */
     color: black; /* Change text color on hover */
 }
 
 /* Hover effects for the second link */
 .about-link2:hover {
     background: rgb(91, 214, 255); /* Different background on hover */
-    font-size: 16px; /* Increase font size on hover */
+    font-size: 2.2vh; /* Increase font size on hover */
     color: black; /* Change text color on hover */
 }
