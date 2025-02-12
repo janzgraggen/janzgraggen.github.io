@@ -43,7 +43,7 @@
 
 .about-content a {
     font-weight: bold; /* Make the font bold */
-    font-size: 12px;
+    font-size: 15px;
     text-decoration: none;
     padding: 10px 20px; /* Add padding for better click area */
     transition: color 0.1s, font-size 0.1s, background-color 0.1s; /* Smooth transition for text color, font size, and background color */
