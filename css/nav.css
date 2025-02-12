@@ -1,7 +1,4 @@
 /* 2. Navigation Styles */
-
-
-
 nav {
     background: transparent; /* Background for the nav */
     color: black;
@@ -14,8 +11,6 @@ nav {
     text-align: right; /* Align the text to the right */
     height: 60px; /* Set a fixed height for the nav */
 }
-
-
 
 /* .nav-projects {
     background: lightgreen;  Change background for projects 
@@ -73,7 +68,8 @@ nav a {
 
 .nav-home a {  
     /*background: lightblue; /* Change background for about */
-    color: rgba(0, 0, 0, 0.586); /* Change text color */
+    color: rgb(255, 255, 255); /* Change text color */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); /* Add a black gradual shadow */
 }
 
 nav a:hover {
@@ -170,14 +166,14 @@ nav .external-links img:hover {
 
 #homephrase p:nth-of-type(5) {
     position: absolute;
-    top: 85px; /* Adjust the top position as needed */
-    left: -14px; /* Adjust the left position as needed */
+    top: 86px; /* Adjust the top position as needed */
+    left: -15px; /* Adjust the left position as needed */
     max-width: 600px;
 }
 
 #homephrase p:nth-of-type(6) {
     position: absolute;
-    top: 85px; /* Adjust the top position as needed */
+    top: 86px; /* Adjust the top position as needed */
     left: 110px; /* Adjust the left position as needed */
     max-width: 600px;
 }

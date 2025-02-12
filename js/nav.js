@@ -1,5 +1,4 @@
-//positional transition
-
+//––––––––––––––– positional transition
 window.addEventListener('scroll', function() {
     const navbar = document.getElementById('nav');
     const sections = document.querySelectorAll('section');
@@ -38,11 +37,6 @@ window.addEventListener('scroll', function() {
         }
     });
 });
-
-
-
-
-
 
 //––––––––––––––– CIRCLE
 const sectionConfig = {
@@ -83,7 +77,6 @@ function onScroll() {
     updateCircle(currentSection);
     history.replaceState(null, null, `#${currentSection}`);
 }
-
 
 // Run when the page loads and when scrolling
 window.addEventListener("scroll", onScroll);

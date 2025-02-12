@@ -56,7 +56,6 @@
     display: inline-block; /* Make it inline-block to appear as a button */
 }
 
-
 /* Hover effects for the first link */
 .about-link1:hover {
     background: rgb(27, 255, 153); /* Light background on hover */
