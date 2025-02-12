@@ -34,7 +34,10 @@
     font-weight: bold; /* Optionally make the highlighted text bold */
 }
 
-
+.about-content span.highlight_ {
+   
+    font-style: italic;
+}
 
 .about-content span.highlight3 {
     color: rgb(27, 255, 153); /* Change the color to your desired highlight color */
@@ -54,9 +57,16 @@
 }
 
 
-.about-content a:hover {
+/* Hover effects for the first link */
+.about-link1:hover {
     background: rgb(27, 255, 153); /* Light background on hover */
-    border-radius: 25px; /* Rounded corners on hover */
     font-size: 16px; /* Increase font size on hover */
-    color:black;
+    color: black; /* Change text color on hover */
+}
+
+/* Hover effects for the second link */
+.about-link2:hover {
+    background: rgb(91, 214, 255); /* Different background on hover */
+    font-size: 16px; /* Increase font size on hover */
+    color: white; /* Change text color on hover */
 }
