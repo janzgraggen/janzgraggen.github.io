@@ -38,7 +38,7 @@ function updateNavbarAndLogos() {
 }
 window.addEventListener('scroll', updateNavbarAndLogos);
 window.addEventListener('load', updateNavbarAndLogos);
-//window.addEventListener('resize', updateNavbarAndLogos);
+window.addEventListener('resize', updateNavbarAndLogos);
 //––––––––––––––– positional transition of navbar and logos END
 
 //––––––––––––––– CIRCLE
