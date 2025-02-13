@@ -42,7 +42,7 @@
 
 @media (max-width: 700px) {
     #home {
-        background-position: -250px 0px; /* Align the background image with pixel values */
+        background-position: -280px 0px; /* Align the background image with pixel values */
     }
 
     .home-content h1 {
