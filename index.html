@@ -20,6 +20,13 @@
 
 
 <body>
+    <div id="dropdown" class="dropdown-content">
+        <ul>
+            <li><a href="#about">/ABOUT</a></li>
+            <li><a href="#projects">/PROJECTS</a></li>
+            <li><a href="#creative">/CREATIVE</a></li>
+        </ul>
+    </div>
 
     <nav  id="nav" class="navbar-default">
 
@@ -30,6 +37,9 @@
                 <img src="assets/images/photo.jpeg" alt="Logo" class="logo-image">
             </a>
         </div>
+        <button id="btn"  class="dropdown-btn" onclick="toggleDropdown(event)">
+            ☰
+        </button>
         
         <ul>
             <li><a href="#about">/ABOUT</a></li>

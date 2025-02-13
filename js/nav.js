@@ -1,5 +1,5 @@
-//––––––––––––––– positional transition
-window.addEventListener('scroll', function() {
+//––––––––––––––– positional transition of navbar and logos
+function updateNavbarAndLogos() {
     const navbar = document.getElementById('nav');
     const sections = document.querySelectorAll('section');
     const offsetTop = 120;
@@ -24,19 +24,22 @@ window.addEventListener('scroll', function() {
                 linkedinLogo.src = 'assets/icons/LI-In-Bug-white.png'; // Alternate LinkedIn logo
                 githubLogo.src = 'assets/icons/github-mark-white.png'; // Alternate GitHub logo
             }
-            if (section.id === 'home'){
+            if (section.id === 'home' && window.innerWidth > 920) {
                 homePhrase.classList.add("show");
                 homePhrase.style.transition = "opacity 3s ease-in-out";
                 homePhrase.style.opacity = 1;
-
-            } else{
+            } else {
                 homePhrase.classList.remove("show");
                 homePhrase.style.transition = "opacity 0s ease-in-out";
                 homePhrase.style.opacity = 0;
             }
         }
     });
-});
+}
+window.addEventListener('scroll', updateNavbarAndLogos);
+window.addEventListener('load', updateNavbarAndLogos);
+window.addEventListener('resize', updateNavbarAndLogos);
+//––––––––––––––– positional transition of navbar and logos END
 
 //––––––––––––––– CIRCLE
 const sectionConfig = {
@@ -81,3 +84,58 @@ function onScroll() {
 // Run when the page loads and when scrolling
 window.addEventListener("scroll", onScroll);
 window.addEventListener("load", onScroll);
+
+//––––––––––––––– CIRCLE E
+
+//––––––––––––––– 
+//––––––––––––––– 
+//––––––––––––––– 
+//––––––––––––––– 
+//––––––––––––––– MOBILE
+
+document.addEventListener("DOMContentLoaded", function () {
+    const btn = document.getElementById("btn");
+    const dropdown = document.getElementById("dropdown");
+    const navLinks = document.querySelectorAll("#dropdown ul li a");
+    const linkedinLogo = document.getElementById('linkedin-logo');
+    const githubLogo = document.getElementById('github-logo');
+
+    function toggleDropdown(event) {
+        event.stopPropagation();
+        dropdown.classList.toggle("show");
+        if (dropdown.classList.contains("show")) {
+            linkedinLogo.src = 'assets/icons/LI-In-Bug-white.png';
+            githubLogo.src = 'assets/icons/github-mark-white.png';
+        } else {
+            closeDropdown();
+        }
+    }
+
+    function closeDropdown() {
+        linkedinLogo.src = 'assets/icons/LI-In-Bug.png';
+        githubLogo.src = 'assets/icons/github-mark.png';
+        dropdown.classList.remove("show");
+    }
+
+    btn.addEventListener("click", toggleDropdown);
+
+    // Close dropdown when clicking a link
+    navLinks.forEach(link => {
+        link.addEventListener("click", function () {
+            closeDropdown();
+        });
+    });
+
+    document.addEventListener("click", function (event) {
+        if (!dropdown.contains(event.target) && !btn.contains(event.target)) {
+            closeDropdown();
+        }
+    });
+
+    window.addEventListener("resize", function () {
+        if (window.innerWidth > 920) {
+            closeDropdown();
+        }
+    });
+});
+

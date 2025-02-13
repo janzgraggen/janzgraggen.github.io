@@ -177,3 +177,140 @@ nav .external-links img:hover {
     left: 110px; /* Adjust the left position as needed */
     max-width: 600px;
 }
+
+
+
+/*-----------------------*/
+
+.dropdown-btn {
+    display: none;
+}
+/* Dropdown Styles */
+/* Removed duplicate .dropdown-content block */
+
+/* Dropdown container (hidden by default) */
+#dropdown {
+    display: none; /* Hide by default */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw; /* Full viewport width */
+    height: 100vh; /* Full viewport height */
+    background: rgba(0, 0, 0, 0.846); /* Dark background with slight transparency */
+    text-align: center;
+    z-index: 1000; /* Ensure it appears above other content */
+    transition: opacity 0.3s ease-in-out;
+}
+
+/* Show the dropdown when active */
+#dropdown.show {
+    display: block;
+}
+
+/* Style the list */
+#dropdown ul {
+    list-style: none;
+    padding: 0;
+    margin-top: 20vh; /* Centering effect */
+}
+
+/* Style each list item */
+#dropdown ul li {
+    margin: 2px 15px;
+}
+
+/* Style the links */
+#dropdown ul li a {
+    font-size: 40px;
+    font-weight: bold;
+    text-decoration: none;
+    text-align: left;
+    color: white;
+    display: block;
+    transition: color 0.3s ease-in-out;
+}
+
+/* Hover effect */
+#dropdown ul li a:hover {
+    color: rgba(255, 255, 255, 0.695); /* Change text color on hover */
+    font-size: 42px; /* Increase font size on hover */
+}
+
+
+
+.dropdown-content.show {
+    display: block;
+}
+
+
+/* Show dropdown when active */
+
+/*-----------------------*/
+
+/* Styles for screens smaller than 600px */
+@media (max-width: 920px) {
+    nav ul{
+        display: none;
+    }
+
+    nav .external-links {
+        grid-template-columns: repeat(1, 1fr); /* Create a 2x2 grid */
+        transform: translate3d(0, 20px, 0);
+    }
+
+    nav .external-links a {
+        display: block; /* Make the anchor a block element */
+        margin-top: -3px; /* Space between logos */
+        margin-bottom: -3px;
+        transform: translateX(120px);
+    }
+
+    nav .logo-image {
+        width: 23px; /* Set the width of the logo image */
+        height: 23px; /* Set the height of the logo image */
+        border-radius: 50%; /* Make the image round */
+        object-fit: cover; /* Ensure the image covers the area without distortion */
+        transform: translateX(120px);
+        transition: transform 0s, scale 0.3s;
+    }
+    nav .logo-image:hover {
+        transform: translateX(120px) scale(1.1); /* Scale the logo image to 110% on hover */
+    }
+
+    #circle {
+        display: none;
+    }
+
+    #homephrase {
+        display: none; /* Initially hide the homephrase */
+        visibility: hidden; /* Initially hidden */
+    }
+
+
+    .dropdown-btn {
+        display: block;
+        background-color: rgb(0, 0, 0);
+        color: rgba(255, 255, 255, 0.84);
+        padding:  5px 2px;
+        border: none;
+        cursor: pointer;
+        font-size: 10px;
+        border-radius: 15px;
+        width: 18px;
+        height: 18px;
+        text-align: bottom;
+        padding: 0;
+        transform: translate3d(195px,1px,0);
+        transition: transform 0.3s;
+    }
+
+    .nav-about .dropdown-btn {
+        background-color: white;
+        color: black; /* Change text color */
+    }
+
+    .dropdown-btn:hover {
+        transform: translate3d(195px,1px,0) scale(1.1);
+    }
+    
+}
