@@ -27,17 +27,17 @@
 
 .projects-content h2{
     text-align: left;
-    font-size: 2.4vw;
+    font-size: 2.8vw;
     font-weight: 1;
 }
 .projects-content p{
-    font-size: 1.4vw;
+    font-size: 1.8vw;
     text-align: left;
 }
 
 .projects-content #gh-logo {
     /* Your styles here */
-    height: 2vh; /* Example: Maintain aspect ratio */
+    height: 2.2vh; /* Example: Maintain aspect ratio */
     width: auto; /* Example: Set width */
     /* Add more styles as needed */
     opacity: 0.8; /* Example: Change opacity */
@@ -46,7 +46,7 @@
 
 .projects-content #gh-logo:hover {
     /* Your styles here */
-    height: 2.2vh; /* Example: Maintain aspect ratio */
+    height: 2.4vh; /* Example: Maintain aspect ratio */
     width: auto; /* Example: Set width */
     /* Add more styles as needed */
     opacity: 1; /* Example: Change opacity */
@@ -59,4 +59,23 @@
     margin: 250px 1; /* Example: Add vertical margin */
     display: block; /* Make it a block element */
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1); /* Example: Add a shadow */
+}
+
+
+@media (max-width: 920px) {
+    .projects-content {
+        margin-right: 50px;
+        margin-left: 50px;
+    }
+
+    .projects-title {
+        margin-left: -30px;
+    }
+
+    .projects-content h2{
+        font-size: 4.6vh;
+    }
+    .projects-content p{
+        font-size: 2.6vh;
+    }
 }

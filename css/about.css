@@ -70,3 +70,18 @@
     font-size: 2.2vh; /* Increase font size on hover */
     color: black; /* Change text color on hover */
 }
+
+@media (max-width: 920px) {
+    .about-content {
+        margin-right: 30px;
+        margin-left: 30px;
+    }
+
+    .about-title {
+        margin-left: -30px;
+    }
+
+    .about-content {
+        font-size: 2.6vh;
+    }
+}
