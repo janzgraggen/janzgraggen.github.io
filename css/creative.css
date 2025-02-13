@@ -1,0 +1,41 @@
+#creative {
+    height: 100vh;
+    background-color: rgb(255, 200, 97);
+}
+
+.creative-title {
+    font-size: 100px;
+    font-weight: 700;
+    position: absolute;
+    text-align: center;
+    margin-left:  0px;
+    margin-top: -100px;
+    color: rgb(255, 41, 244);
+}
+
+/* About Content */
+.creative-content {
+    font-family: 'San Francisco', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    font-weight: 1;
+    margin-top: 0;
+    padding: 25px;
+    margin: 250px;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.creative-content h2{
+    text-align: left;
+    font-size: 2.4vw;
+    font-weight: 1;
+}
+.creative-content p{
+    font-size: 1.4vw;
+    text-align: left;
+}
+
+#maintainance {
+    font-size: large;
+    font-weight: bold;
+}
+

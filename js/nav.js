@@ -41,9 +41,9 @@ window.addEventListener('scroll', function() {
 //––––––––––––––– CIRCLE
 const sectionConfig = {
     "home": { color: "black", top: "108px"},
-    "about": { color: "white", top: "143px" },
-    "projects": { color: "black", top: "163px" },
-    "creativity": { color: "black", top: "182px"}
+    "about": { color: "white", top: "144px" },
+    "projects": { color: "black", top: "164px" },
+    "creative": { color: "black", top: "183px"}
 };
 
 function updateCircle(sectionId) {

@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="css/home.css">                 <!-- Home section styles -->
     <link rel="stylesheet" href="css/about.css">                 <!-- Home section styles -->
     <link rel="stylesheet" href="css/projects.css">             <!-- Project section styles -->
-    <link rel="stylesheet" href="css/creativity.css">           <!-- Creativity section styles -->
+    <link rel="stylesheet" href="css/creative.css">           <!-- Creativity section styles -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/MotionPathPlugin.min.js"></script>
@@ -34,7 +34,7 @@
         <ul>
             <li><a href="#about">/ABOUT</a></li>
             <li><a href="#projects">/PROJECTS</a></li>
-            <li><a href="#creativity">/CREATIVE</a></li>
+            <li><a href="#creative">/CREATIVE</a></li>
         </ul>
         
         <div class="external-links">
@@ -70,7 +70,7 @@
     <script src="js/background.js"></script>
 
     <section id="about">
-        <h1 class="about-title">»ABOUT</h1> <!-- Move outside .about-content -->
+        <h1 class="about-title">»ABOUT_ME</h1> <!-- Move outside .about-content -->
     
         <div class="about-content">
             <p>
@@ -84,34 +84,55 @@
     
 
     <section id="projects">
-        <h1>Page coming soon...</h1>
-        <div class="project">
-            
-            <p>ODE-Solver</p>
-            <a href="https://github.com/janzgraggen/ode_solver_tool" target="_blank">View Project</a>
-        </div>
-        <div class="project">
-            <p>Areal Road Segmentation</p>
+        <h1 class="projects-title">»PROJECTS</h1> <!-- Move outside .about-content -->
+
+        <div class="projects-content">
+            <h2>ODE-Solver</h2>
+            <p>Flexible and extendible Solver, supporting implicit and explicit methods such as Runge Kutta. 
+                <a href="https://github.com/janzgraggen/ode_solver_tool" target="_blank" class="external-link">
+                    <img id="gh-logo" src="assets/icons/GitHub_Logo.png" alt="GitHub">
+                </a>
+            </p>
+            <img id="proj_img" src="assets/images/projects/ode.png" alt="ODE-Solve IMG">
         </div>
 
-        <div class="project">
-            <p>Geothermal Heat Pump</p>
-            <a href="https://github.com/janzgraggen/GTHP_simulation" target="_blank">View Project</a>
+        <div class="projects-content">
+            <h2>Areal Road Segmentation</h2>
+            <p>In this project, we evaluate the performance of various convolutional neural network (CNN) based architectures for road segmentation from aerial imagery, focusing on U-Net and ResNet models. We also explore the impact of different image transformations and patch sizes.
+                <a href="https://github.com/janzgraggen/road_segmentation" target="_blank" class="external-link">
+                    <img id="gh-logo" src="assets/icons/GitHub_Logo.png" alt="GitHub">
+                </a>
+            </p>
+            <img id="proj_img" src="assets/images/projects/predictions.png" alt="Road-Segmentation IMG">
+        </div>
+
+        <div class="projects-content">
+            <h2>Geothermal Heat Pump</h2>
+            <p>In this project, we evaluate the performance of various convolutional neural network (CNN) based architectures for road segmentation from aerial imagery, focusing on U-Net and ResNet models. We also explore the impact of different image transformations and patch sizes.
+                <a href="https://github.com/janzgraggen/GTHP_simulation" target="_blank" class="external-link">
+                    <img id="gh-logo" src="assets/icons/GitHub_Logo.png" alt="GitHub">
+                </a>
+            </p>
+            <img id="proj_img" src="assets/images/projects/heat_pump.jpeg" alt="Heatpump IMG">
         </div>
     </section>
 
-    <section id="creativity">
-        <h1>Page coming soon...</h1>
-        <div class="creativity-item">
+    <section id="creative">
+        <h1 class="creative-title">_cR€åT¡√E wø®K</h1> <!-- Move outside .about-content -->
+
+        <div class="creative-content">
+            <h2 id="maintainance">Coming soon.. Stay posted:)</h2>
             <h2>Photography</h2>
-            <p>Coming soon..</p>
-            <a href="https://link-to-your-creative-work.com" target="_blank">View Work</a>
+            <p>Under Construction... :/</p>
+                
         </div>
-        <div class="creativity-item">
+
+        <div class="creative-content">
             <h2>Art</h2>
-            <p>Coming soon..</p>
-            <a href="https://link-to-your-creative-work.com" target="_blank">View Work</a>
+            <p>Maintainance...  :P</p>
+            
         </div>
+
     </section>
 
     <footer>

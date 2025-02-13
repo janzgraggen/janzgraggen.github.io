@@ -1,0 +1,60 @@
+#projects {
+    height: 350vh;
+}
+
+.projects-title {
+    font-size: 20;
+    font-weight: bold;
+    transform: rotate(270deg);
+    position: absolute;
+    text-align: left;
+    margin-left:  150px;
+    margin-top: 50px;
+}
+
+/* About Content */
+.projects-content {
+    font-family: 'San Francisco', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+    font-weight: 1;
+    margin-top: 0;
+    padding: 25px;
+    margin: 250px;
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.projects-content h2{
+    text-align: left;
+    font-size: 2.4vw;
+    font-weight: 1;
+}
+.projects-content p{
+    font-size: 1.4vw;
+    text-align: left;
+}
+
+.projects-content #gh-logo {
+    /* Your styles here */
+    height: 2vh; /* Example: Maintain aspect ratio */
+    width: auto; /* Example: Set width */
+    /* Add more styles as needed */
+    opacity: 0.8; /* Example: Change opacity */
+    transform: translateY(3px);
+}
+
+.projects-content #gh-logo:hover {
+    /* Your styles here */
+    height: 2.2vh; /* Example: Maintain aspect ratio */
+    width: auto; /* Example: Set width */
+    /* Add more styles as needed */
+    opacity: 1; /* Example: Change opacity */
+    transform: translateY(3px);
+}
+
+#proj_img {
+    width: 100%; /* Example: Set width to 100% of the parent container */
+    height: auto; /* Maintain aspect ratio */
+    margin: 250px 1; /* Example: Add vertical margin */
+    display: block; /* Make it a block element */
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1); /* Example: Add a shadow */
+}

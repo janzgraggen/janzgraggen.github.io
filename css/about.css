@@ -35,7 +35,6 @@
 }
 
 .about-content span.highlight_ {
-   
     font-style: italic;
 }
 
@@ -51,7 +50,7 @@
     padding: 10px 20px; /* Add padding for better click area */
     transition: color 0.1s, font-size 0.1s, background-color 0.1s; /* Smooth transition for text color, font size, and background color */
     color: white;
-    background-color: rgba(255, 255, 255, 0.133); /* Green background color */
+    background-color: rgba(255, 255, 255, 0.133); 
     border-radius: 25px; /* Rounded corners */
     display: inline-block; /* Make it inline-block to appear as a button */
 }
