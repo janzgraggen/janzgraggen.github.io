@@ -29,12 +29,22 @@
 <body>
     <a id="back-link" href="index.html#about" target="_blank" class="back-link">«</a>
     <!-- <a id="download-link" href="assets/images/home/background.jpeg" download="Jan_Zgraggen_CV.pdf" class="back-link">/DOWNLOAD_PDF</a> -->
+    <div id="dropdown" class="dropdown-content">
+        <ul>
+            <li><a href="index.html#about">/ABOUT</a></li>
+            <li><a href="index.html#projects">/PROJECTS</a></li>
+            <li><a href="index.html#creative">/CREATIVE</a></li>
+        </ul>
+    </div>
     <nav id="nav-cv" class="navbar-default">
         <div class="logo">
             <a href="index.html#home">
                 <img src="../assets/images/photo.jpeg" alt="Logo" class="logo-image">
             </a>
         </div>
+        <button id="btn"  class="dropdown-btn" onclick="toggleDropdown(event)">
+            ☰
+        </button>
         
         <ul>
             <li><a href="index.html#about">/ABOUT</a></li>
@@ -59,8 +69,6 @@
         <ul>
         <li>Phone: +41 79 392 08 18</li>
         <li>Email: <a href="mailto:janzgraggen@bluewin.ch">janzgraggen@bluewin.ch</a></li>
-        <li>LinkedIn: <a href="https://linkedin.com/in/janzgraggen">janzgraggen</a></li>
-        <li>GitHub: <a href="https://github.com/janzgraggen">janzgraggen</a></li>
         </ul>
         <h1>Education</h1>
         <h2>Ecole Polytechnique Fédérale de Lausanne (EPFL), Master of Science in Computational Science and Engineering</h2>
@@ -78,7 +86,7 @@
         </ul>
         <h3>Relevant Coursework</h3>
         <ul>
-        <li>, Machine Learning, Advanced Algorithms, CFD, Advanced Numerical Analysis, Applied Data Analysis, Analysis I-IV, Linear Algebra, General Physics I-IV, General and Environmental Biology and Chemistry.</li>
+        <li>Machine Learning, Advanced Algorithms, CFD, Advanced Numerical Analysis, Applied Data Analysis, Analysis I-IV, Linear Algebra, General Physics I-IV, General and Environmental Biology and Chemistry.</li>
         </ul>
         <h1>Experience</h1>
         <h2>Ecole Polytechnique Fédérale de Lausanne (EPFL), Teaching Assistant</h2>
