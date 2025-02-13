@@ -21,7 +21,7 @@
     transform: rotate(270deg); /* Rotate the text 270 degrees */
     white-space: nowrap; /* Prevent text from wrapping */
     font-size: 70; /* Use viewport width for responsive font size */
-    color: rgba(0, 0, 0, 1); /* Change the color of the h1 */
+    color: rgba(0, 0, 0, 0.65); /* Change the color of the h1 */
     letter-spacing: 0px; /* Adjust the spacing between characters */
     margin-left: -200px; /* Adjust as needed */
     margin-bottom: 20px; /* Add bottom margin for spacing */
@@ -38,4 +38,27 @@
     margin-top: 20px; /* Add top margin for consistent spacing */
 }
 
+
+
+@media (max-width: 700px) {
+    #home {
+        background-position: -250px 0px; /* Align the background image with pixel values */
+    }
+
+    .home-content h1 {
+        color: rgba(0, 0, 0, 0.65);
+        margin: 0;
+        position: absolute;
+        top: -50px;
+        font-size: 35px;
+        
+    }
+    .home-content h2 {
+        margin: 0;
+        font-size: 35px;
+        position: absolute;
+        left: -40px;
+    }
+
+}
 

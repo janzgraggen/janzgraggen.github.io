@@ -119,12 +119,11 @@ nav .external-links img:hover {
     transition: all 0.01s ease-in-out;
     right: 155px;
 }
-
+/*---------HOMEPHRASE --------------------------------------------*/
 #homephrase {
     font-weight: bold;
     color: rgb(0, 0, 0);
     font-size: small;
-    /*----------------*/
     display: none; /* Initially hide the homephrase */
     visibility: hidden; /* Initially hidden */
     opacity: 0; /* Start with opacity 0 for fade effect */
@@ -177,11 +176,10 @@ nav .external-links img:hover {
     left: 110px; /* Adjust the left position as needed */
     max-width: 600px;
 }
+/*----------–––––––––––––––––––––––––––––––––--------------*/
 
 
-
-/*-----------------------*/
-
+/* –––––––––––Dropdown Styles ––––––––––––––––––––––––- */
 .dropdown-btn {
     display: none;
 }

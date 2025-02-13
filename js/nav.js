@@ -41,7 +41,7 @@ window.addEventListener('load', updateNavbarAndLogos);
 window.addEventListener('resize', updateNavbarAndLogos);
 //––––––––––––––– positional transition of navbar and logos END
 
-//––––––––––––––– CIRCLE
+//––––––––––––––– CIRCLE 
 const sectionConfig = {
     "home": { color: "black", top: "108px"},
     "about": { color: "white", top: "144px" },
@@ -85,13 +85,10 @@ function onScroll() {
 window.addEventListener("scroll", onScroll);
 window.addEventListener("load", onScroll);
 
-//––––––––––––––– CIRCLE E
+//––––––––––––––– CIRCLE END ––
 
-//––––––––––––––– 
-//––––––––––––––– 
-//––––––––––––––– 
-//––––––––––––––– 
-//––––––––––––––– MOBILE
+
+//––––––––––––––– MOBILE –––––––––––––––––––––––––––––––––
 
 document.addEventListener("DOMContentLoaded", function () {
     const btn = document.getElementById("btn");
