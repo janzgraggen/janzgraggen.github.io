@@ -1,81 +1,273 @@
+/* Container & layout */
 #projects {
-    height: 300vh;
+  height: 300vh;
+  position: relative;
+  padding-left: 230px;
+  padding-right: 270px;
+  padding-top: 50px;
+  box-sizing: border-box;
 }
 
 .projects-title {
-    font-size: 20;
-    font-weight: bold;
-    transform: rotate(270deg);
-    position: absolute;
-    text-align: left;
-    margin-left:  150px;
-    margin-top: 50px;
+  font-size: 20px;
+  font-weight: bold;
+  transform: rotate(270deg);
+  position: absolute;
+  text-align: left;
+  margin-left: 150px;
+  margin-top: 50px;
+  left: 0;
+  top: 50px;
+  white-space: nowrap;
+  user-select: none;
 }
 
-/* About Content */
+.swiper-container {
+  overflow: visible; /* show shadows and neighbors */
+  padding: 60px 0;
+  perspective: 1200px;
+}
+
+/* Card container - projects content styled as card */
 .projects-content {
-    font-family: 'San Francisco', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-    font-weight: 1;
-    margin-top: 0;
-    padding: 25px;
-    margin: 250px;
-    margin-right: 270px;
-    margin-left: 230px;
-    margin-top: 0;
-    margin-bottom: 0;
+  background: #ffffff;
+  border-radius: 15px;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+  padding: 20px 35px;
+  font-family: 'San Francisco', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+
+  width: 480px;
+  max-width: 90%;
+
+  margin: 0 auto;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
 }
 
-.projects-content h2{
-    text-align: left;
-    font-size: 2.8vw;
-    font-weight: 1;
-}
-.projects-content p{
-    font-size: 1.8vw;
-    text-align: left;
+/* Hover and focus effect to lift card */
+.projects-content:hover,
+.projects-content:focus-within {
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+  transform: translateY(-5px);
 }
 
-.projects-content #gh-logo {
-    /* Your styles here */
-    height: 2.2vh; /* Example: Maintain aspect ratio */
-    width: auto; /* Example: Set width */
-    /* Add more styles as needed */
-    opacity: 0.8; /* Example: Change opacity */
-    transform: translateY(3px);
+/* Title styling */
+.projects-content h2 {
+  text-align: left;
+  font-size: 1.8rem;
+  font-weight: 600;
+  color: #222222;
+  margin-bottom: 12px;
+  line-height: 1.2;
 }
 
-.projects-content #gh-logo:hover {
-    /* Your styles here */
-    height: 2.4vh; /* Example: Maintain aspect ratio */
-    width: auto; /* Example: Set width */
-    /* Add more styles as needed */
-    opacity: 1; /* Example: Change opacity */
-    transform: translateY(3px);
+/* Description text */
+.projects-content p {
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #555555;
+  margin-bottom: 15px;
 }
 
-#proj_img {
-    width: 100%; /* Example: Set width to 100% of the parent container */
-    height: auto; /* Maintain aspect ratio */
-    margin: 250px 1; /* Example: Add vertical margin */
-    display: block; /* Make it a block element */
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1); /* Example: Add a shadow */
+/* External link containing GitHub logo */
+.projects-content p a.external-link {
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: 8px;
+  text-decoration: none;
 }
 
+/* GitHub logo */
+.projects-content p a.external-link img#gh-logo {
+  height: 20px;
+  width: auto;
+  opacity: 0.8;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  vertical-align: middle;
+}
 
+.projects-content p a.external-link img#gh-logo:hover,
+.projects-content p a.external-link img#gh-logo:focus {
+  opacity: 1;
+  transform: translateY(-2px);
+}
+
+/* Project image styling */
+.projects-content img#proj_img {
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+  object-fit: cover;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  margin-top: 15px;
+  user-select: none;
+  pointer-events: none;
+}
+
+/* Responsive adjustments */
 @media (max-width: 920px) {
-    .projects-content {
-        margin-right: 50px;
-        margin-left: 50px;
-    }
+  #projects {
+    padding-left: 50px;
+    padding-right: 50px;
+  }
 
-    .projects-title {
-        margin-left: -30px;
-    }
+  .projects-title {
+    margin-left: 0;
+    left: 10px;
+    top: 30px;
+    font-size: 18px;
+  }
 
-    .projects-content h2{
-        font-size: 4.6vh;
-    }
-    .projects-content p{
-        font-size: 2.6vh;
-    }
+  .projects-content {
+    max-width: 260px;
+    padding: 15px 20px;
+    width: auto;
+  }
+
+  .projects-content h2 {
+    font-size: 1.5rem;
+  }
+
+  .projects-content p {
+    font-size: 0.95rem;
+  }
+
+  .projects-content p a.external-link img#gh-logo {
+    height: 18px;
+  }
+}
+
+@media (max-width: 560px) {
+  #projects {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .projects-content {
+    max-width: 100%;
+    padding: 15px;
+    width: auto;
+  }
+
+  .projects-content h2 {
+    font-size: 1.3rem;
+  }
+
+  .projects-content p {
+    font-size: 0.9rem;
+  }
+
+  .projects-content p a.external-link img#gh-logo {
+    height: 16px;
+  }
+}
+
+/* Navigation arrows */
+.swiper-button-prev,
+.swiper-button-next {
+  color: #222222;
+  top: 50%;
+  width: 40px;
+  height: 40px;
+  margin-top: -20px;
+  background: rgba(255, 255, 255, 0.85);
+  border-radius: 50%;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.1);
+  transition: background 0.3s ease;
+}
+
+.swiper-button-prev:hover,
+.swiper-button-next:hover {
+  background: #f0f0f0;
+  color: #000;
+}
+
+/* Pagination dots */
+.swiper-pagination-bullet {
+  background: #ccc;
+  opacity: 1;
+}
+
+.swiper-pagination-bullet-active {
+  background: #555;
+}
+
+/* Slides layout and effects */
+
+.swiper-slide {
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  opacity: 0;
+  transform: scale(0.6) translateZ(-150px);
+  pointer-events: none;
+  cursor: default;
+  z-index: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.swiper-slide-active {
+  transform: scale(1) translateZ(0);
+  opacity: 1;
+  pointer-events: auto;
+  z-index: 4;
+  cursor: default;
+}
+
+/* Neighbour cards: smaller and pushed more behind center */
+.swiper-slide-prev {
+  transform: scale(0.65) translateZ(-180px) translateX(-80%);
+  opacity: 0.25;
+  pointer-events: auto;
+  z-index: 2;
+  cursor: pointer;
+}
+
+.swiper-slide-next {
+  transform: scale(0.65) translateZ(-180px) translateX(80%);
+  opacity: 0.25;
+  pointer-events: auto;
+  z-index: 2;
+  cursor: pointer;
+}
+
+/* Hover effect for neighbour cards */
+.swiper-slide-prev:hover,
+.swiper-slide-next:hover {
+  transform: scale(0.7) translateZ(-120px) translateX(0%);
+  opacity: 0.5;
+}
+
+/* Hide all other slides */
+.swiper-slide:not(.swiper-slide-active):not(.swiper-slide-prev):not(.swiper-slide-next) {
+  opacity: 0;
+  pointer-events: none;
+  transform: scale(0.5) translateZ(-200px);
+  z-index: 1;
+}
+
+
+#circle-indicator {
+  width: 100px;
+  height: 100px;
+  margin: 20px auto 0;
+  position: relative;
+}
+
+#circle-indicator svg {
+  display: block;
+  margin: 0 auto;
+}
+
+#moving-dot {
+  transition: cx 0.4s ease, cy 0.4s ease;
+}
+
+#circle-indicator, #moving-dot {
+  pointer-events: none;
 }
