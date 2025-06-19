@@ -1,7 +1,21 @@
+/* BLOCK all horizontal scroll */
+html, body {
+    overflow-x: hidden !important;
+}
+
+/* extra safety — in case swiper overflows */
+#projects, .swiper {
+    overflow-x: hidden !important;
+    max-width: 100vw;
+}
+
+
 /* Container & Layout */
 #projects {
-  height: 300vh;
+  height: auto !important;
+  min-height: 100vh; /* optional: make sure it's at least full screen */
   position: relative;
+  padding-bottom: 80px; /* space for pagination circle */
 }
 
 /* Title styling */
@@ -15,25 +29,27 @@
   margin-top: 50px;
   z-index: 1000;
 }
-/*------------------------------------------------------------*/
+/*------------------------------------------------------------ SWIPER CARDS FUNCTIONALITY*/ 
 /* Swiper container */
 .swiper {
+  height: auto !important;
   height: 100vh;
-  overflow: hidden;
-  padding-left: 5vw;
-  padding-right: 5vw;
+  overflow: visible !important;
+  padding: 0 5vw; /* padding is fine */
+  padding-bottom: 40px !important; /* <<< Add this to give extra space below */
 }
 
 .swiper-wrapper {
   display: flex;
-  align-items: center; /* vertically center slides */
+  align-items: flex-start !important;
 }
 
 /* Base hidden slide style */
 .swiper-slide {
-  width: 25vw; /* responsive width */
-  max-width: 400px;
-  min-width: 250px;
+  height: auto !important;
+  width: 27vw; /* responsive width */
+  max-width: 500px;
+  min-width: 300px;
 
   pointer-events: none;
   z-index: 1;
@@ -81,7 +97,7 @@
 /* Position pagination near projects-title */
 .swiper-pagination {
   position: absolute;
-  top: 160px !important; /* Adjust vertical placement near title */
+  top: 140px !important; /* adjust as needed */
   left: 185px !important;
   width: 120px;
   height: 120px;
@@ -184,4 +200,51 @@
   height: auto;
   border-radius: 10px;
   object-fit: cover;
+}
+
+/*------------------------------------------------------------*/
+@media (max-width: 1120px) {
+  .swiper {
+        margin-left: -40px !important; /* anchor right on mobile */
+    }
+
+  .swiper-pagination {
+        margin-left: 40px !important;
+    }
+}
+
+@media (max-width: 920px) {
+
+    /* Move the title closer to center */
+    .projects-title {
+        margin-left: -30px;
+    }
+
+    /* Move the circular pagination to center */
+    .swiper-pagination {
+        top: 140px !important; /* adjust as needed */
+        margin-left:-235px !important;
+    }
+
+    .swiper {
+        padding-left: 155px !important; /* anchor left on mobile */
+        padding-right: 175px !important; /* anchor right on mobile */
+        margin-left:55px !important; /* center the swiper */
+    }
+    .swiper-slide {
+      min-width: 150px;
+    }
+
+}
+
+@media (max-width: 720px) {
+    .swiper {
+        padding-left:40px !important; /* anchor left on mobile */
+        padding-right: 120px !important; /* anchor right on mobile */
+        margin-left:55px !important; /* center the swiper */
+    }
+        .swiper-pagination {
+        margin-left:-235px !important;
+    }
+
 }

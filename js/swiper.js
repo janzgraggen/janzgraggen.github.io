@@ -24,7 +24,8 @@ function positionPaginationBulletsCircular() {
 const swiper = new Swiper('.swiper', {
   direction: 'horizontal',
   slidesPerView: 3,
-  centeredSlides: true,
+  centeredSlides: false,
+  initialSlide: 3,
   loop: true,
   loopAdditionalSlides: 10,
   spaceBetween: 10, // initial default, will be updated dynamically
@@ -52,6 +53,19 @@ const swiper = new Swiper('.swiper', {
   },
   observer: true,
   observeParents: true,
+  breakpoints: {
+    // When window width is <= 920px (or your preferred size)
+    920: {
+      centeredSlides: true,
+      slidesPerView: 3,
+    },
+
+    0: {
+      centeredSlides: true,
+      slidesPerView: 1,
+      //mousewheel: false, // Disable mousewheel on small screens
+    }
+  },
 
     on: {
     init() {
