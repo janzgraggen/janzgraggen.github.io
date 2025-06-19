@@ -96,58 +96,179 @@
         
     </section>
     
-
     <section id="projects">
-         <h1 class="about-title">»PROJECTS</h1> <!-- Move outside .about-content -->
-    
+    <h1 class="projects-title">»PROJECTS</h1>
+
     <div class="swiper">
         <div class="swiper-wrapper">
-        <div class="swiper-slide">
-            <div class="projects-content">
-            <h3>Project 1</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero.</p>
+
+            <!-- Project 1 -->
+            <div class="swiper-slide">
+                <div class="projects-content">
+                    <h3>Geothermal Heat Pump</h3>
+                    <img id="proj_img" src="assets/images/projects/heat_pump.jpeg" alt="Heatpump IMG">
+
+                    <p>
+                        <strong>Description:</strong> In this project, I created a simulation for a geothermal heat pump cycle. The software simulates fluid flow, heated by heat conduction from the environment to the transfer medium through a generic medium-carrying pipe. The goal is to analyze the dependency on its components and setup.
+                    </p>
+
+                    <ul class="bullet-points">
+                        <li>Implemented pipe environment in Python</li>
+                        <li>Derived temperature propagation equation along generic paths</li>
+                        <li>Implemented simulation in C</li>
+                    </ul>
+
+                    <div class="links-row">
+                        <a href="https://github.com/janzgraggen/GTHP_simulation" target="_blank" class="external-link">
+                            <img src="assets/icons/GitHub_Logo.png" alt="GitHub">
+                        </a>
+                        <a href="https://github.com/janzgraggen/GTHP_simulation/blob/main/documents/project_report.pdf" target="_blank" class="external-link">
+                            <img src="assets/icons/Report.jpg" alt="Report">
+                        </a>
+                    </div>
+                </div>
             </div>
-        </div>
-        <div class="swiper-slide">
-            <div class="projects-content">
-            <h3>Project 2</h3>
-            <p>Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa.</p>
+
+            <!-- Project 2 -->
+            <div class="swiper-slide">
+                <div class="projects-content">
+                    <h3>ODE-Solver</h3>
+                    <img id="proj_img" src="assets/images/projects/orbit.png" alt="ODE-Solve IMG">
+
+                    <p>
+                        <strong>Description:</strong> This project is software for a flexible and extendable solver of ordinary differential equations, supporting implicit and explicit methods such as Runge Kutta, Adams Bashforth, and Euler. <span style="font-size: x-small;">(img from <a href="https://prappleizer.github.io/Tutorials/RK4/RK4_Tutorial.html" target="_blank">here</a>)</span>
+                    </p>
+
+                    <ul class="bullet-points">
+                        <li>Implemented solver in C++</li>
+                        <li>Designed to be easily extendable and customizable</li>
+                        <li>Allows user to define their own ODEs and methods</li>
+                    </ul>
+
+                    <div class="links-row">
+                        <a href="https://github.com/janzgraggen/ode_solver_tool" target="_blank" class="external-link">
+                            <img src="assets/icons/GitHub_Logo.png" alt="GitHub">
+                        </a>
+                    </div>
+                </div>
             </div>
-        </div>
-        <div class="swiper-slide">
-            <div class="projects-content">
-            <h3>Project 3</h3>
-            <p>Curabitur ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus. Maecenas tempus.</p>
+
+            <!-- Project 3 -->
+            <div class="swiper-slide">
+                <div class="projects-content">
+                    <h3>Aerial Road Segmentation</h3>
+                    <img id="proj_img" src="assets/images/projects/predictions2.png" alt="Road-Segmentation IMG">
+
+                    <p>
+                        <strong>Description:</strong> In this project, we evaluate the performance of various convolutional neural network (CNN) based architectures for road segmentation from aerial imagery.
+                    </p>
+
+                    <ul class="bullet-points">
+                        <li>Used Hydra and PyTorch</li>
+                        <li>Implemented U-Net and ResNet architectures</li>
+                        <li>Fine-tuned pretrained segmentation models</li>
+                        <li>Experimented with image transformations and patch sizes</li>
+                    </ul>
+
+                    <div class="links-row">
+                        <a href="https://github.com/janzgraggen/road_segmentation" target="_blank" class="external-link">
+                            <img src="assets/icons/GitHub_Logo.png" alt="GitHub">
+                        </a>
+                        <a href="https://github.com/janzgraggen/road_segmentation/blob/main/Project_Report.pdf" target="_blank" class="external-link">
+                            <img src="assets/icons/Report.jpg" alt="Report">
+                        </a>
+                    </div>
+                </div>
             </div>
-        </div>
-        <div class="swiper-slide">
-            <div class="projects-content">
-            <h3>Project 4</h3>
-            <p>Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae.</p>
+
+            <!-- Project 4 -->
+            <div class="swiper-slide">
+                <div class="projects-content">
+                    <h3>Cell morphology Classification</h3>
+                    <img id="proj_img" src="assets/images/projects/MODELDIAGRAM_img.jpeg" alt="Road-Segmentation IMG">
+
+                    <p>
+                        <strong>Description:</strong> Using Algebraic Topology and Graph Neural Networks in Multi Embedding Fusion Models for classifying neuronal morphologies
+                    </p>
+
+                    <ul class="bullet-points">
+                        <li>Reproduced state of the art research in classification of neuronal cells using algebraic topology and ML.</li>
+                        <li>Improved classification w/ proposed embedding fusion model, combining GNN and topology features</li>
+                        <li>Model implementation using morphoclass, torch and torch_geometric </li>
+                    </ul>
+
+                    <div class="links-row">
+                        <a href="https://github.com/janzgraggen/algTopo-ML-neuronCls" target="_blank" class="external-link">
+                            <img src="assets/icons/GitHub_Logo.png" alt="GitHub">
+                        </a>
+                        <a href="https://github.com/janzgraggen/algTopo-ML-neuronCls/blob/main/documents/Semester_project-Report.pdf" target="_blank" class="external-link">
+                            <img src="assets/icons/Report.jpg" alt="Report">
+                        </a>
+                    </div>
+                </div>
             </div>
-        </div>
-        <div class="swiper-slide">
-            <div class="projects-content">
-            <h3>Project 5</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero.</p>
+
+            <!-- Project 5 -->
+            <div class="swiper-slide">
+                <div class="projects-content">
+                    <h3>Graph based Epilepsy Seizure Detection form EEG</h3>
+                    <img id="proj_img" src="assets/images/projects/epilepsy.png" alt="Road-Segmentation IMG">
+
+                    <p>
+                        <strong>Description:</strong> We experimented with different signal representations, graph construction methods, and temporal, graphbased and hybrid model architectures for seizure detection. 
+                    </p>
+
+                    <ul class="bullet-points">
+                        <li>Show the imporance of </li>
+                        <li>Improved classification w/ proposed embedding fusion model, combining GNN and topology features</li>
+                        <li>Model implementation using morphoclass, torch and torch_geometric </li>
+                    </ul>
+
+                    <div class="links-row">
+                        <a href="https://github.com/janzgraggen/EEGseizure_graphML" target="_blank" class="external-link">
+                            <img src="assets/icons/GitHub_Logo.png" alt="GitHub">
+                        </a>
+                        <a href="https://github.com/janzgraggen/EEGseizure_graphML/blob/main/documents/report.pdf" target="_blank" class="external-link">
+                            <img src="assets/icons/Report.jpg" alt="Report">
+                        </a>
+                    </div>
+                </div>
             </div>
-        </div>
-        <div class="swiper-slide">
-            <div class="projects-content">
-            <h3>Project 6</h3>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero.</p>
+
+            <!-- Project 6 -->
+            <div class="swiper-slide">
+                <div class="projects-content">
+                    <h3>Template Card</h3>
+                    <img id="proj_img" src="assets/images/projects/" alt="Project IMG">
+                    <p>
+                        <strong>Description:</strong> Stay tuned..
+                    </p>
+                    <ul class="bullet-points">
+                        <li>1. </li>
+                        <li>2.</li>
+                    </ul>
+                    <div class="links-row">
+                        <a href="https://github.comL" target="_blank" class="external-link">
+                            <img src="assets/icons/GitHub_Logo.png" alt="GitHub">
+                        </a>
+                        <a href="https://github.com" target="_blank" class="external-link">
+                            <img src="assets/icons/Report.jpg" alt="Report">
+                        </a>
+                    </div>
+                </div>
             </div>
-        </div>
+
+
         </div>
 
         <!-- Pagination Dots -->
         <div class="swiper-pagination"></div>
 
-        <!-- Navigation Arrows -->
-    </div>
+    </div> <!-- end swiper -->
 
     <script src="js/swiper.js"></script>
-    </section>
+</section>
+
 
     <section id="creative">
         <h1 class="creative-title">_cR€åT¡√E wø®K</h1> <!-- Move outside .about-content -->
