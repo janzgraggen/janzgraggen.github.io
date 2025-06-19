@@ -1,80 +1,54 @@
-const swiper = new Swiper('.swiper-container', {
-  effect: 'coverflow',
+
+const totalSlides = 4;
+
+const swiper = new Swiper('.swiper', {
+  direction: 'horizontal',
   slidesPerView: 3,
   centeredSlides: true,
   loop: true,
-  loopAdditionalSlides: 5,
-  grabCursor: true,
-  slideToClickedSlide: true,
-  keyboard: {
-    enabled: true,
-  },
-  mousewheel: {
-    forceToAxis: true,   // allows only horizontal scroll to trigger
-    invert: false,
-    sensitivity: 1,
-    releaseOnEdges: true
-  },
-
+  loopAdditionalSlides: totalSlides *2 ,
+  spaceBetween: 50, // no gap between slides
+  watchSlidesProgress: true,
+  watchSlidesVisibility: true,
+  effect: 'coverflow',
   coverflowEffect: {
     rotate: 0,
-    stretch: 0, // We'll control X offset manually via CSS
-    depth: 150,
+    depth: 160,
+    scale: 0.9,
     modifier: 1,
     slideShadows: false
   },
-  navigation: {
-    nextEl: '.swiper-button-next',
-    prevEl: '.swiper-button-prev',
+  mousewheel: {
+    forceToAxis: true,
+    sensitivity: 1
   },
   pagination: {
     el: '.swiper-pagination',
-    clickable: true,
+    clickable: true
   },
-
+  navigation: {
+    nextEl: '.swiper-button-next',
+    prevEl: '.swiper-button-prev'
+  },
   on: {
     init() {
-      addHoverSlideListeners();
       updateDotPosition(this.realIndex);
     },
     slideChange() {
-      addHoverSlideListeners();
-      setTimeout(() => {
-        updateDotPosition(this.realIndex);
-      }, 50); // tiny delay to ensure index updated
+      updateDotPosition(this.realIndex);
     }
   }
 });
 
-function addHoverSlideListeners() {
-  document.querySelectorAll('.swiper-slide').forEach((slide) => {
-    slide.removeEventListener('mouseenter', onHoverSlide);
-    slide.addEventListener('mouseenter', onHoverSlide);
+function updateDotPosition(activeIndex) {
+  const dots = document.querySelectorAll('.swiper-pagination-bullet');
+  dots.forEach((dot, index) => {
+    if (index === activeIndex) {
+      dot.style.transform = 'scale(1.2)';
+      dot.style.opacity = '1';
+    } else {
+      dot.style.transform = 'scale(1)';
+      dot.style.opacity = '0.5';
+    }
   });
-}
-
-function onHoverSlide(e) {
-  const slide = e.currentTarget;
-  if (slide.classList.contains('swiper-slide-prev')) {
-    swiper.slidePrev();
-  } else if (slide.classList.contains('swiper-slide-next')) {
-    swiper.slideNext();
-  }
-}
-
-const movingDot = document.getElementById('moving-dot');
-const radius = 45;
-const centerX = 50;
-const centerY = 50;
-
-// Get total unique slides, ignoring loop duplicates
-const totalCards = document.querySelectorAll('.swiper-slide:not(.swiper-slide-duplicate)').length;
-
-function updateDotPosition(index) {
-  // Calculate angle, start from top (12 o'clock)
-  const angle = (2 * Math.PI * index) / totalCards - Math.PI / 2;
-  const x = centerX + radius * Math.cos(angle);
-  const y = centerY + radius * Math.sin(angle);
-  movingDot.setAttribute('cx', x);
-  movingDot.setAttribute('cy', y);
 }
