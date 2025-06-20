@@ -23,13 +23,18 @@
 #creative .photo-scroller {
     display: flex;
     flex-direction: row;
-    height: 100vh;
-    overflow-x: auto;
+    height: 100%;
+    overflow-x: scroll;
     overflow-y: hidden;
     scroll-behavior: smooth;
     padding-left: 300px; /* leave space for title */
     gap: 80px;
     align-items: flex-start;
+    scrollbar-width: none; /* Firefox */
+}
+
+#creative .photo-scroller::-webkit-scrollbar {
+    display: none; /* Chrome, Safari */
 }
 
 /* Each photo */
@@ -64,4 +69,26 @@
     .creative-title {
         margin-left: -30px;
     }
+}
+
+.photo-scroller {
+    padding-bottom: 50px;
+}
+
+.photo-slide.vertical-text-slide {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 120px; /* similar width as photos */
+  height: 75vh; /* match photo max-height */
+  background: #ffffff; /* light background so it stands out */
+  font-weight: bold;
+  font-size: 2.4rem;
+  color: #000000;
+  writing-mode: sideways-lr; /* vertical text */
+  text-orientation: mixed;
+  text-align: center;
+  padding: 10px;
+  box-sizing: border-box;
+  user-select: none;
 }
