@@ -248,3 +248,12 @@ html, body {
     }
 
 }
+
+@media (max-width: 520px) {
+    .swiper {
+        padding-left:0px !important; /* anchor left on mobile */
+        padding-right: 100px !important; /* anchor right on mobile */
+
+    }
+  
+}
