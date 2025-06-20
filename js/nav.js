@@ -136,3 +136,36 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 });
 
+
+document.addEventListener('DOMContentLoaded', () => {
+  const nav = document.querySelector('nav');
+  const creativeSection = document.querySelector('#creative');
+
+  function updateNavOpacity() {
+    const creativeRect = creativeSection.getBoundingClientRect();
+
+    const triggerPoint = window.innerHeight / 10; // halfway down the viewport
+
+    if (creativeRect.top < triggerPoint && creativeRect.bottom > 0) {
+    nav.style.opacity = '0.3';
+    } else {
+    nav.style.opacity = '1';
+    }
+  }
+
+  // On scroll, update opacity
+  window.addEventListener('scroll', updateNavOpacity);
+
+  // On page load also run once
+  updateNavOpacity();
+
+  // On hover, restore full opacity
+  nav.addEventListener('mouseenter', () => {
+    nav.style.opacity = '1';
+  });
+
+  // On mouse leave, re-check scroll position to decide opacity
+  nav.addEventListener('mouseleave', () => {
+    updateNavOpacity();
+  });
+});
