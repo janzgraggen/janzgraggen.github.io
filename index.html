@@ -24,6 +24,7 @@
 
 
 <body>
+    <!-- NAVIGATION ––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– -->
     <div id="dropdown" class="dropdown-content">
         <ul>
             <li><a href="#about">/ABOUT</a></li>
@@ -71,7 +72,7 @@
     </nav>
     <script src="js/nav.js"></script>
 
-    
+    <!-- HOME ––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– -->
 
     <section id="home">
 
@@ -83,6 +84,7 @@
     </section>
     <script src="js/background.js"></script>
 
+    <!-- About ––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– -->
     <section id="about">
         <h1 class="about-title">»ABOUT_ME</h1> <!-- Move outside .about-content -->
     
@@ -96,6 +98,7 @@
         
     </section>
     
+    <!-- PROJECTS ––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– -->
     <section id="projects">
     <h1 class="projects-title">»PROJECTS</h1>
 
@@ -108,16 +111,15 @@
                     <h3>Geothermal Heat Pump Simulation</h3>
                     <img id="proj_img" src="assets/images/projects/heat_pump.jpeg" alt="Heatpump IMG">
 
-                    <p>
-                        <strong>Description:</strong> In this project, I created a simulator for a geothermal heat pump cycle. The software simulates fluid flow, heated by heat conduction from the environment to the transfer medium through a generic medium-carrying pipe. The goal is to analyze the dependency on its components and setup.
-                    </p>
+                <p>
+                    <strong>Description:</strong> Developed a simulator for geothermal heat pump cycles to analyze component and setup dependencies. Simulates fluid flow and heat conduction through generic pipe geometries and transport media.
+                </p>
 
-                    <ul class="bullet-points">
-                        <li>Implemented pipe environment in python</li>
-                        <li>Derived equations for temperature propagation equation along generic paths</li>
-                        <li>Implemented numerical integration for heat propagation in C </li>
-                        <li>Integrated a simulation and visualization pipeline in python </li>
-                    </ul>
+                <ul class="bullet-points">
+                    <li>Implemented pipe environment and visualization pipeline in Python</li>
+                    <li>Derived and solved temperature propagation equations along complex paths</li>
+                    <li>Implemented numerical integration for heat propagation in C</li>
+                </ul>
 
                     <div class="links-row">
                         <a href="https://github.com/janzgraggen/GTHP_simulation" target="_blank" class="external-link">
@@ -137,14 +139,14 @@
                     <img id="proj_img" src="assets/images/projects/orbit.png" alt="ODE-Solve IMG">
 
                     <p>
-                        <strong>Description:</strong> This project is software for a flexible and extendable solver of ordinary differential equations, supporting implicit and explicit methods such as Runge Kutta, Adams Bashforth, and Euler. <span style="font-size: x-small;">(img from <a href="https://prappleizer.github.io/Tutorials/RK4/RK4_Tutorial.html" target="_blank">here</a>)</span>
+                        <strong>Description:</strong> Developed a flexible and extensible C++ solver for ordinary differential equations (ODEs), supporting implicit and explicit methods including Runge-Kutta, Adams-Bashforth, and Euler. <span style="font-size: x-small;">(Toy example: RK4 for planetary motion — image from <a href="https://prappleizer.github.io/Tutorials/RK4/RK4_Tutorial.html" target="_blank">here</a>)</span>
                     </p>
 
                     <ul class="bullet-points">
-                        <li>Implemented solver polymprphistically in C++ with OOP</li>
-                        <li>Designed to be easily extendable and customizable</li>
-                        <li>Used Cmake and Makefile for building</li>
-                        <li>Used Google Test (gtest) for testing functionality</li>
+                        <li>Implemented solver using object-oriented programming in C++</li>
+                        <li>Designed architecture for easy extension and method customization</li>
+                        <li>Configured build system with CMake and Makefiles</li>
+                        <li>Developed test suite using Google Test (gtest)</li>
                     </ul>
 
                     <div class="links-row">
@@ -190,14 +192,14 @@
                     <img id="proj_img" src="assets/images/projects/MODELDIAGRAM_img.jpeg" alt="Road-Segmentation IMG">
 
                     <p>
-                        <strong>Description:</strong> Using Algebraic Topology and Graph Neural Networks in Multi Embedding Fusion Models for classifying neuronal morphologies
+                        <strong>Description:</strong> Combined Algebraic Topology and Graph Neural Networks (GNNs) in multi-embedding fusion models for classifying neuronal morphologies.
                     </p>
 
                     <ul class="bullet-points">
-                        <li>Implemented a multi embedding fusion model for classifying neuronal morphologies using morphoclass, torch and torch_geometric</li>
-                        <li>Used tools from Persistent Homology (Algebraic Topology) for generating topological representations</li>
-                        <li>Implemented pipeline for reproduction of state of the art research in classification of neuronal cells using algebraic topology and ML.</li>
-                        <li>Improved classification w/ proposed embedding fusion model, combining GNN and topology features</li>
+                        <li>Implemented multi-embedding fusion model using PyTorch, and PyTorch Geometric</li>
+                        <li>Generated topological representations via Persistent Homology</li>
+                        <li>Developed pipeline to reproduce state-of-the-art research in neuronal morphology classification</li>
+                        <li>Improved classification performance by combining GNN and topological features</li>
                     </ul>
 
                     <div class="links-row">
@@ -218,13 +220,13 @@
                     <img id="proj_img" src="assets/images/projects/epilepsy.png" alt="Road-Segmentation IMG">
 
                     <p>
-                        <strong>Description:</strong> We used Graph Machine Learning  for seizure detection. Experimenting with different models, signal representations and graph construction methods.
+                        <strong>Description:</strong> Explored Graph Machine Learning for seizure detection, experimenting with signal representations, graph construction, and model architectures.
                     </p>
 
                     <ul class="bullet-points">
-                        <li>Implemented Feature processing pipeline in pythonn </li>
-                        <li>Implemented Benchmark Models for multi chanel Timeseries, includign Convolutional and Long-Short-Time-Memory networks </li>
-                        <li> Improved classification using Graph Neural Networks and Hybrid aproaches.</li>
+                        <li>Built feature processing pipeline in Python</li>
+                        <li>Implemented benchmark models for multi-channel time series, including CNNs and LSTMs</li>
+                        <li>Improved classification performance using Graph Neural Networks and hybrid approaches</li>
                     </ul>
 
                     <div class="links-row">
@@ -241,14 +243,15 @@
             <!-- Project 6 -->
             <div class="swiper-slide">
                 <div class="projects-content">
-                    <h3>Feature Engineering on survey data for Heart Attack prediction</h3>
+                    <h3>Feature Engineering on BRFSS survey data for Heart Attack prediction</h3>
                     <img id="proj_img" src="assets/images/projects/brfss.png" alt="Project IMG">
                     <p>
-                        <strong>Description:</strong> Using feature engineering strategies to predict heart attacks form survey data with logistic regression models.
+                         <strong>Description:</strong> Predicted heart attacks from survey data using feature engineering and logistic regression models.
                     </p>
+
                     <ul class="bullet-points">
-                        <li>Implememted Data cleaning, represetation and augmentation pipeline with python and pandas. </li>
-                        <li>Implemented prediction pipeline with python and pytorch. </li>
+                        <li>Built data cleaning, representation, and augmentation pipeline with Python and pandas</li>
+                        <li>Developed prediction pipeline with Python and PyTorch</li>
                     </ul>
                     <div class="links-row">
                         <a href="https://github.com/janzgraggen/heartattack_prediction" target="_blank" class="external-link">
@@ -272,7 +275,7 @@
     <script src="js/swiper.js"></script>
     </section>
 
-
+<!-- Creative ––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– -->
 <section id="creative" class="portfolio-section">
     <h1 class="creative-title"> »CREATIVE</h1>
     <div class="photo-scroller">

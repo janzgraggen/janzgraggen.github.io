@@ -153,7 +153,7 @@ html, body {
 }
 
 .projects-content p {
-  font-size: 1rem;
+  font-size: 0.9rem;
   color: #000;
   line-height: 1.4;
   margin-top: 0px;
@@ -167,7 +167,7 @@ html, body {
 }
 
 .bullet-points li {
-  font-size: 0.95rem;
+  font-size: 0.8rem;
   color: #000;
   margin-bottom: 5px;
 }
@@ -255,5 +255,13 @@ html, body {
         padding-right: 100px !important; /* anchor right on mobile */
 
     }
+
+    .projects-content p {
+        font-size: 0.75rem; /* smaller text for mobile */
+    }
+
+    .bullet-points li {
+  font-size: 0.65rem;
+}
   
 }
