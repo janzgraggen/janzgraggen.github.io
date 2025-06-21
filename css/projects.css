@@ -27,7 +27,7 @@ html, body {
   text-align: left;
   margin-left: 150px;
   margin-top: 50px;
-  z-index: 1000;
+  z-index: 10;
 }
 /*------------------------------------------------------------ SWIPER CARDS FUNCTIONALITY*/ 
 /* Swiper container */
