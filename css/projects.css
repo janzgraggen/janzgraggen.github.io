@@ -12,6 +12,8 @@ html, body {
 
 /* Container & Layout */
 #projects {
+
+  /*background: url('../assets/images/projects/background_projects2.jpeg') no-repeat left center/cover; */
   height: auto !important;
   min-height: 100vh; /* optional: make sure it's at least full screen */
   position: relative;
