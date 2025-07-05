@@ -22,7 +22,7 @@
 .about-content {
     font-family: 'San Francisco', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
     font-size: 2.4vw;
-    font-weight: 1;
+    font-weight: 100;
     margin: 250px;
     margin-top: 0;
     margin-right: 270px;
@@ -43,6 +43,10 @@
 .about-content span.highlight3 {
     color: rgb(27, 255, 153); /* Change the color to your desired highlight color */
     font-weight: bold; /* Optionally make the highlighted text bold */
+}
+
+.about-content span.highlight31 {
+    color: rgb(27, 255, 153); /* Change the color to your desired highlight color */
 }
 
 .about-content a {
