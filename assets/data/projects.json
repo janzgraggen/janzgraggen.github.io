@@ -1,7 +1,29 @@
 [ {
+    "id": "project-0",
+    "title": "Topography aware weather forecasting in europe",
+    "authors": ["Jan Zgraggen", "(supervisor)  Chang Xu, (head supervisor) Prof. Devis Tuia"],
+    "venue": "",
+    "type": "semester project",
+    "description": "GINR and EECR Frameworks",
+    "image": "assets/images/projects/topo.png",
+    "links": [
+      {
+        "label": "GitHub",
+        "url": "https://github.com/janzgraggen/CerrOroCast",
+        "icon": "github"
+      },
+      {
+        "label": "Report",
+        "url": "https://github.com/janzgraggen/CerrOroCast/Documents/Semester_project_Report_ECEO.pdf",
+        "icon": "report"
+      }
+    ]
+  },
+    
+{
     "id": "project-1",
     "title": "Neuronal cell morphology classification",
-    "authors": ["Jan Zgraggen", "(supervisor)  Lida Kanari"],
+    "authors": ["Jan Zgraggen", "(supervisor)  Lida Kanari, (head supervisor) Prof. Jerôme Scherrer"],
     "venue": "",
     "type": "semester project",
     "description": "Combined Algebraic Topology and Graph Neural Networks (GNNs) in multi-embedding fusion models for classifying neuronal morphologies.",
@@ -22,7 +44,7 @@
   {
     "id": "project-2",
     "title": "Graph based Epilepsy Seizure Detection form EEG-Signal",
-    "authors": ["Vincent Roduit, Caspar Elias Henking, Aurel Maeder, Jan Zgraggen"],
+    "authors": ["Vincent Roduit", "Caspar Elias Henking", "Aurel Maeder","Jan Zgraggen"],
     "venue": "",
     "type": "course project",
     "description": "Explored Graph Machine Learning for seizure detection, experimenting with signal representations, graph construction, and model architectures.",
@@ -64,7 +86,7 @@
   {
     "id": "project-4",
     "title": "Aerial Road Segmentation",
-    "authors": ["Colin Berger", "Erik Bessö", "Jan Zgraggen"],
+    "authors": ["Colin Berger", "Erik Bessö","Jan Zgraggen"],
     "venue": "",
     "type": "course project",
     "description": "Evaluated the performance of various convolutional neural network (CNN) based architectures for road segmentation from aerial imagery.",

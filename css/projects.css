@@ -7,8 +7,9 @@
   -webkit-overflow-scrolling: touch;
 
   display: flex;
+  width: min(920px, calc(90% - (var(--nav-right, 35px) * 2)));
   flex-direction: column;
-  gap: 28px;
+  gap: 8px;
 
   padding-right: 10px;
 }
@@ -29,7 +30,29 @@
   gap: 22px;
   align-items: start;
 }
+/* 
+.projectCard {
+  border: 1px solid rgba(0, 0, 0, 0.12);
+  border-radius: 14px;
+  padding: 18px;
+  background: rgba(255, 255, 255, 0.6);
 
+  transition: border-color 160ms ease, background-color 160ms ease;
+}
+
+.projectCard:hover {
+  border-color: rgba(0, 0, 0, 0.22);
+  background: rgba(255, 255, 255, 0.75);
+} */
+
+.projectCard {
+  padding: 22px 0;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+}
+
+.projectCard:last-child {
+  border-bottom: none;
+}
 /* Left thumbnail (decorative) */
 .projectThumb {
   width: 100%;
