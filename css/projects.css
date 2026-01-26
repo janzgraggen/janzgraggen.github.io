@@ -1,3 +1,163 @@
-#projects {
-  /* reserved */
+/* Scroll container inside frame */
+.projectsBox {
+  position: absolute;
+  inset: 90px 60px 40px 60px;
+
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+
+  padding-right: 10px;
+}
+
+/* Optional: keep scrollbars minimal (still accessible) */
+.projectsBox {
+  scrollbar-width: none;          /* Firefox */
+}
+.projectsBox::-webkit-scrollbar { /* WebKit */
+  width: 0;
+  height: 0;
+}
+
+/* Project card layout */
+.projectCard {
+  display: grid;
+  grid-template-columns: 260px 1fr;
+  gap: 22px;
+  align-items: start;
+}
+
+/* Left thumbnail (decorative) */
+.projectThumb {
+  width: 100%;
+  height: 180px;
+  border-radius: 12px;
+  overflow: hidden;
+  background: rgba(0, 0, 0, 0.06);
+}
+
+.projectThumb img {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: contain;   /* ensures full image is visible */
+  background: #fff;      /* clean letterbox fill */
+}
+
+.projectThumb.is-missing {
+  background: rgba(0, 0, 0, 0.04);
+}
+
+/* Right content */
+.projectContent {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* Type hierarchy */
+.projectTitle {
+  font-size: 1.3rem;
+  font-weight: 600;
+  line-height: 1;
+}
+
+.projectAuthors {
+  font-size: 0.8rem;
+  opacity: 1;
+}
+
+.projectVenue {
+  font-size: 0.8rem;
+  font-style: italic;
+  opacity: 1;
+}
+
+.projectDescription {
+  margin-top: 6px;
+  font-size: 0.95rem;
+  line-height: 1.55;
+  max-width: 64ch;
+}
+
+/* Optional chip */
+.projectTag {
+  display: inline-block;
+  width: fit-content;
+  margin-top: 4px;
+
+  font-size: 0.75rem;
+  opacity: 0.6;
+
+  border: 1px solid rgba(0, 0, 0, 0.16);
+  border-radius: 999px;
+  padding: 2px 8px;
+}
+
+/* Link palette */
+.projectLinks {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+/* Icon button */
+.projectLinkBtn {
+  width: 32px;
+  height: 32px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 10px;
+  border: 1px solid rgba(0, 0, 0, 0.18);
+  background: rgba(255, 255, 255, 0.18);
+
+  transition: transform 140ms ease, background-color 180ms ease, border-color 180ms ease, opacity 140ms ease;
+}
+
+.projectLinkBtn:hover {
+  transform: scale(1.12);
+  background: rgba(0, 0, 0, 0.04);
+}
+
+.projectLinkBtn:focus-visible {
+  outline: 2px solid rgba(0, 0, 0, 0.28);
+  outline-offset: 3px;
+}
+
+/* The actual icon image */
+.projectLinkIcon {
+  width: 18px;
+  height: 18px;
+  display: block;
+  object-fit: contain;
+  opacity: 0.95;
+}
+
+/* If you want icons to read on dark backgrounds later, you can tweak here. */
+
+/* Error message */
+.projectsError {
+  opacity: 0.7;
+  font-size: 0.95rem;
+}
+
+/* Mobile: stack image above text */
+@media (max-width: 820px) {
+  .projectsBox {
+    inset: 80px 20px 24px 20px;
+  }
+
+  .projectCard {
+    grid-template-columns: 1fr;
+  }
+
+  .projectThumb {
+    height: 200px;
+  }
 }
