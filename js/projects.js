@@ -106,10 +106,16 @@
         ${img}
 
         <div class="projectContent">
-          <div class="projectTitle">${title}</div>
+          <div class="projectTitleRow">
+            <div class="projectTitle">${title}</div>
+            ${type || ''}
+          </div>
+
           ${authors ? `<div class="projectAuthors">${formatAuthors(project.authors)}</div>` : ''}
           ${venue ? `<div class="projectVenue">${venue}</div>` : ''}
-          ${type}
+
+
+
           ${description ? `<div class="projectDescription">${description}</div>` : ''}
           ${renderLinks(project)}
         </div>
