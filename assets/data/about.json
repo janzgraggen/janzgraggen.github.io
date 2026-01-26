@@ -3,7 +3,7 @@
     {
       "title": "Hey there.",
       "items": [
-        { "title": "What keeps me sane..", "content": "I like to spend my time traveling, in nature, doing sports, or engaging in creative work. ", "image": "" },
+        { "title": "I like to spend my time..", "content": "..traveling, in nature, doing sports, following sports, doing crafts, or vibecoding my website;) ", "image": "" },
         { "title": "I geek about..", "content": "Algorithms (randomized, sublinear) | Machine Learning (gml ,earth observation, neuro) | Graph Modelling (algo & gml).", "image": "" }
         
       ]
