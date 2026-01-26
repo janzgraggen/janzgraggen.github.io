@@ -6,6 +6,7 @@
 
   const linkedinLogo = document.getElementById('linkedin-logo');
   const githubLogo = document.getElementById('github-logo');
+  const buttonLogo = document.getElementById('button-logo');
   const homePhrase = document.getElementById('homephrase');
 
   const desktopLinks = Array.from(nav.querySelectorAll('.nav-links a'));
@@ -26,10 +27,12 @@
     light: {
       linkedin: 'assets/icons/LI-In-Bug.png',
       github: 'assets/icons/github-mark.png',
+      button: 'assets/icons/about_mobile_black.png',
     },
     dark: {
       linkedin: 'assets/icons/LI-In-Bug-white.png',
       github: 'assets/icons/github-mark-white.png',
+      button: 'assets/icons/about_mobile_white.png',
     },
   };
 
@@ -77,6 +80,11 @@
     githubLogo.src = isWhite
         ? ICONS.dark.github
         : ICONS.light.github;
+    
+    buttonLogo.src = isWhite
+        ? ICONS.dark.button
+        : ICONS.light.button;
+    
   }
 
   function updateHomePhrase(sectionId) {
@@ -109,25 +117,7 @@
       circle.style.opacity = '0';
       return;
     }
-  function applyButtonTheme(theme) {
-        if (theme === 'light') {
-            btn.style.backgroundColor = 'black';
-            btn.style.color = 'white';
-            btn.style.opacity = '1';
-        }
 
-        if (theme === 'dark') {
-            btn.style.backgroundColor = 'white';
-            btn.style.color = 'gray';
-            btn.style.opacity = '1';
-        }
-
-        if (theme === 'transparent') {
-            btn.style.backgroundColor = 'white';
-            btn.style.color = 'gray';
-            btn.style.opacity = '0.25';
-        }
-    }
   function applyCircleTheme(theme) {
         if (theme === 'light') {
             circle.style.backgroundColor = 'black';
@@ -148,7 +138,7 @@
     circle.style.opacity = '1';
 
     applyCircleTheme(theme);
-    applyButtonTheme(theme);
+
 
     // Compute vertical alignment relative to nav box
     const navRect = nav.getBoundingClientRect();
