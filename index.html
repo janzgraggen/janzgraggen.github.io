@@ -23,7 +23,13 @@
     <div id="frame">
     
     <!-- inside #frame, order matters -->
-    <div id="transition-mask"></div>
+    <div id="transition-mask">
+      <div id="transition-label" aria-hidden="true"></div>
+    </div>
+
+
+    <!-- TITLE-->
+    <div id="frameTitlePath" aria-hidden="true"></div>
 
     <!-- NAVIGATION -->
     <div id="dropdown" class="dropdown-content" aria-hidden="true">
@@ -80,20 +86,31 @@
       <div id="content-root">
 
         <section id="home" class="section">
-          <div class="section-inner">Home section</div>
+            <div class="home-bg" aria-hidden="true">
+            <img class="home-bg__layer home-bg__layer--a" alt="" decoding="async" />
+            <img class="home-bg__layer home-bg__layer--b" alt="" decoding="async" />
+            </div>
         </section>
 
         <section id="about" class="section">
-          <div class="section-inner">About section</div>
+            <div class="aboutBox" id="aboutBox" tabindex="0" role="region" aria-label="About content">
+                <div id="aboutMount" class="aboutMount">
+                <!-- populated by js/about.js -->
+                </div>
+            </div>
         </section>
 
         <section id="projects" class="section">
-          <div class="section-inner">Projects section</div>
+          <div class="section-inner">Comming soon...</div>
         </section>
 
-        <section id="creative" class="section">
-          <div class="section-inner">Creative section</div>
-        </section>
+      <section id="creative" class="section">
+        <div class="creativeControls" aria-label="Creative controls">
+          <button class="creativeBtn" id="btnRandom35" type="button">/get random 35mm</button>
+          <button class="creativeBtn" id="btnRandomSketch" type="button">/get random sketch</button>
+        </div>
+      </section>
+
 
       </div>
     </div>
@@ -104,6 +121,7 @@
 
     <!-- Section logic -->
     <script src="js/base.js"></script>
+    <script src="js/titlePath.js"></script>
     <script src="js/nav.js"></script>
 
     <script src="js/home.js"></script>

@@ -1,3 +1,73 @@
 #creative {
-  /* reserved */
+  position: absolute;
+  inset: 0;
+}
+
+/* Buttons sit below the global title path, aligned to its left edge */
+#creative .creativeControls {
+  position: absolute;
+  left: var(--nav-right, 35px);
+  top: calc(var(--nav-top, 35px) + 75px);
+
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+/* Glassy pill buttons */
+#creative .creativeBtn {
+  appearance: none;
+  border: 1px solid rgba(0, 0, 0, 0.16);
+  background: rgba(255, 255, 255, 0.18);
+  color: rgba(255, 255, 255, 0.42);
+
+  padding: 10px 14px;
+  border-radius: 999px;
+
+  font: inherit;
+  font-weight: 400;
+
+  cursor: pointer;
+  user-select: none;
+
+  transition: transform 120ms ease, background-color 180ms ease, border-color 180ms ease;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+#creative .creativeBtn:hover {
+  transform: scale(1.02);
+  background: rgba(255, 255, 255, 0.26);
+}
+
+#creative .creativeBtn:active {
+  transform: scale(0.98);
+}
+
+#creative .creativeBtn:focus-visible {
+  outline: 2px solid rgba(0, 0, 0, 0.25);
+  outline-offset: 4px;
+}
+
+/* Optional dark-mode button variant (if you later want to toggle via JS) */
+#creative .creativeBtn.on-dark {
+  border-color: rgba(255, 255, 255, 0.22);
+  background: rgba(0, 0, 0, 0.22);
+  color: rgba(255, 255, 255, 0.92);
+}
+
+/* Small screens: stack */
+@media (max-width: 700px) {
+  #creative .creativeControls {
+    left: 12px;
+    top: 56px;
+
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  #creative .creativeBtn {
+    width: 100%;
+  }
 }

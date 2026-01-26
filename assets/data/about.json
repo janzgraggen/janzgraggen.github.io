@@ -1,0 +1,26 @@
+{
+  "sections": [
+    {
+      "title": "Hey there.",
+      "items": [
+        { "title": "What keeps me sane..", "content": "I like to spend my time traveling, in nature, doing sports, or engaging in creative work. ", "image": "" },
+        { "title": "I geek about..", "content": "Algorithms (randomized, sublinear) | Machine Learning (gml ,earth observation, neuro) | Graph Modelling (algo & gml).", "image": "" }
+        
+      ]
+    },
+    {
+      "title": "Work.",
+      "items": [
+        { "title": "Research Intern @NokiaBellLabs, Paris France", "content": "Neural Algorithmic Reasoning and Graph Machine Learning for Network Optimization.", "image": "assets/icons/Nokia_Bell_Labs.png" },
+        { "title": "Project Intern @ECEOLab, Sion Switzerland", "content": "Topography aware weather forecasting in Europe.", "image": "assets/icons/eceo.png" }
+      ]
+    },
+    {
+      "title": "Education.",
+      "items": [
+        { "title": "MSc Computational Scinece and Engineering @EPFL", "content": "TA for the class CS-450 Advanced Algorithms with Prof. M. Kapralov (Fall Semester 2025) | TCS-Coursework: Advanced Algorithms, Sublinear Algorithms, Topics in Theoretical CS (Randomized Algorithms) ; ML-Coursework: Machine Learning, Network Machine Learning, Foudnation Models and Generative AI, Learning in Neuronal Nets (Reinforcement Learning, Neuroplausible ML), Image Processing for Earth Observation", "image": "assets/icons/EPFL.png" },
+        { "title": "BSc Environmental Science and Engineering @EPFL ", "content": "Exchange @HKUST", "image": "assets/icons/HKUST.png" }
+      ]
+    }
+  ]
+}

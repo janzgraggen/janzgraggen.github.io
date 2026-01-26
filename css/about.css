@@ -1,3 +1,153 @@
+/* About section: single scrollable text box */
 #about {
-  /* reserved */
+  position: absolute;
+  inset: 0;
+}
+#about .aboutBox {
+  position: absolute;
+
+  /* align with title path left inset */
+  left: 10px;
+
+  /* top-aligned, starts under the top UI line */
+  top: 80px;
+
+  /* width within frame; right edge stays safely inside */
+  width: min(920px, calc(90% - (var(--nav-right, 35px) * 2)));
+
+  /* fixed viewport-relative height so you scroll inside it */
+  height: min(70vh, 720px);
+
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+
+  padding: 22px 22px;
+
+  background: rgba(255, 255, 255, 0);
+  border-radius: 12px;
+
+  outline: none;
+}
+
+
+#about .aboutBox:focus-visible {
+  outline: 2px solid rgba(0, 0, 0, 0.25);
+  outline-offset: 4px;
+}
+
+/* Section blocks */
+#about .aboutBlock + .aboutBlock {
+  margin-top: 26px;
+}
+
+#about .aboutTitle {
+  margin: 0 0 10px 0;
+  font-size: 1.8rem;
+  font-weight: 450; /* thin/regular */
+  line-height: 1.5;
+}
+
+/* List-like structure but no bullets shown */
+#about .aboutList {
+  list-style: none;       /* hides bullet markers */
+  padding: 0;
+  margin: 0;
+}
+
+/* List-like structure but no bullets shown */
+#about .aboutList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* Structured row: text on left, optional image on right */
+#about .aboutItem {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: start;
+  column-gap: 14px;
+
+  padding: 10px 0;
+  margin: 0;
+}
+
+/* Subtle separation between entries (no heavy lines) */
+#about .aboutItem + .aboutItem {
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+}
+
+/* Text stack */
+#about .aboutItemText {
+  min-width: 0;
+}
+
+#about .aboutItemTitle {
+  font-size: 0.95rem;
+  font-weight: 400;          /* thin/regular */
+  line-height: 1.3;
+}
+
+#about .aboutItemContent {
+  margin-top: 4px;
+  font-size: 0.92rem;
+  font-weight: 300;
+  line-height: 1.55;
+  opacity: 0.9;
+}
+
+/* Optional RHS media (logo) */
+#about .aboutItemMedia {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+  opacity: 0.9;
+  margin-top: 2px;
+}
+
+/* When no image is provided, keep layout stable but invisible */
+#about .aboutItemMedia--empty {
+  width: 32px;
+  height: 32px;
+}
+
+
+/* Responsive: keep inside frame comfortably */
+@media (max-width: 700px) {
+  #about .aboutBox {
+    width: 92%;
+    height: min(72vh, 540px);
+    padding: 18px 16px;
+  }
+
+  #about .aboutTitle {
+    font-size: 1rem;
+  }
+
+  #about .aboutItem {
+    font-size: 0.92rem;
+  }
+
+
+
+  #about .aboutItem {
+    column-gap: 10px;
+  }
+
+  #about .aboutItemMedia,
+  #about .aboutItemMedia--empty {
+    width: 32px;
+    height: 32px;
+  }
+
+}
+
+/* Hide scrollbar while keeping scroll functionality */
+#about .aboutBox {
+  scrollbar-width: none;        /* Firefox */
+  -ms-overflow-style: none;     /* IE / Edge legacy */
+}
+
+#about .aboutBox::-webkit-scrollbar {
+  display: none;                /* Chrome / Safari */
 }

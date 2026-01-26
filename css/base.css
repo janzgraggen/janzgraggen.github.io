@@ -29,7 +29,7 @@ body {
   isolation: isolate; 
   inset: 3vh 3vh; /* consistent margin from viewport edges */
 
-  background: rgb(99, 161, 222);
+  background: #fff;
   border-radius: 12px;
 
   overflow: hidden; /* content stays clipped to frame */
@@ -65,15 +65,37 @@ body {
 
 /* –––––––––––––– Transition Style
 /* Transition mask */
-#transition-mask {
+#transition-mask{
   position: absolute;
   inset: 0;
-  background: #123;
+  background: #fff;          /* was black */
   opacity: 0;
   pointer-events: none;
-  transition: opacity 300ms ease;
-  z-index: 30;
+  transition: opacity 900ms ease;  /* longer (adjust as desired) */
+  z-index: 30;               /* above content/nav while fading */
 }
+
+#transition-label {
+  position: absolute;
+  inset: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font: inherit;
+  font-weight: 400;
+  font-size: medium;
+
+  color: rgba(0, 0, 0, 0.75);
+
+  opacity: 0;
+  transition: opacity 250ms ease;
+
+  pointer-events: none;
+  text-align: center;
+}
+
 
 /* Section visibility states */
 .section {
@@ -112,7 +134,114 @@ body {
   will-change: opacity;
 }
 
-/* Transition mask refinement */
-#transition-mask {
-  transition: opacity 360ms ease;
+
+
+
+
+/* Global title path label (inside frame, top-left) */
+#frameTitlePath {
+  position: absolute;
+  top: 30px;
+  left: var(--nav-right, 35px);
+
+  z-index: 21; /* above content; below dropdown overlay */
+  pointer-events: none;
+
+  font-weight: 200;
+  font-size: xx-large;
+  letter-spacing: 0.2px;
+}
+
+/* Title theme variants (match nav behavior) */
+#frameTitlePath.theme-light { color: #000; opacity: 1; }
+#frameTitlePath.theme-dark { color: #fff; opacity: 1; }
+#frameTitlePath.theme-transparent { color: #fff; opacity: 0.45; }
+
+/* Mobile: keep it aligned with nav's mobile inset */
+@media (max-width: 920px) {
+  #frameTitlePath {
+    top: 17px;
+    left: 12px;
+    font-size: 20px;
+  }
+}
+
+
+
+/* Creative hook*/ 
+
+/* Frame background layer (behind content, inside frame) */
+#frame-bg-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 1; /* ABOVE ambient */
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 260ms ease;
+}
+
+
+/* Two sub-layers */
+#frame-bg-layer .bg-blur,
+#frame-bg-layer .bg-main {
+  position: absolute;
+  inset: 0;
+}
+
+/* Blurred fill layer */
+#frame-bg-layer .bg-blur {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  filter: blur(28px);
+  transform: scale(1.08); /* avoid blur edges showing */
+  opacity: 0.9;
+}
+
+/* Foreground layer uses an <img> for precise contain/cover */
+#frame-bg-layer .bg-main img {
+  width: 100%;
+  height: 100%;
+  display: block;
+
+  object-position: center;
+  object-fit: cover; /* default (landscape) */
+}
+
+/* Portrait: keep full height, no crop */
+/* Use contain whenever we decide the image should be fully visible */
+#frame-bg-layer.fit-contain .bg-main img {
+  object-fit: contain;
+}
+
+/* Ensure content stays above background */
+#content-root {
+  position: relative;
+  z-index: 1;
+}
+
+/**  ambient BACKGROUND. */
+
+/* Ambient frame background (default for non-home sections) */
+#frame-ambient-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 0; /* lowest */
+  pointer-events: none;
+
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  filter: blur(28px);
+  transform: scale(1.08);
+  opacity: 0;
+  transition: opacity 260ms ease;
+}
+
+
+#content-root {
+  position: relative;
+  z-index: 2;
 }

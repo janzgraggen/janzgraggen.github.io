@@ -16,7 +16,7 @@
   
   const SECTION_THEME = {
     home: 'dark',    
-    about: 'dark',
+    about: 'light',
     projects: 'light',
     creative: 'transparent',
   };

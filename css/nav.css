@@ -1,6 +1,6 @@
 :root {
   /* Tunables (same feel as old numbers, but centralized) */
-  --nav-top: 35px;
+  --nav-top: 5px;
   --nav-right: 35px;
   --nav-width: 120px;
   --nav-padding: 12px;
@@ -94,7 +94,7 @@
 #nav a {
   color: var(--nav-link-color);
   opacity: var(--nav-link-opacity);
-  font-weight: bold;
+  font-weight: 450;
   font-size: small;
   text-decoration: none;
   padding: 5px;
@@ -166,7 +166,7 @@
 
 /* Homephrase preserved */
 #homephrase {
-  font-weight: bold;
+  font-weight: 650;
   color: rgb(0, 0, 0);
   font-size: small;
 
@@ -321,4 +321,13 @@
     display: none;
     visibility: hidden;
   }
+}
+
+/* Mobile menu button reflects theme */
+#nav.theme-transparent .dropdown-btn {
+  opacity: 0.25;
+}
+
+#nav.theme-transparent .dropdown-icon {
+  opacity: 0.85; /* keep icon readable while button container is faint */
 }

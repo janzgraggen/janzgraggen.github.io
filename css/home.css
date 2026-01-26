@@ -1,3 +1,37 @@
+/* Home gets a stacking context for background layers */
 #home {
-  /* reserved */
+  position: relative;
+  overflow: hidden; /* keep background clipped within the frame */
 }
+
+
+/* Background container fills the section */
+#home .home-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+#home .home-bg__layer {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: left center;
+
+  opacity: 0;
+  transition: opacity 650ms linear;
+  will-change: opacity;
+}
+
+#home .home-bg__layer.is-visible {
+  opacity: 1;
+}
+
+#home .home-bg__layer--a {
+  opacity: 1;
+}
+
+
