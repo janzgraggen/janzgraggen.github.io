@@ -1,493 +1,113 @@
 <!DOCTYPE html>
 <html lang="en">
-
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Jan Zgraggen</title>
-    <link rel="stylesheet" href="css/global.css">               <!-- Global styles -->
-    <link rel="stylesheet" href="css/nav.css">                  <!-- Navigation styles -->
-    <link rel="stylesheet" href="css/home.css">                 <!-- Home section styles -->
-    <link rel="stylesheet" href="css/about.css">                 <!-- Home section styles -->
-    <link rel="stylesheet" href="css/projects.css">             <!-- Project section styles -->
-    <link rel="stylesheet" href="css/creative.css">           <!-- Creativity section styles -->
-    <!-- Swiper CSS and JS -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
-    <script src="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.js"></script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Personal Site</title>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/MotionPathPlugin.min.js"></script>
-    
+  <!-- Base styles -->
+  <link rel="stylesheet" href="css/base.css" />
+
+  <!-- Section styles -->
+  <!-- in <head> -->
+  <link rel="stylesheet" href="css/base.css" />
+  <link rel="stylesheet" href="css/nav.css" />
+  <link rel="stylesheet" href="css/home.css" />
+  <link rel="stylesheet" href="css/about.css" />
+  <link rel="stylesheet" href="css/projects.css" />
+  <link rel="stylesheet" href="css/creative.css" />
 </head>
-
-
 <body>
-    <!-- NAVIGATION ––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– -->
-    <div id="dropdown" class="dropdown-content">
-        <ul>
-            <li><a href="#about">/ABOUT</a></li>
-            <li><a href="#projects">/PROJECTS</a></li>
-            <li><a href="#creative">/CREATIVE</a></li>
-        </ul>
+
+  <div id="viewport">
+    <div id="frame">
+    
+    <!-- inside #frame, order matters -->
+    <div id="transition-mask"></div>
+
+    <!-- NAVIGATION -->
+    <div id="dropdown" class="dropdown-content" aria-hidden="true">
+    <ul>
+        <li><a href="#about">/ABOUT</a></li>
+        <li><a href="#projects">/PROJECTS</a></li>
+        <li><a href="#creative">/CREATIVE</a></li>
+    </ul>
     </div>
 
-    <nav  id="nav" class="navbar-default">
+    <nav id="nav" class="navbar-default" aria-label="Primary">
+    <div id="circle" aria-hidden="true"></div>
 
-        <div id="circle"></div>
+    <div class="logo">
+        <a href="#home" aria-label="Home">
+        <img src="assets/images/photo.jpeg" alt="Logo" class="logo-image">
+        </a>
+    </div>
+    
 
-        <div class="logo">
-            <a href="#home">
-                <img src="assets/images/photo.jpeg" alt="Logo" class="logo-image">
-            </a>
-        </div>
-        <button id="btn"  class="dropdown-btn" onclick="toggleDropdown(event)">
-            ☰
-        </button>
-        
-        <ul>
-            <li><a href="#about">/ABOUT</a></li>
-            <li><a href="#projects">/PROJECTS</a></li>
-            <li><a href="#creative">/CREATIVE</a></li>
-        </ul>
-        
-        <div class="external-links">
-            <a href="https://linkedin.com/in/janzgraggen" target="_blank" class="external-link">
-                <img id="linkedin-logo" src="assets/icons/LI-In-Bug.png" alt="LinkedIn Logo">
-            </a>
-            
-            <a href="https://github.com/janzgraggen" target="_blank" class="external-link">
-                <img id="github-logo" src="assets/icons/github-mark.png" alt="GitHub Logo">
-            </a>
-        </div>
-        <div id="homephrase">
-            <p>LET'S DIVE IN,</p>
-            <p>AND GET TO KNOW MORE</p>
-            <p>ME,</p>
-            <p>MY </p>
-            <p>AND MY</p>
-            <p>WORK.</p>
-        </div>
+    <button id="btn" class="dropdown-btn" type="button" aria-expanded="false" aria-controls="dropdown">
+        /..
+    </button>
+
+    <ul class="nav-links">
+        <li><a href="#about">/ABOUT</a></li>
+        <li><a href="#projects">/PROJECTS</a></li>
+        <li><a href="#creative">/CREATIVE</a></li>
+    </ul>
+
+    <div class="external-links">
+        <a href="https://linkedin.com/in/janzgraggen" target="_blank" rel="noreferrer" class="external-link external-link--linkedin">
+        <img id="linkedin-logo" src="assets/icons/LI-In-Bug.png" alt="LinkedIn Logo">
+        </a>
+
+        <a href="https://github.com/janzgraggen" target="_blank" rel="noreferrer" class="external-link external-link--github">
+        <img id="github-logo" src="assets/icons/github-mark.png" alt="GitHub Logo">
+        </a>
+    </div>
+
+    <div id="homephrase" aria-hidden="true">
+        <p>LET'S DIVE IN,</p>
+        <p>AND GET TO KNOW MORE</p>
+        <p>ME,</p>
+        <p>MY </p>
+        <p>AND MY</p>
+        <p>WORK.</p>
+    </div>
     </nav>
+
+
+      <div id="content-root">
+
+        <section id="home" class="section">
+          <div class="section-inner">Home section</div>
+        </section>
+
+        <section id="about" class="section">
+          <div class="section-inner">About section</div>
+        </section>
+
+        <section id="projects" class="section">
+          <div class="section-inner">Projects section</div>
+        </section>
+
+        <section id="creative" class="section">
+          <div class="section-inner">Creative section</div>
+        </section>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Base logic -->
+  <script src="js/base.js"></script>
+
+    <!-- Section logic -->
+    <script src="js/base.js"></script>
     <script src="js/nav.js"></script>
 
-    <!-- HOME ––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– -->
+    <script src="js/home.js"></script>
+    <script src="js/about.js"></script>
+    <script src="js/projects.js"></script>
+    <script src="js/creative.js"></script>
 
-    <section id="home">
-
-        <div class="home-content">
-            <h1>JAN</h1>
-            <h2>ZGRAGGEN</h2>
-
-        </div>
-    </section>
-    <script src="js/background.js"></script>
-
-    <!-- About ––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– -->
-    <section id="about">
-        <h1 class="about-title">»ABOUT_ME</h1> <!-- Move outside .about-content -->
-    
-        <div class="about-content">
-            <p>
-                <!-- CURRENTLY BASED IN LAUSANNE, SWITZERLAND, I AM PURSUING A<span class="highlight1"> MASTER'S IN COMPUTATIONAL SCIENCE AND ENGINEERING</span> AT EPFL. MY CORE INTERESTS LIE IN PROBLEM-SOLVING, REQUIRING A MATHEMATICAL AND ALGORITHMIC THINKING - SKILLS I AM CURRENTLY APPLYING IN THE FIELD OF <span class="highlight3">NETWORK(GRAPH) ML, NEUROAI AND BIG DATA ALGORITHMS </span>. OTHERWISE, I SPEND MY TIME TRAVELING, IN NATURE, DOING SPORTS, OR ENGAGING IN CREATIVE WORK.  -->
-                     Currently based in Lausanne, Switzerland, I am pursuing a <span class="highlight1">MASTER'S IN COMPUTATIONAL SCIENCE AND ENGINEERING</span> at EPFL. My core interests lie in problem-solving, requiring mathematical and algorithmic thinking — skills I am currently applying in the field of <span class="highlight3">ALGORITHMS </span>  <span class="highlight31">(Big Data)</span>, <span class="highlight3"> GRAPH MODELLING</span>  <span class="highlight31"> (Algorithms & ML)</span>, and <span class="highlight3"> MACHINE LEARNING </span>. Otherwise, I spend my time traveling, in nature, doing sports, or engaging in creative work.
-            </p>
-            <a id="cv-link" href="/cv/"  class="about-link1">/CURRICULUM_VITAE</a>
-
-            
-            <a id="epfl-link" href="" target="_blank" class="about-link2">/CONTACT</a>
-            <script>
-                const a1 = [0x63, 0x6f, 0x6e, 0x74, 0x61, 0x63, 0x74]; 
-                const a2 = [0x6a, 0x61, 0x6e, 0x7a, 0x67, 0x72, 0x61, 0x67, 0x67, 0x65, 0x6e, 0x2e, 0x63, 0x6f, 0x6d];
-                const at = String.fromCharCode(0x40);
-
-                const p1 = a1.map(c => String.fromCharCode(c)).join('');
-                const p2 = a2.map(c => String.fromCharCode(c)).join('');
-
-                const lnk = 'mailto:' + p1 + at + p2;
-
-                document.getElementById('epfl-link').href = lnk;
-            </script>
-        </div>
-        
-    </section>
-    
-    <!-- PROJECTS ––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– -->
-    <section id="projects">
-    <h1 class="projects-title">»PROJECTS</h1>
-
-    <div class="swiper">
-        <div class="swiper-wrapper">
-
-            <!-- Project 1 -->
-            <div class="swiper-slide">
-                <div class="projects-content">
-                    <h3>Geothermal Heat Pump Simulation</h3>
-                    <img id="proj_img" src="assets/images/projects/heat_pump.jpeg" alt="Heatpump IMG">
-
-                <p>
-                    <strong>Description:</strong> Developed a simulator for geothermal heat pump cycles to analyze component and setup dependencies. Simulates fluid flow and heat conduction through generic pipe geometries and transport media.
-                </p>
-
-                <ul class="bullet-points">
-                    <li>Implemented pipe environment and visualization pipeline in Python</li>
-                    <li>Derived and solved temperature propagation equations along complex paths</li>
-                    <li>Implemented numerical integration for heat propagation in C</li>
-                </ul>
-
-                    <div class="links-row">
-                        <a href="https://github.com/janzgraggen/GTHP_simulation" target="_blank" class="external-link">
-                            <img src="assets/icons/GitHub_Logo.png" alt="GitHub">
-                        </a>
-                        <a href="https://github.com/janzgraggen/GTHP_simulation/blob/main/documents/project_report.pdf" target="_blank" class="external-link">
-                            <img src="assets/icons/Report.jpg" alt="Report">
-                        </a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Project 2 -->
-            <div class="swiper-slide">
-                <div class="projects-content">
-                    <h3>ODE-Solver Software</h3>
-                    <img id="proj_img" src="assets/images/projects/orbit.png" alt="ODE-Solve IMG">
-
-                    <p>
-                        <strong>Description:</strong> Developed a flexible and extensible C++ solver for ordinary differential equations (ODEs), supporting implicit and explicit methods including Runge-Kutta, Adams-Bashforth, and Euler. <span style="font-size: x-small;">(Toy example: RK4 for planetary motion — image from <a href="https://prappleizer.github.io/Tutorials/RK4/RK4_Tutorial.html" target="_blank">here</a>)</span>
-                    </p>
-
-                    <ul class="bullet-points">
-                        <li>Implemented solver using object-oriented programming in C++</li>
-                        <li>Designed architecture for easy extension and method customization</li>
-                        <li>Configured build system with CMake and Makefiles</li>
-                        <li>Developed test suite using Google Test (gtest)</li>
-                    </ul>
-
-                    <div class="links-row">
-                        <a href="https://github.com/janzgraggen/ode_solver_tool" target="_blank" class="external-link">
-                            <img src="assets/icons/GitHub_Logo.png" alt="GitHub">
-                        </a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Project 3 -->
-            <div class="swiper-slide">
-                <div class="projects-content">
-                    <h3>Aerial Road Segmentation</h3>
-                    <img id="proj_img" src="assets/images/projects/predictions2.png" alt="Road-Segmentation IMG">
-
-                    <p>
-                        <strong>Description:</strong> In this project, we evaluate the performance of various convolutional neural network (CNN) based architectures for road segmentation from aerial imagery.
-                    </p>
-
-                    <ul class="bullet-points">
-                        <li>Used Hydra and PyTorch</li>
-                        <li>Implemented U-Net and ResNet architectures</li>
-                        <li>Fine-tuned pretrained segmentation models</li>
-                        <li>Experimented with image transformations and patch sizes</li>
-                    </ul>
-
-                    <div class="links-row">
-                        <a href="https://github.com/janzgraggen/road_segmentation" target="_blank" class="external-link">
-                            <img src="assets/icons/GitHub_Logo.png" alt="GitHub">
-                        </a>
-                        <a href="https://github.com/janzgraggen/road_segmentation/blob/main/Project_Report.pdf" target="_blank" class="external-link">
-                            <img src="assets/icons/Report.jpg" alt="Report">
-                        </a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Project 4 -->
-            <div class="swiper-slide">
-                <div class="projects-content">
-                    <h3>Neuronal cell morphology classification</h3>
-                    <img id="proj_img" src="assets/images/projects/MODELDIAGRAM_img.jpeg" alt="Road-Segmentation IMG">
-
-                    <p>
-                        <strong>Description:</strong> Combined Algebraic Topology and Graph Neural Networks (GNNs) in multi-embedding fusion models for classifying neuronal morphologies.
-                    </p>
-
-                    <ul class="bullet-points">
-                        <li>Implemented multi-embedding fusion model using PyTorch, and PyTorch Geometric</li>
-                        <li>Generated topological representations via Persistent Homology</li>
-                        <li>Developed pipeline to reproduce state-of-the-art research in neuronal morphology classification</li>
-                        <li>Improved classification performance by combining GNN and topological features</li>
-                    </ul>
-
-                    <div class="links-row">
-                        <a href="https://github.com/janzgraggen/algTopo-ML-neuronCls" target="_blank" class="external-link">
-                            <img src="assets/icons/GitHub_Logo.png" alt="GitHub">
-                        </a>
-                        <a href="https://github.com/janzgraggen/algTopo-ML-neuronCls/blob/main/documents/Semester_project-Report.pdf" target="_blank" class="external-link">
-                            <img src="assets/icons/Report.jpg" alt="Report">
-                        </a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Project 5 -->
-            <div class="swiper-slide">
-                <div class="projects-content">
-                    <h3>Graph based Epilepsy Seizure Detection form EEG-Signal</h3>
-                    <img id="proj_img" src="assets/images/projects/epilepsy.png" alt="Road-Segmentation IMG">
-
-                    <p>
-                        <strong>Description:</strong> Explored Graph Machine Learning for seizure detection, experimenting with signal representations, graph construction, and model architectures.
-                    </p>
-
-                    <ul class="bullet-points">
-                        <li>Built feature processing pipeline in Python</li>
-                        <li>Implemented benchmark models for multi-channel time series, including CNNs and LSTMs</li>
-                        <li>Improved classification performance using Graph Neural Networks and hybrid approaches</li>
-                    </ul>
-
-                    <div class="links-row">
-                        <a href="https://github.com/janzgraggen/EEGseizure_graphML" target="_blank" class="external-link">
-                            <img src="assets/icons/GitHub_Logo.png" alt="GitHub">
-                        </a>
-                        <a href="https://github.com/janzgraggen/EEGseizure_graphML/blob/main/documents/report.pdf" target="_blank" class="external-link">
-                            <img src="assets/icons/Report.jpg" alt="Report">
-                        </a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Project 6 -->
-            <div class="swiper-slide">
-                <div class="projects-content">
-                    <h3>Feature Engineering on BRFSS survey data for Heart Attack prediction</h3>
-                    <img id="proj_img" src="assets/images/projects/brfss.png" alt="Project IMG">
-                    <p>
-                         <strong>Description:</strong> Predicted heart attacks from survey data using feature engineering and logistic regression models.
-                    </p>
-
-                    <ul class="bullet-points">
-                        <li>Built data cleaning, representation, and augmentation pipeline with Python and pandas</li>
-                        <li>Developed prediction pipeline with Python and PyTorch</li>
-                    </ul>
-                    <div class="links-row">
-                        <a href="https://github.com/janzgraggen/heartattack_prediction" target="_blank" class="external-link">
-                            <img src="assets/icons/GitHub_Logo.png" alt="GitHub">
-                        </a>
-                        <a href="https://github.com/janzgraggen/heartattack_prediction/blob/main/Project_Report.pdf" target="_blank" class="external-link">
-                            <img src="assets/icons/Report.jpg" alt="Report">
-                        </a>
-                    </div>
-                </div>
-            </div>
-
-
-        </div>
-
-        <!-- Pagination Dots -->
-        <div class="swiper-pagination"></div>
-
-    </div> <!-- end swiper -->
-
-    <script src="js/swiper.js"></script>
-    </section>
-
-<!-- Creative ––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––– -->
-<section id="creative" class="portfolio-section">
-    <h1 class="creative-title"> »CREATIVE</h1>
-    <div class="photo-scroller">
-
-        <div class="photo-slide vertical-text-slide" style="top: 150px; margin-right: 5px;">
-            <p>/PHOTOGRAPHY</p>
-        </div>
-
-        <div class="photo-slide" style="top: 20px; margin-right: 30px;">
-            <img src="assets/images/creative/p1.jpeg" alt="Photo 1">
-            <p class="photo-caption">Hong Kong, 2024</p>
-        </div>
-
-        <div class="photo-slide" style="top: 130px; margin-right: 10px;">
-            <img src="assets/images/creative/p26.jpeg" alt="Photo 1">
-            <p class="photo-caption">North Macedonia, 2021</p>
-        </div>
-
-        <div class="photo-slide" style="top: 90px; margin-right: 20px;">
-            <img src="assets/images/creative/p2.jpeg" alt="Photo 2">
-            <p class="photo-caption">Thailand, 2024</p>
-        </div>
-
-        <div class="photo-slide" style="top: 40px; margin-right: 25px;">
-            <img src="assets/images/creative/p3.jpeg" alt="Photo 3">
-            <p class="photo-caption">Malaysia, 2023</p>
-        </div>
-
-        <div class="photo-slide" style="top: 120px; margin-right: 30px;">
-            <img src="assets/images/creative/p4.jpeg" alt="Photo 3">
-            <p class="photo-caption">Hong Kong, 2023</p>
-        </div>
-        
-        <div class="photo-slide" style="top: 50px; margin-right: 10px;">
-            <img src="assets/images/creative/p13.jpeg" alt="Photo 3">
-            <p class="photo-caption">Taiwan, 2023</p>
-        </div>
-
-
-        <div class="photo-slide" style="top: 0px; margin-right: 20px;">
-            <img src="assets/images/creative/p20.jpeg" alt="Photo 3">
-            <p class="photo-caption">Montenegro, 2021</p>
-        </div>
-
-
-        <div class="photo-slide" style="top: 50px; margin-right: 10px;">
-            <img src="assets/images/creative/p6.jpeg" alt="Photo 3">
-            <p class="photo-caption">Malaysia, 2023</p>
-        </div>
-
-        <div class="photo-slide" style="top: 130px; margin-right: 10px;">
-            <img src="assets/images/creative/p25.jpeg" alt="Photo 3">
-            <p class="photo-caption">Türkiye, 2021</p>
-        </div>
-
-        <div class="photo-slide" style="top: 20px; margin-right: 30px;">
-            <img src="assets/images/creative/p7.jpeg" alt="Photo 1">
-            <p class="photo-caption">China, 2024</p>
-        </div>
-
-        <div class="photo-slide" style="top: 90px; margin-right: 20px;">
-            <img src="assets/images/creative/p8.jpeg" alt="Photo 2">
-            <p class="photo-caption">UK, 2024</p>
-        </div>
-
-        <div class="photo-slide" style="top: 40px; margin-right: 25px;">
-            <img src="assets/images/creative/p9.jpeg" alt="Photo 3">
-            <p class="photo-caption">Hong Kong, 2023</p>
-        </div>
-
-        <div class="photo-slide" style="top: 120px; margin-right: 30px;">
-            <img src="assets/images/creative/p10.jpeg" alt="Photo 3">
-            <p class="photo-caption">Morroco, 2022</p>
-        </div>
-
-        <div class="photo-slide" style="top: 0px; margin-right: 20px;">
-            <img src="assets/images/creative/p11.jpeg" alt="Photo 3">
-            <p class="photo-caption">Hong Kong, 2023</p>
-        </div>
-
-        <div class="photo-slide" style="top: 50px; margin-right: 10px;">
-            <img src="assets/images/creative/p12.jpeg" alt="Photo 3">
-            <p class="photo-caption">France, 2024</p>
-        </div>
-
-        <div class="photo-slide" style="top: 80px; margin-right: 10px;">
-            <img src="assets/images/creative/p22.jpeg" alt="Photo 3">
-            <p class="photo-caption">Bulgaria, 2021</p>
-        </div>
-
-        <div class="photo-slide" style="top: 10px; margin-right: 10px;">
-            <img src="assets/images/creative/p21.jpeg" alt="Photo 3">
-            <p class="photo-caption">Morroco, 2022</p>
-        </div>
-
-        <div class="photo-slide" style="top: 50px; margin-right: 50px;">
-            <img src="assets/images/creative/p5.jpeg" alt="Photo 3">
-            <p class="photo-caption">Malaysia, 2023</p>
-        </div>
-
-        
-
-
-
-        <div class="photo-slide vertical-text-slide" style="top: 150px; margin-right: 5px;">
-            <p>/ILLUSTRATION</p>
-        </div>
-
-        <div class="photo-slide" style="top: 80px; margin-right: 10px;">
-            <img src="assets/images/creative/i7.jpg" alt="Photo 3">
-            <p class="photo-caption">Case Study I, 2023</p>
-        </div>
-
-        <div class="photo-slide" style="top: 150px; margin-right: 10px;">
-            <img src="assets/images/creative/i8.jpg" alt="Photo 3">
-            <p class="photo-caption">Case Study II, 2023</p>
-        </div>
-    
-        <div class="photo-slide" style="top: 20px; margin-right: 10px;">
-            <img src="assets/images/creative/i1.png" alt="Photo 3">
-            <p class="photo-caption"> Attacama I, 2021</p>
-        </div>
-
-        <div class="photo-slide" style="top: 150px; margin-right: 10px;">
-            <img src="assets/images/creative/i2.jpg" alt="Photo 3">
-            <p class="photo-caption">Attacama II, 2021</p>
-        </div>
-
-        <div class="photo-slide" style="top: 60px; margin-right: 10px;">
-            <img src="assets/images/creative/i3.png" alt="Photo 3">
-            <p class="photo-caption"> Orient I, 2021</p>
-        </div>
-
-        <div class="photo-slide" style="top: 120px; margin-right: 10px;">
-            <img src="assets/images/creative/i6.png" alt="Photo 3">
-            <p class="photo-caption"> Orient II, 2021</p>
-        </div>
-
-        <div class="photo-slide" style="top: 80px; margin-right: 10px;">
-            <img src="assets/images/creative/i4.png" alt="Photo 3">
-            <p class="photo-caption"> Mondrian Colors, 2023</p>
-        </div>
-
-        <div class="photo-slide" style="top: 20px; margin-right: 10px;">
-            <img src="assets/images/creative/i5.png" alt="Photo 3">
-            <p class="photo-caption"> Lines, 2023</p>
-        </div>
-
-        <div class="photo-slide vertical-text-slide" style="top: 150px; margin-right: 5px;">
-            <p>/LOGO_DESIGN</p>
-        </div>
-
-        <div class="photo-slide" style="top: 60px; margin-right: 10px;">
-            <img src="assets/images/creative/i9.jpg" alt="Photo 3">
-            <p class="photo-caption"> Surfing Hong Kong (Logo), 2023</p>
-        </div>
-
-        <div class="photo-slide" style="top: 100px; margin-right: 10px;">
-            <img src="assets/images/creative/i10.jpg" alt="Photo 3">
-            <p class="photo-caption"> Lancement Experts (Logo), 2025</p>
-        </div>
-
-    
-
-        
-
-
-
-    </div>
-</section>
-
-<!-- Load JS AFTER HTML -->
-<script src="js/creative.js"></script>
-
-
-
-    <footer>
-        <p>&copy; 2025 Jan Zgraggen.</p>
-    </footer>
-
-    <style>
-        footer {
-            background-color: rgb(0, 0, 0);
-            color: #fff;
-            text-align: center;
-            padding: 10px 0;
-            width: 100%;
-            bottom: 0;
-            font-weight: 1;
-        }
-
-        footer p {
-            margin: 0;
-            font-size: 14px;
-        }
-    </style>
 </body>
-
-
 </html>

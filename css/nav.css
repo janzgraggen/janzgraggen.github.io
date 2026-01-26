@@ -1,314 +1,318 @@
-/* 2. Navigation Styles */
-nav {
-    background: transparent; /* Background for the nav */
-    color: black;
-    padding: 12px; /* Padding around the nav */
-    position: fixed; /* Keeps the nav fixed at the top */
-    width: 100px; /* Set a width for the nav box */
-    top: 80px; /* Align to the top with some margin */
-    right: 150px; /* Align to the left with some margin */
-    z-index: 1000; /* Ensure it stays above other content */
-    text-align: right; /* Align the text to the right */
-    height: 60px; /* Set a fixed height for the nav */
+:root {
+  /* Tunables (same feel as old numbers, but centralized) */
+  --nav-top: 35px;
+  --nav-right: 35px;
+  --nav-width: 120px;
+  --nav-padding: 12px;
+
+  --nav-z: 20;
+  --dropdown-z: 30;
+
+  --nav-text: #000;
+  --nav-text-inverted: #fff;
+
+  --icon-size: 20px;
+  --logo-size: 40px;
+
+  --circle-size: 7px;
+  --circle-offset-x: -115px; /* dot sits just right of link text */
+
+  --mobile-break: 920px;
 }
 
-/* .nav-projects {
-    background: lightgreen;  Change background for projects 
-    color: black;  Change text color 
-} 
+/* Anchor nav to the frame, not the viewport */
+#nav {
+  background: transparent;
+  color: var(--nav-text);
 
-.nav-creativity {
-    background: lightcoral;  Change background for creativity 
-    color: black;  Change text color 
-} */
+  position: absolute;
+  top: var(--nav-top);
+  right: var(--nav-right);
 
-nav .logo {
-    text-align: right; /* Center the logo */
-    margin-bottom: 0; /* Space below the logo */
+  width: var(--nav-width);
+  padding: var(--nav-padding);
+
+  z-index: var(--nav-z);
+  text-align: right;
+
+  height: 60px;
+
+  --nav-link-color: var(--nav-text);
+  --nav-link-hover: rgb(224, 221, 199);
+  --nav-link-opacity: 1;
 }
 
-nav .logo-image {
-    width: 40px; /* Set the width of the logo image */
-    height: 40px; /* Set the height of the logo image */
-    border-radius: 50%; /* Make the image round */
-    object-fit: cover; /* Ensure the image covers the area without distortion */
+#nav.theme-dark {
+  --nav-link-color: var(--nav-text-inverted);
+  --nav-link-hover: rgba(255, 255, 255, 0.7);
+  --nav-link-opacity: 1;
+}
+
+#nav.theme-transparent {
+  --nav-link-color: var(--nav-text-inverted);
+  --nav-link-hover: rgba(255, 255, 255, 0.671);
+  --nav-link-opacity: 0.45;
+}
+
+/* Logo */
+#nav .logo {
+  text-align: right;
+  margin-bottom: 0;
+  position: relative;
+  z-index: 9999;
+
+}
+
+#nav .logo-image {
+  width: var(--logo-size);
+  height: var(--logo-size);
+  border-radius: 50%;
+  object-fit: cover;
+  position: relative;
+  z-index: 9999;
+}
+
+#nav .logo-image:hover {
+  transform: scale(1.1);
+  transition: transform 0.2s;
+  position: relative;
+  z-index: 9999;
+}
+
+/* Links */
+#nav ul {
+  list-style: none;
+  padding: 0;
+  text-align: right;
+  margin-top: 0;
+}
+
+#nav ul li {
+  margin: 1px 0;
+}
+
+#nav a {
+  color: var(--nav-link-color);
+  opacity: var(--nav-link-opacity);
+  font-weight: bold;
+  font-size: small;
+  text-decoration: none;
+  padding: 5px;
+  position: relative;
+  transition: color 0.3s, opacity 0.3s;
+}
+
+#nav a:hover {
+  background: rgba(255, 255, 255, 0);
+  border-radius: 5px;
+  font-size: smaller;
+  color: var(--nav-link-hover);
 }
 
 
-nav .logo-image:hover {
-    transform: scale(1.1); /* Scale the logo image to 110% on hover */
+
+
+/* Icons follow the same fade */
+#nav.theme-transparent .external-links img {
+  opacity: 0.35;
+}
+
+/* Circle dot also fades */
+#nav.theme-transparent #circle {
+  color: var(--nav-text-inverted);
+  opacity: 0.35;
 }
 
 
-nav ul {
-    list-style: none; /* Remove bullet points */
-    padding: 0; /* Remove default padding */
-    text-align: right; /* Align the links to the right*/
-    margin-top: 0; /* Remove margin above the list */
+/* External links (desktop layout preserved) */
+#nav .external-links {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  direction: rtl;
+  max-width: 4px;
+
+  margin-left: 98px;
+  margin-top: -15px;
 }
 
-nav ul li {
-    margin: 1px 0; /* Space between navigation items */
+#nav .external-links a {
+  display: block;
+  margin-left: 0px;
 }
 
-nav a {
-    color: black;
-    font-weight: bold; /* Make the font bold */
-    font-size: small;
-    text-decoration: none;
-    padding: 5px; /* Add padding for better click area */
-    position: relative; /* Position relative for pseudo-element */
-    transition: color 0.3s; /* Smooth transition for text color */
+#nav .external-links img {
+  width: var(--icon-size);
+  height: var(--icon-size);
+  object-fit: contain;
+  transition: transform 0.2s;
 }
 
-.nav-about a {  
-    /*background: lightblue; /* Change background for about */
-    color: white; /* Change text color */
+#nav .external-links img:hover {
+  transform: scale(1.1);
 }
 
-.nav-home a {  
-    /*background: lightblue; /* Change background for about */
-    color: rgb(255, 255, 255); /* Change text color */
-    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); /* Add a black gradual shadow */
-}
-
-nav a:hover {
-    background: rgba(255, 255, 255, 0); /* Light background on hover */
-    border-radius: 5px; /* Rounded corners on hover */
-    font-size: smaller; /* Increase font size on hover */
-    color:gray
-}
-
-.nav-home a:hover{
-    color: black;
-}
-
-nav .external-links {
-    display: grid; /* Use flexbox for alignment */
-    /*justify-content: grid-end; /* Align the logos to the right */
-    grid-template-columns: repeat(2, 1fr); /* Create a 2x2 grid */
-    direction: rtl; /* Set the direction to right-to-left */
-    margin-top: 0px; /* Space above the grid */
-    /*gap: 0px; /* Space between grid items */
-    max-width: 40px; /* Set a maximum width for the grid */
-    margin-left: 60px;
-    margin-top:-15px;
-}
-
-nav .external-links a {
-    display: block; /* Make the anchor a block element */
-    margin-left: 0px; /* Space between logos */
-}
-
-nav .external-links img {
-    width: 20px; /* Set a smaller width for the logos */
-    height: 20px; /* Set a smaller height for the logos */
-    object-fit: contain; /* Ensure logos maintain aspect ratio */
-    transition: transform 0.3s; /* Smooth transition for scaling */
-}
-
-nav .external-links img:hover {
-    transform: scale(1.1); /* Scale the logo on hover */
-}
-
+/* Dot indicator — now positioned relative to nav instead of fixed to viewport */
 #circle {
-    width: 7px;
-    height: 7px;
-    border-radius: 50%;
-    position: fixed;
-    transition: all 0.01s ease-in-out;
-    right: 155px;
+  width: var(--circle-size);
+  height: var(--circle-size);
+  border-radius: 50%;
+
+  position: absolute;
+  right: calc(100% + var(--circle-offset-x));
+  top: 0;
+
+  transition: top 0.01s ease-in-out, background-color 0.01s ease-in-out;
 }
-/*---------HOMEPHRASE --------------------------------------------*/
+
+/* Homephrase preserved */
 #homephrase {
-    font-weight: bold;
-    color: rgb(0, 0, 0);
-    font-size: small;
-    display: none; /* Initially hide the homephrase */
-    visibility: hidden; /* Initially hidden */
-    opacity: 0; /* Start with opacity 0 for fade effect */
-    transition: opacity 1s ease, visibility 1s ease; /* Smooth transition for opacity and visibility */
+  font-weight: bold;
+  color: rgb(0, 0, 0);
+  font-size: small;
+
+  display: none;
+  visibility: hidden;
+  opacity: 0;
+
+  transition: opacity 1s ease, visibility 1s ease;
 }
 
 #homephrase.show {
-    display: block; /* Show the element */
-    opacity: 1; /* Fade in to full opacity */
-    visibility: visible; /* Make it visible */
-}
-#homephrase p:first-of-type {
-    position: absolute;
-    top: 26px; /* Adjust the top position as needed */
-    left: -50px; /* Adjust the left position as needed */
-    max-width: 600px;
+  display: block;
+  opacity: 1;
+  visibility: visible;
 }
 
-#homephrase p:nth-of-type(2) {
-    position: absolute;
-    top: 46px; /* Adjust the top position as needed */
-    left: -113px; /* Adjust the left position as needed */
-    max-width: 600px;
-}
+/* These positions are intentionally preserved as-is (visual identity) */
+#homephrase p:first-of-type { position: absolute; top: 26px; left: -50px; max-width: 600px; }
+#homephrase p:nth-of-type(2) { position: absolute; top: 46px; left: -118px; max-width: 600px; }
+#homephrase p:nth-of-type(3) { position: absolute; top: 46px; left: 105px; max-width: 600px; }
+#homephrase p:nth-of-type(4) { position: absolute; top: 66px; left: 7px; max-width: 600px; }
+#homephrase p:nth-of-type(5) { position: absolute; top: 86px; left: -19px; max-width: 600px; }
+#homephrase p:nth-of-type(6) { position: absolute; top: 86px; left: 105px; max-width: 600px; }
 
-#homephrase p:nth-of-type(3) {
-    position: absolute;
-    top: 46px; /* Adjust the top position as needed */
-    left: 110px; /* Adjust the left position as needed */
-    max-width: 600px;
-}
-
-#homephrase p:nth-of-type(4) {
-    position: absolute;
-    top: 66px; /* Adjust the top position as needed */
-    left: 12px; /* Adjust the left position as needed */
-    max-width: 600px;
-}
-
-#homephrase p:nth-of-type(5) {
-    position: absolute;
-    top: 86px; /* Adjust the top position as needed */
-    left: -15px; /* Adjust the left position as needed */
-    max-width: 600px;
-}
-
-#homephrase p:nth-of-type(6) {
-    position: absolute;
-    top: 86px; /* Adjust the top position as needed */
-    left: 110px; /* Adjust the left position as needed */
-    max-width: 600px;
-}
-/*----------–––––––––––––––––––––––––––––––––--------------*/
-
-
-/* –––––––––––Dropdown Styles ––––––––––––––––––––––––- */
+/* Mobile menu button */
 .dropdown-btn {
-    display: none;
+  display: none;
 }
-/* Dropdown Styles */
-/* Removed duplicate .dropdown-content block */
 
-/* Dropdown container (hidden by default) */
+/* Dropdown overlay: constrained to the frame */
 #dropdown {
-    display: none; /* Hide by default */
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw; /* Full viewport width */
-    height: 100vh; /* Full viewport height */
-    background: rgba(0, 0, 0, 0.846); /* Dark background with slight transparency */
-    text-align: center;
-    z-index: 1000; /* Ensure it appears above other content */
-    transition: opacity 0.3s ease-in-out;
+  display: none;
+  position: absolute;
+  inset: 0;
+
+  background: rgba(0, 0, 0, 0.846);
+  text-align: center;
+
+  z-index: var(--dropdown-z);
+  transition: opacity 0.3s ease-in-out;
 }
 
-/* Show the dropdown when active */
 #dropdown.show {
-    display: block;
+  display: block;
 }
 
-/* Style the list */
 #dropdown ul {
-    list-style: none;
-    padding: 0;
-    margin-top: 20vh; /* Centering effect */
+  list-style: none;
+  padding: 0;
+  margin-top: 20%;
 }
 
-/* Style each list item */
 #dropdown ul li {
-    margin: 2px 15px;
+  margin: 2px 15px;
 }
 
-/* Style the links */
 #dropdown ul li a {
-    font-size: 40px;
-    font-weight: bold;
-    text-decoration: none;
-    text-align: left;
-    color: white;
-    display: block;
-    transition: color 0.3s ease-in-out;
+  font-size: 40px;
+  font-weight: bold;
+  text-decoration: none;
+  text-align: left;
+  color: white;
+
+  display: block;
+  transition: color 0.3s ease-in-out;
 }
 
-/* Hover effect */
 #dropdown ul li a:hover {
-    color: rgba(255, 255, 255, 0.695); /* Change text color on hover */
-    font-size: 42px; /* Increase font size on hover */
+  color: rgba(255, 255, 255, 0.695);
+  font-size: 42px;
 }
 
-
-
-.dropdown-content.show {
-    display: block;
-}
-
-
-/* Show dropdown when active */
-
-/*-----------------------*/
-
-/* Styles for screens smaller than 600px */
+/* Responsive behavior (preserve concept, adjust ordering) ––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––––*/
 @media (max-width: 920px) {
-    nav ul{
-        display: none;
-    }
+  #nav {
+    right: 12px;   /* small inset so nothing clips */
+    top: 12px;
+    width: auto;
+    padding: 0;
+    height: auto;  /* let it grow naturally */
+  }
 
-    nav .external-links {
-        grid-template-columns: repeat(1, 1fr); /* Create a 2x2 grid */
-        transform: translate3d(0, 20px, 0);
-    }
+  #nav .nav-links {
+    display: none;
+  }
 
-    nav .external-links a {
-        display: block; /* Make the anchor a block element */
-        margin-top: -3px; /* Space between logos */
-        margin-bottom: -3px;
-        transform: translateX(120px);
-    }
-
-    nav .logo-image {
-        width: 23px; /* Set the width of the logo image */
-        height: 23px; /* Set the height of the logo image */
-        border-radius: 50%; /* Make the image round */
-        object-fit: cover; /* Ensure the image covers the area without distortion */
-        transform: translateX(120px);
-        transition: transform 0s, scale 0.3s;
-    }
-    nav .logo-image:hover {
-        transform: translateX(120px) scale(1.1); /* Scale the logo image to 110% on hover */
-    }
-
-    #circle {
-        display: none;
-    }
-
-    #homephrase {
-        display: none; /* Initially hide the homephrase */
-        visibility: hidden; /* Initially hidden */
-    }
+  /* Keep elements aligned to the corner without transforms */
+  #nav .logo-image {
+    width: 23px;
+    height: 23px;
+    transform: none;
+  }
 
 
-    .dropdown-btn {
-        display: block;
-        background-color: rgb(0, 0, 0);
-        color: rgba(255, 255, 255, 0.84);
-        padding:  5px 2px;
-        border: none;
-        cursor: pointer;
-        font-size: 10px;
-        border-radius: 15px;
-        width: 18px;
-        height: 18px;
-        text-align: bottom;
-        padding: 0;
-        transform: translate3d(195px,1px,0);
-        transition: transform 0.3s;
-    }
 
-    .nav-about .dropdown-btn {
-        background-color: white;
-        color: black; /* Change text color */
-    }
+  .dropdown-btn {
+    display: block;
+    transform: none;
 
+    margin-top: 6px;
+    margin-left: 6px; /* ← tweak this to align horizontally */
+
+    align-self: flex-end; /* ensures right alignment in flex stacks */
+
+    background-color: rgb(0, 0, 0);
+    color: rgba(255, 255, 255, 0);
+    border: none;
+    cursor: pointer;
+
+    font-size: 10px;
+    border-radius: 15px;
+    width: 18px;
+    height: 18px;
+    padding: 0;
+  }
+ 
+    /* Hover grow */
     .dropdown-btn:hover {
-        transform: translate3d(195px,1px,0) scale(1.1);
+    transform: scale(1.1);
+    transition: transform 0.2s;
     }
-    
+
+  /* Stack icons vertically under the button */
+  #nav .external-links {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    margin: 4px 0 0 0;
+    transform: none;
+    direction: rtl;
+  }
+
+  #nav .external-links a {
+    margin: -4px 0;
+  }
+
+  /* Required order */
+  #nav .external-link--github { order: 1; }
+  #nav .external-link--linkedin { order: 2; }
+
+  #circle {
+    display: none;
+  }
+
+  #homephrase {
+    display: none;
+    visibility: hidden;
+  }
 }

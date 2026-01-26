@@ -1,171 +1,276 @@
-//––––––––––––––– positional transition of navbar and logos
-function updateNavbarAndLogos() {
-    const navbar = document.getElementById('nav');
-    const sections = document.querySelectorAll('section');
-    const offsetTop = 120;
-    const linkedinLogo = document.getElementById('linkedin-logo');
-    const githubLogo = document.getElementById('github-logo');
-    const homePhrase = document.getElementById("homephrase");
+(() => {
+  const nav = document.getElementById('nav');
+  const dropdown = document.getElementById('dropdown');
+  const btn = document.getElementById('btn');
+  const circle = document.getElementById('circle');
 
-    sections.forEach(section => {
-        const sectionTop = section.offsetTop;
-        const sectionHeight = section.clientHeight;
+  const linkedinLogo = document.getElementById('linkedin-logo');
+  const githubLogo = document.getElementById('github-logo');
+  const homePhrase = document.getElementById('homephrase');
 
-        if (window.scrollY >= sectionTop - offsetTop && window.scrollY < sectionTop + sectionHeight - offsetTop) {
-            navbar.className = ''; // Clear existing classes
-            navbar.classList.add('nav-' + section.id); // Add new class based on section ID
-            // Change image sources based on the active section
-            if ((section.id === 'home') || (section.id === 'projects')|| (section.id === 'creativity')) {
-                // Default images for section home
-                linkedinLogo.src = 'assets/icons/LI-In-Bug.png'; // Default LinkedIn logo
-                githubLogo.src = 'assets/icons/github-mark.png'; // Default GitHub logo
-            } else if (section.id === 'about') {
-                // Alternate images for section about
-                linkedinLogo.src = 'assets/icons/LI-In-Bug-white.png'; // Alternate LinkedIn logo
-                githubLogo.src = 'assets/icons/github-mark-white.png'; // Alternate GitHub logo
-            }
-            if (section.id === 'home' && window.innerWidth > 920) {
-                homePhrase.classList.add("show");
-                homePhrase.style.transition = "opacity 3s ease-in-out";
-                homePhrase.style.opacity = 1;
-            } else {
-                homePhrase.classList.remove("show");
-                homePhrase.style.transition = "opacity 0s ease-in-out";
-                homePhrase.style.opacity = 0;
-            }
-        }
-    });
-}
-window.addEventListener('scroll', updateNavbarAndLogos);
-window.addEventListener('load', updateNavbarAndLogos);
-window.addEventListener('resize', updateNavbarAndLogos);
-//––––––––––––––– positional transition of navbar and logos END
+  const desktopLinks = Array.from(nav.querySelectorAll('.nav-links a'));
+  const dropdownLinks = Array.from(dropdown.querySelectorAll('a'));
 
-//––––––––––––––– CIRCLE 
-const sectionConfig = {
-    "home": { color: "black", top: "108px"},
-    "about": { color: "white", top: "144px" },
-    "projects": { color: "black", top: "164px" },
-    "creative": { color: "black", top: "183px"}
-};
+  const MOBILE_BREAK = 920;
+  
+  const SECTION_THEME = {
+    home: 'dark',    
+    about: 'dark',
+    projects: 'light',
+    creative: 'transparent',
+  };
 
-function updateCircle(sectionId) {
-    const circle = document.getElementById("circle");
 
-    if (sectionConfig[sectionId]) {
-        circle.style.backgroundColor = sectionConfig[sectionId].color;
-        circle.style.top = sectionConfig[sectionId].top;
-        circle.style.left = sectionConfig[sectionId].left;
-    }
-}
+  // Asset mapping preserved from your original logic
+  const ICONS = {
+    light: {
+      linkedin: 'assets/icons/LI-In-Bug.png',
+      github: 'assets/icons/github-mark.png',
+    },
+    dark: {
+      linkedin: 'assets/icons/LI-In-Bug-white.png',
+      github: 'assets/icons/github-mark-white.png',
+    },
+  };
 
-function onScroll() {
-    const sections = Object.keys(sectionConfig);
-    let currentSection = sections[0]; // Default to first section
+  function getThemeForSection(sectionId) {
+    return SECTION_THEME[sectionId] || 'light';
+  }
 
-    for (const section of sections) {
-        const element = document.getElementById(section);
-        if (element) {
-            const rect = element.getBoundingClientRect();
+  function normalizeHash(hash) {
+    return (hash || '').replace('#', '').trim();
+  }
 
-            // Adjust this value to control how early the change happens
-            const threshold = window.innerHeight * 0.16; 
+  function getActiveSectionId() {
+    const activeEl = document.querySelector('.section.is-active');
+    if (activeEl?.id) return activeEl.id;
 
-            if (rect.top < threshold && rect.bottom > threshold) {
-                currentSection = section;
-            }
-        }
+    if (window.Site?.getActiveSectionId) {
+      const id = window.Site.getActiveSectionId();
+      if (id) return id;
     }
 
-    updateCircle(currentSection);
-    history.replaceState(null, null, `#${currentSection}`);
-}
+    // last resort: hash
+    return normalizeHash(window.location.hash) || 'home';
+  }
 
-// Run when the page loads and when scrolling
-window.addEventListener("scroll", onScroll);
-window.addEventListener("load", onScroll);
+  function setNavClass(sectionId) {
+    nav.className = '';
+    nav.classList.add(`nav-${sectionId}`);
 
-//––––––––––––––– CIRCLE END ––
+    const theme = getThemeForSection(sectionId);
 
-
-//––––––––––––––– MOBILE –––––––––––––––––––––––––––––––––
-
-document.addEventListener("DOMContentLoaded", function () {
-    const btn = document.getElementById("btn");
-    const dropdown = document.getElementById("dropdown");
-    const navLinks = document.querySelectorAll("#dropdown ul li a");
-    const linkedinLogo = document.getElementById('linkedin-logo');
-    const githubLogo = document.getElementById('github-logo');
-
-    function toggleDropdown(event) {
-        event.stopPropagation();
-        dropdown.classList.toggle("show");
-        if (dropdown.classList.contains("show")) {
-            linkedinLogo.src = 'assets/icons/LI-In-Bug-white.png';
-            githubLogo.src = 'assets/icons/github-mark-white.png';
-        } else {
-            closeDropdown();
-        }
-    }
-
-    function closeDropdown() {
-        linkedinLogo.src = 'assets/icons/LI-In-Bug.png';
-        githubLogo.src = 'assets/icons/github-mark.png';
-        dropdown.classList.remove("show");
-    }
-
-    btn.addEventListener("click", toggleDropdown);
-
-    // Close dropdown when clicking a link
-    navLinks.forEach(link => {
-        link.addEventListener("click", function () {
-            closeDropdown();
-        });
-    });
-
-    document.addEventListener("click", function (event) {
-        if (!dropdown.contains(event.target) && !btn.contains(event.target)) {
-            closeDropdown();
-        }
-    });
-
-    window.addEventListener("resize", function () {
-        if (window.innerWidth > 920) {
-            closeDropdown();
-        }
-    });
-});
+    nav.classList.remove('theme-light', 'theme-dark', 'theme-transparent');
+    nav.classList.add(`theme-${theme}`);
+  }
 
 
-document.addEventListener('DOMContentLoaded', () => {
-  const nav = document.querySelector('nav');
-  const creativeSection = document.querySelector('#creative');
 
-  function updateNavOpacity() {
-    const creativeRect = creativeSection.getBoundingClientRect();
 
-    const triggerPoint = window.innerHeight / 10; // halfway down the viewport
+  function setIcons(theme) {
+    const isWhite = theme === 'dark' || theme === 'transparent';
 
-    if (creativeRect.top < triggerPoint && creativeRect.bottom > 0) {
-    nav.style.opacity = '0.3';
+    linkedinLogo.src = isWhite
+        ? ICONS.dark.linkedin
+        : ICONS.light.linkedin;
+
+    githubLogo.src = isWhite
+        ? ICONS.dark.github
+        : ICONS.light.github;
+  }
+
+  function updateHomePhrase(sectionId) {
+    if (sectionId === 'home' && window.innerWidth > MOBILE_BREAK) {
+      homePhrase.classList.add('show');
+      homePhrase.style.transition = 'opacity 3s ease-in-out';
+      homePhrase.style.opacity = 1;
     } else {
-    nav.style.opacity = '1';
+      homePhrase.classList.remove('show');
+      homePhrase.style.transition = 'opacity 0s ease-in-out';
+      homePhrase.style.opacity = 0;
     }
   }
 
-  // On scroll, update opacity
-  window.addEventListener('scroll', updateNavOpacity);
+  function setAriaCurrent(sectionId) {
+    const allLinks = [...desktopLinks, ...dropdownLinks];
+    allLinks.forEach((a) => a.removeAttribute('aria-current'));
 
-  // On page load also run once
-  updateNavOpacity();
+    // Only mark desktop link set (keeps overlay simple)
+    const match = desktopLinks.find((a) => normalizeHash(a.getAttribute('href')) === sectionId);
+    if (match) match.setAttribute('aria-current', 'page');
+  }
 
-  // On hover, restore full opacity
-  nav.addEventListener('mouseenter', () => {
-    nav.style.opacity = '1';
-  });
+  function positionCircle(sectionId, theme) {
+    // Circle is only relevant on desktop (CSS hides on mobile).
+    const link = desktopLinks.find((a) => normalizeHash(a.getAttribute('href')) === sectionId);
 
-  // On mouse leave, re-check scroll position to decide opacity
-  nav.addEventListener('mouseleave', () => {
-    updateNavOpacity();
-  });
-});
+    // If we're on home (no link), hide the dot to avoid odd placement.
+    if (!link) {
+      circle.style.opacity = '0';
+      return;
+    }
+  function applyButtonTheme(theme) {
+        if (theme === 'light') {
+            btn.style.backgroundColor = 'black';
+            btn.style.color = 'white';
+            btn.style.opacity = '1';
+        }
+
+        if (theme === 'dark') {
+            btn.style.backgroundColor = 'white';
+            btn.style.color = 'gray';
+            btn.style.opacity = '1';
+        }
+
+        if (theme === 'transparent') {
+            btn.style.backgroundColor = 'white';
+            btn.style.color = 'gray';
+            btn.style.opacity = '0.25';
+        }
+    }
+  function applyCircleTheme(theme) {
+        if (theme === 'light') {
+            circle.style.backgroundColor = 'black';
+            circle.style.opacity = '1';
+        }
+
+        if (theme === 'dark') {
+            circle.style.backgroundColor = 'white';
+            circle.style.opacity = '1';
+        }
+
+        if (theme === 'transparent') {
+            circle.style.backgroundColor = 'white';
+            circle.style.opacity = '0.35';
+        }
+    }
+
+    circle.style.opacity = '1';
+
+    applyCircleTheme(theme);
+    applyButtonTheme(theme);
+
+    // Compute vertical alignment relative to nav box
+    const navRect = nav.getBoundingClientRect();
+    const linkRect = link.getBoundingClientRect();
+
+    const circleSize = circle.getBoundingClientRect().height || 7;
+    const top = (linkRect.top - navRect.top) + (linkRect.height / 2) - (circleSize / 2);
+
+    circle.style.top = `${Math.round(top)}px`;
+  }
+
+  function applySectionState(sectionId) {
+    setNavClass(sectionId);
+
+    const theme = getThemeForSection(sectionId);
+    setIcons(theme);
+
+    setAriaCurrent(sectionId);
+    updateHomePhrase(sectionId);
+    positionCircle(sectionId, theme);
+  }
+
+  function closeDropdown() {
+    dropdown.classList.remove('show');
+    dropdown.setAttribute('aria-hidden', 'true');
+    btn.setAttribute('aria-expanded', 'false');
+
+    // Re-apply section theme after closing overlay
+    applySectionState(getActiveSectionId());
+  }
+
+  function openDropdown() {
+    dropdown.classList.add('show');
+    dropdown.setAttribute('aria-hidden', 'false');
+    btn.setAttribute('aria-expanded', 'true');
+
+    // When overlay is open, icons should be white (preserve your original mobile behavior)
+    setIcons('dark');
+  }
+
+  function toggleDropdown(event) {
+    event.stopPropagation();
+    if (dropdown.classList.contains('show')) closeDropdown();
+    else openDropdown();
+  }
+
+  function navigateTo(sectionId) {
+    // Keep hash behavior (for shareability) but drive actual transition through the existing system.
+    history.replaceState(null, '', `#${sectionId}`);
+
+    if (window.Site?.goTo) {
+      window.Site.goTo(sectionId);
+    }
+    // If not available, we still updated the hash; state observer will handle visual state.
+  }
+
+  function onNavLinkClick(e) {
+    const href = e.currentTarget.getAttribute('href');
+    const sectionId = normalizeHash(href);
+    if (!sectionId) return;
+
+    e.preventDefault();
+    navigateTo(sectionId);
+  }
+
+  // Observe section activation changes (no dependence on scrollY / layout)
+  function watchActiveSection() {
+    const sections = Array.from(document.querySelectorAll('.section'));
+    const observer = new MutationObserver(() => {
+      applySectionState(getActiveSectionId());
+    });
+
+    sections.forEach((s) => observer.observe(s, { attributes: true, attributeFilter: ['class'] }));
+
+    // initial
+    applySectionState(getActiveSectionId());
+  }
+
+  // Hook up events
+  function init() {
+    // Desktop + dropdown links
+    desktopLinks.forEach((a) => a.addEventListener('click', onNavLinkClick));
+    dropdownLinks.forEach((a) => a.addEventListener('click', (e) => {
+      onNavLinkClick(e);
+      closeDropdown();
+    }));
+
+    // Home logo click should go to home via system hook
+    const homeAnchor = nav.querySelector('.logo a');
+    homeAnchor.addEventListener('click', (e) => {
+      e.preventDefault();
+      navigateTo('home');
+    });
+
+    btn.addEventListener('click', toggleDropdown);
+
+    document.addEventListener('click', (event) => {
+      if (!dropdown.contains(event.target) && !btn.contains(event.target)) {
+        closeDropdown();
+      }
+    });
+
+    window.addEventListener('resize', () => {
+      // If leaving mobile, ensure dropdown closes
+      if (window.innerWidth > MOBILE_BREAK) closeDropdown();
+      // Recompute circle alignment and phrase visibility
+      applySectionState(getActiveSectionId());
+    });
+
+    window.addEventListener('hashchange', () => {
+      // If user manually changes hash, keep nav consistent and attempt navigation
+      const id = normalizeHash(window.location.hash) || 'home';
+      if (window.Site?.goTo) window.Site.goTo(id);
+      applySectionState(getActiveSectionId());
+    });
+
+    watchActiveSection();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();

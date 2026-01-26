@@ -1,0 +1,118 @@
+/* Reset / baseline */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  background: #fff; /* neutral backdrop behind the frame */
+  overflow: hidden; /* scrolling logic comes later */
+}
+
+/* Viewport acts as a stable canvas */
+#viewport {
+  position: fixed;
+  inset: 0;
+}
+
+/* Persistent outer frame */
+#frame {
+  position: absolute;
+  isolation: isolate; 
+  inset: 3vh 3vh; /* consistent margin from viewport edges */
+
+  background: rgb(99, 161, 222);
+  border-radius: 12px;
+
+  overflow: hidden; /* content stays clipped to frame */
+  font-family: 'San Francisco', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+}
+
+/* Root container for all sections */
+#content-root {
+  width: 100%;
+  height: 100%;
+
+  position: relative;
+}
+
+/* –––––––––––– Section controll
+
+/* Section baseline */
+.section {
+  position: absolute;
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.section-inner {
+  /* placeholder only */
+}
+
+/* –––––––––––––– Transition Style
+/* Transition mask */
+#transition-mask {
+  position: absolute;
+  inset: 0;
+  background: #123;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 300ms ease;
+  z-index: 30;
+}
+
+/* Section visibility states */
+.section {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 300ms ease;
+}
+
+.section.is-active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* ––––––––––––––––– Additions
+/* Subtle frame elevation */
+#frame {
+  box-shadow:
+    0 10px 30px rgba(0, 0, 0, 0.25),
+    0 1px 0 rgba(255, 255, 255, 0.05) inset;
+}
+
+/* Slightly softer corners at larger sizes */
+@media (min-width: 900px) {
+  #frame {
+    border-radius: 20px;
+  }
+}
+
+/* Content root baseline */
+#content-root {
+  background: transparent;
+}
+
+/* Section baseline refinement */
+.section {
+  will-change: opacity;
+}
+
+/* Transition mask refinement */
+#transition-mask {
+  transition: opacity 360ms ease;
+}
