@@ -1,68 +1,9 @@
-[
-  {
+[ {
     "id": "project-1",
-    "title": "Geothermal Heat Pump Simulation",
-    "authors": ["Jan Zgraggen"],
-    "venue": "conf",
-    "type": "project",
-    "description": "Developed a simulator for geothermal heat pump cycles to analyze component and setup dependencies. Simulates fluid flow and heat conduction through generic pipe geometries and transport media.",
-    "image": "assets/images/projects/heat_pump.jpeg",
-    "links": [
-      {
-        "label": "GitHub",
-        "url": "https://github.com/janzgraggen/GTHP_simulation",
-        "icon": "github"
-      },
-      {
-        "label": "Report",
-        "url": "https://github.com/janzgraggen/GTHP_simulation/blob/main/documents/project_report.pdf",
-        "icon": "report"
-      }
-    ]
-  },
-  {
-    "id": "project-2",
-    "title": "ODE-Solver Software",
-    "authors": ["Jan Zgraggen", "Nathan Kabas Kuroiwa"],
-    "venue": "",
-    "type": "project",
-    "description": "Developed a flexible and extensible C++ solver for ordinary differential equations (ODEs), supporting implicit and explicit methods including Runge-Kutta, Adams-Bashforth, and Euler.",
-    "image": "assets/images/projects/orbit.png",
-    "links": [
-      {
-        "label": "GitHub",
-        "url": "https://github.com/janzgraggen/ode_solver_tool",
-        "icon": "github"
-      }
-    ]
-  },
-  {
-    "id": "project-3",
-    "title": "Aerial Road Segmentation",
-    "authors": ["Colin Berger", "Erik Bessö", "Jan Zgraggen"],
-    "venue": "",
-    "type": "project",
-    "description": "Evaluated the performance of various convolutional neural network (CNN) based architectures for road segmentation from aerial imagery.",
-    "image": "assets/images/projects/predictions2.png",
-    "links": [
-      {
-        "label": "GitHub",
-        "url": "https://github.com/janzgraggen/road_segmentation",
-        "icon": "github"
-      },
-      {
-        "label": "Report",
-        "url": "https://github.com/janzgraggen/road_segmentation/blob/main/Project_Report.pdf",
-        "icon": "report"
-      }
-    ]
-  },
-  {
-    "id": "project-4",
     "title": "Neuronal cell morphology classification",
     "authors": ["Jan Zgraggen", "(supervisor)  Lida Kanari"],
     "venue": "",
-    "type": "project",
+    "type": "semester project",
     "description": "Combined Algebraic Topology and Graph Neural Networks (GNNs) in multi-embedding fusion models for classifying neuronal morphologies.",
     "image": "assets/images/projects/MODELDIAGRAM_img.jpeg",
     "links": [
@@ -79,11 +20,11 @@
     ]
   },
   {
-    "id": "project-5",
+    "id": "project-2",
     "title": "Graph based Epilepsy Seizure Detection form EEG-Signal",
-    "authors": [],
+    "authors": ["Vincent Roduit, Caspar Elias Henking, Aurel Maeder, Jan Zgraggen"],
     "venue": "",
-    "type": "project",
+    "type": "course project",
     "description": "Explored Graph Machine Learning for seizure detection, experimenting with signal representations, graph construction, and model architectures.",
     "image": "assets/images/projects/epilepsy.png",
     "links": [
@@ -100,11 +41,69 @@
     ]
   },
   {
+    "id": "project-3",
+    "title": "Geothermal Heat Pump Simulation",
+    "authors": ["Jan Zgraggen"],
+    "venue": "",
+    "type": "course project",
+    "description": "Developed a simulator for geothermal heat pump cycles to analyze component and setup dependencies. Simulates fluid flow and heat conduction through generic pipe geometries and transport media.",
+    "image": "assets/images/projects/heat_pump.jpeg",
+    "links": [
+      {
+        "label": "GitHub",
+        "url": "https://github.com/janzgraggen/GTHP_simulation",
+        "icon": "github"
+      },
+      {
+        "label": "Report",
+        "url": "https://github.com/janzgraggen/GTHP_simulation/blob/main/documents/project_report.pdf",
+        "icon": "report"
+      }
+    ]
+  },
+  {
+    "id": "project-4",
+    "title": "Aerial Road Segmentation",
+    "authors": ["Colin Berger", "Erik Bessö", "Jan Zgraggen"],
+    "venue": "",
+    "type": "course project",
+    "description": "Evaluated the performance of various convolutional neural network (CNN) based architectures for road segmentation from aerial imagery.",
+    "image": "assets/images/projects/predictions2.png",
+    "links": [
+      {
+        "label": "GitHub",
+        "url": "https://github.com/janzgraggen/road_segmentation",
+        "icon": "github"
+      },
+      {
+        "label": "Report",
+        "url": "https://github.com/janzgraggen/road_segmentation/blob/main/Project_Report.pdf",
+        "icon": "report"
+      }
+    ]
+  },
+  {
+    "id": "project-5",
+    "title": "ODE-Solver Software",
+    "authors": ["Jan Zgraggen", "Nathan Kabas Kuroiwa"],
+    "venue": "",
+    "type": "course project",
+    "description": "Developed a flexible and extensible C++ solver for ordinary differential equations (ODEs), supporting implicit and explicit methods including Runge-Kutta, Adams-Bashforth, and Euler.",
+    "image": "assets/images/projects/orbit.png",
+    "links": [
+      {
+        "label": "GitHub",
+        "url": "https://github.com/janzgraggen/ode_solver_tool",
+        "icon": "github"
+      }
+    ]
+  },
+  {
     "id": "project-6",
     "title": "Feature Engineering on BRFSS survey data for Heart Attack prediction",
-    "authors": [],
+    "authors": ["Colin Berger", "Erik Bessö", "Jan Zgraggen"],
     "venue": "",
-    "type": "project",
+    "type": "course project",
     "description": "Predicted heart attacks from survey data using feature engineering and logistic regression models.",
     "image": "assets/images/projects/brfss.png",
     "links": [
