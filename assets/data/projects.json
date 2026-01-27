@@ -4,7 +4,7 @@
     "authors": ["Jan Zgraggen", "(supervisor)  Chang Xu, (head supervisor) Prof. Devis Tuia"],
     "venue": "",
     "type": "semester project",
-    "description": "GINR and EECR Frameworks",
+    "description": "Developped GINR and EECR Frameworks for integrating topography into forcasting models.",
     "image": "assets/images/projects/topographyaware.png",
     "links": [
       {
