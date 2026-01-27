@@ -4,7 +4,7 @@
 
   // Icon mapping (case-sensitive filenames)
   const ICONS = {
-    report: 'assets/icons/Report.jpg',
+    report: 'assets/icons/report.png',
     github: 'assets/icons/GitHub_Logo.png',
   };
 
@@ -56,6 +56,31 @@
         return '';
       }
 
+      const scaleStyle = iconKey === 'github' ? 'transform: scale(1.7);' : '';
+
+      if (iconKey === 'github') {
+        return `
+          <a
+        class="projectLinkBtn"
+        href="${esc(url)}"
+        target="_blank"
+        rel="noopener"
+        aria-label="${label} — ${esc(project.title)}"
+        title="View on GitHub"
+          >
+        <img
+          class="projectLinkIcon"
+          src="${iconSrc}"
+          alt=""
+          loading="lazy"
+          decoding="async"
+          onerror="this.closest('.projectLinkBtn')?.remove()"
+          style="${scaleStyle}"
+        />
+          </a>
+        `;
+      }
+
       return `
         <a
           class="projectLinkBtn"
@@ -65,12 +90,12 @@
           aria-label="${label} — ${esc(project.title)}"
         >
           <img
-            class="projectLinkIcon"
-            src="${iconSrc}"
-            alt=""
-            loading="lazy"
-            decoding="async"
-            onerror="this.closest('.projectLinkBtn')?.remove()"
+        class="projectLinkIcon"
+        src="${iconSrc}"
+        alt=""
+        loading="lazy"
+        decoding="async"
+        onerror="this.closest('.projectLinkBtn')?.remove()"
           />
         </a>
       `;

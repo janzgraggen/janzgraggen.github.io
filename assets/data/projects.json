@@ -5,7 +5,7 @@
     "venue": "",
     "type": "semester project",
     "description": "GINR and EECR Frameworks",
-    "image": "assets/images/projects/topo.png",
+    "image": "assets/images/projects/topographyaware.png",
     "links": [
       {
         "label": "GitHub",
@@ -27,7 +27,7 @@
     "venue": "",
     "type": "semester project",
     "description": "Combined Algebraic Topology and Graph Neural Networks (GNNs) in multi-embedding fusion models for classifying neuronal morphologies.",
-    "image": "assets/images/projects/MODELDIAGRAM_img.jpeg",
+    "image": "assets/images/projects/neuron.png",
     "links": [
       {
         "label": "GitHub",
