@@ -4,7 +4,7 @@
 
   // Icon mapping (case-sensitive filenames)
   const ICONS = {
-    report: 'assets/icons/report.png',
+    report: 'assets/icons/report_pdf.png',
     github: 'assets/icons/GitHub_Logo.png',
   };
 
