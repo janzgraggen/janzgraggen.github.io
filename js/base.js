@@ -5,6 +5,7 @@ window.Site = window.Site || {};
 ============================================================ */
 
 const ENABLE_AMBIENT_BG = false; // toggle ambient blur system
+const ENABLE_SECTION_NAV_BUTTONS = true; // toggle section up/down buttons
 const AMBIENT_DEFAULT_URL = 'assets/images/home/background1SW.jpeg';
 const CREATIVE_DEFAULT_BG = 'assets/images/home/background.jpeg';
 const AMBIENT_OPACITY = 0.82;
@@ -180,6 +181,251 @@ window.Site.clearAmbientBackgroundToWhite = () => {
     else if (e.deltaY < -40) transitionTo(currentIndex - 1);
   }
 
+  /* ============================================================
+     TOUCH SWIPE (MOBILE)
+  ============================================================ */
+
+  const SWIPE_MIN_DISTANCE_PX = 80;
+  const SWIPE_MAX_TIME_MS = 700;
+  const SWIPE_LOCK_AXIS_PX = 12;
+
+  let touchStartY = 0;
+  let touchStartX = 0;
+  let touchStartT = 0;
+  let touchActive = false;
+  let swipeConsumed = false;
+
+  function getScrollableParent(el, boundaryEl) {
+    let node = el;
+    while (node && node !== document.body && node !== boundaryEl) {
+      if (node instanceof HTMLElement) {
+        const style = window.getComputedStyle(node);
+        const overflowY = style.overflowY;
+        const canScrollY = (overflowY === 'auto' || overflowY === 'scroll') && node.scrollHeight > node.clientHeight + 2;
+        if (canScrollY) return node;
+      }
+      node = node.parentElement;
+    }
+    return null;
+  }
+
+  function shouldLetElementScroll(e, direction) {
+    // direction: +1 => next section (finger moves up / content would scroll down)
+    // direction: -1 => prev section (finger moves down / content would scroll up)
+    const activeSection = sections[currentIndex];
+    if (!activeSection) return false;
+
+    const target = e.target instanceof Element ? e.target : null;
+    if (!target) return false;
+
+    const scrollParent = getScrollableParent(target, activeSection);
+    if (!scrollParent) return false;
+
+    const st = scrollParent.scrollTop;
+    const max = scrollParent.scrollHeight - scrollParent.clientHeight;
+
+    // If the inner scroller can still scroll in the gesture direction, don't hijack it.
+    if (direction === 1) {
+      // user swipes up -> would normally scroll DOWN (increase scrollTop)
+      return st < max - 1;
+    }
+    if (direction === -1) {
+      // user swipes down -> would normally scroll UP (decrease scrollTop)
+      return st > 1;
+    }
+    return false;
+  }
+
+  function onTouchStart(e) {
+    if (isTransitioning) return;
+    if (!e.touches || e.touches.length !== 1) return;
+
+    touchActive = true;
+    swipeConsumed = false;
+
+    touchStartY = e.touches[0].clientY;
+    touchStartX = e.touches[0].clientX;
+    touchStartT = Date.now();
+  }
+
+  function onTouchMove(e) {
+    if (!touchActive || swipeConsumed) return;
+    if (isTransitioning) return;
+    if (!e.touches || e.touches.length !== 1) return;
+
+    const y = e.touches[0].clientY;
+    const x = e.touches[0].clientX;
+    const dy = touchStartY - y; // positive => swipe up
+    const dx = touchStartX - x;
+
+    // Don’t trigger until we’re confident it's vertical
+    if (Math.abs(dy) < SWIPE_LOCK_AXIS_PX) return;
+    if (Math.abs(dx) > Math.abs(dy)) return;
+
+    const dt = Date.now() - touchStartT;
+    if (dt > SWIPE_MAX_TIME_MS) return;
+
+    if (Math.abs(dy) >= SWIPE_MIN_DISTANCE_PX) {
+      const direction = dy > 0 ? 1 : -1;
+
+      // Allow inner scrollables to scroll naturally if they can.
+      if (shouldLetElementScroll(e, direction)) return;
+
+      // We are taking over the gesture, so prevent native scroll/bounce.
+      if (e.cancelable) e.preventDefault();
+
+      swipeConsumed = true;
+      transitionTo(currentIndex + direction);
+    }
+  }
+
+  function onTouchEnd() {
+    touchActive = false;
+    swipeConsumed = false;
+  }
+
+  /* ============================================================
+     SECTION NAV UI (UP/DOWN)
+  ============================================================ */
+
+  function ensureSectionNavStyles() {
+    if (document.getElementById('site-section-nav-styles')) return;
+
+    const style = document.createElement('style');
+    style.id = 'site-section-nav-styles';
+    style.textContent = `
+      .sectionNav {
+        position: absolute;
+        left: 50%;
+        bottom: 10px;
+        transform: translateX(-50%);
+        display: flex;
+        gap: 2px;
+        z-index: 25;
+        pointer-events: auto;
+        align-items: center;
+        font-family: inherit;
+      }
+
+      .sectionNavBtn {
+        border: none;
+        background: rgba(255,255,255,0.16);
+         color: rgba(0, 0, 0, 0.30); /* adjust opacity + tone */
+        cursor: pointer;
+        backdrop-filter: blur(10px) saturate(140%);
+        -webkit-backdrop-filter: blur(10px) saturate(140%);
+        box-shadow:
+          0 10px 22px rgba(0,0,0,0.16),
+          inset 0 1px 0 rgba(255,255,255,0.35),
+          inset 0 -1px 0 rgba(0,0,0,0.12);
+        transition: transform 120ms ease, opacity 120ms ease, background-color 120ms ease;
+        -webkit-tap-highlight-color: transparent;
+        user-select: none;
+      }
+
+      .sectionNavBtn:active {
+        transform: scale(0.98);
+      }
+
+      .sectionNavBtn[disabled] {
+        opacity: 0.35;
+        cursor: default;
+        transform: none;
+      }
+
+      .sectionNavBtn--up {
+        width: 56px;
+        height: 16px;
+        border-radius: 999px;
+        font-size: 10px;
+        line-height: 16px;
+        text-align: center;
+        padding: 0;
+      }
+
+      .sectionNavBtn--down {
+        height: 16px;
+        border-radius: 999px;
+        padding: 0 12px;
+        font-size: 10px;
+        letter-spacing: 0.02em;
+        line-height: 16px;
+        white-space: nowrap;
+      }
+    `;
+    document.head.appendChild(style);
+  }
+
+  function createSectionNav() {
+    ensureSectionNavStyles();
+
+    const frame = document.getElementById('frame');
+    if (!frame) return null;
+
+    if (document.getElementById('sectionNav')) {
+      return document.getElementById('sectionNav');
+    }
+
+    const wrap = document.createElement('div');
+    wrap.id = 'sectionNav';
+    wrap.className = 'sectionNav';
+    wrap.setAttribute('aria-label', 'Section navigation');
+
+    const btnUp = document.createElement('button');
+    btnUp.type = 'button';
+    btnUp.className = 'sectionNavBtn sectionNavBtn--up';
+    btnUp.setAttribute('aria-label', 'Go to previous section');
+    btnUp.textContent = '↑';
+
+    const btnDown = document.createElement('button');
+    btnDown.type = 'button';
+    btnDown.className = 'sectionNavBtn sectionNavBtn--down';
+    btnDown.setAttribute('aria-label', 'Go to next section');
+
+    btnUp.addEventListener('click', () => transitionTo(currentIndex - 1));
+    btnDown.addEventListener('click', () => transitionTo(currentIndex + 1));
+
+    wrap.appendChild(btnUp);
+    wrap.appendChild(btnDown);
+
+    frame.appendChild(wrap);
+
+    return { wrap, btnUp, btnDown };
+  }
+
+  function formatSectionLabel(sectionId) {
+    const name = (SECTION_PATH[sectionId] || sectionId || '').toUpperCase();
+    return `↓ next`;
+  }
+
+  const sectionNav = ENABLE_SECTION_NAV_BUTTONS ? createSectionNav() : null;
+
+
+  function updateSectionNav() {
+    if (!sectionNav) return;
+    const btnUp = sectionNav.btnUp;
+    const btnDown = sectionNav.btnDown;
+
+    btnUp.disabled = currentIndex <= 0;
+    btnDown.disabled = currentIndex >= sections.length - 1;
+
+    const next = sections[currentIndex + 1];
+  if (next) {
+  btnDown.textContent = formatSectionLabel();
+  btnDown.disabled = false;
+  btnDown.style.opacity = '1';
+} else {
+  // Last section: keep visible, but faded + inactive
+  btnDown.textContent = '↓ next';
+  btnDown.disabled = true;
+  btnDown.style.opacity = '0.35';
+}
+
+  }
+
+  /* ============================================================
+     INIT
+  ============================================================ */
 
   // Initial state
   setActiveSection(currentIndex);
@@ -190,7 +436,6 @@ window.Site.clearAmbientBackgroundToWhite = () => {
   if (initialId === 'creative') {
     window.Site.setFrameBackground?.(CREATIVE_DEFAULT_BG, { fadeMs: 0 });
   }
-
 
   // Initialize ambient background
   if (ENABLE_AMBIENT_BG) {
@@ -211,6 +456,22 @@ window.Site.clearAmbientBackgroundToWhite = () => {
   window.Site.getActiveSectionId = () => sections[currentIndex]?.id ?? null;
 
   window.addEventListener('wheel', onWheel, { passive: true });
+
+  // Touch handlers: attach to viewport so it works on mobile reliably.
+  const viewport = document.getElementById('viewport') || window;
+  if (viewport && viewport.addEventListener) {
+    viewport.addEventListener('touchstart', onTouchStart, { passive: true });
+    viewport.addEventListener('touchmove', onTouchMove, { passive: false });
+    viewport.addEventListener('touchend', onTouchEnd, { passive: true });
+    viewport.addEventListener('touchcancel', onTouchEnd, { passive: true });
+  }
+
+  // Keep buttons in sync
+  if (ENABLE_SECTION_NAV_BUTTONS) {
+  updateSectionNav();
+  window.addEventListener('site:sectionchange', updateSectionNav);
+  }
+
 
 })();
 
