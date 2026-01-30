@@ -6,8 +6,8 @@ window.Site = window.Site || {};
 
 const ENABLE_AMBIENT_BG = false; // toggle ambient blur system
 const ENABLE_SECTION_NAV_BUTTONS = true; // toggle section up/down buttons
-const AMBIENT_DEFAULT_URL = 'assets/images/home/background1SW.jpeg';
-const CREATIVE_DEFAULT_BG = 'assets/images/home/background.jpeg';
+const AMBIENT_DEFAULT_URL = 'assets/images/home/bg0.jpg';
+const CREATIVE_DEFAULT_BG = 'assets/images/home/bg0Color.jpg';
 const AMBIENT_OPACITY = 0.82;
 
 let CURRENT_AMBIENT_URL = null;

@@ -1,9 +1,16 @@
 (() => {
   const FRAMES = [
-    'assets/images/home/background1SW.jpeg',
-    'assets/images/home/background2SW.jpeg',
-    'assets/images/home/background3SW.jpeg',
-    'assets/images/home/background4SW.jpeg',
+    'assets/images/home/bg1.jpg',
+    'assets/images/home/bg2.jpg',
+    'assets/images/home/bg3.jpg',
+    'assets/images/home/bg4.jpg',
+    'assets/images/home/bg5.jpg',
+    'assets/images/home/bg6.jpg',
+    'assets/images/home/bg7.jpg',
+    'assets/images/home/bg8.jpg',
+    'assets/images/home/bg9.jpg',
+    'assets/images/home/bg10.jpg',
+    'assets/images/home/bg11.jpg',
   ];
 
   const INTERVAL_MS = 2200;
