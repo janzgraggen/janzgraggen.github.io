@@ -17,7 +17,8 @@
       "title": "Education.",
       "items": [
         { "title": "MSc Computational Scinece and Engineering @EPFL, Lausanne Switzerland", "content": "TA for the class CS-450 Advanced Algorithms with Prof. M. Kapralov (Fall Semester 2025) | TCS-Coursework: Advanced Algorithms, Sublinear Algorithms, Topics in Theoretical CS (Randomized Algorithms) ; ML-Coursework: Machine Learning, Network Machine Learning, Foudnation Models and Generative AI, Learning in Neuronal Nets (Reinforcement Learning, Neuroplausible ML), Image Processing for Earth Observation", "image": "assets/icons/EPFL.png" },
-        { "title": "BSc Exchange @HKUST, Hong Kong SAR, China ", "content": " Coursework: Design and Analysis of Algorithms, Discrete Maths for CS, Data Analysis (Ocean Science)", "image": "assets/icons/HKUST.png" }
+        { "title": "BSc Exchange @HKUST, Hong Kong SAR, China ", "content": " Selected coursework: Design and Analysis of Algorithms, Discrete Maths for CS, Data Analysis (Ocean Science)", "image": "assets/icons/HKUST.png" },
+        { "title": "BSc Environmental Science and Engineering @EPFL, Lausanne Switzerland", "content": "", "image": "" }
       ]
     },
     {
