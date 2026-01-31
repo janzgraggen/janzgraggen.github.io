@@ -6,6 +6,14 @@
 
   if (!mount || !box) return;
 
+  function linkifyEmail(text) {
+  const escaped = escapeHtml(text);
+  return escaped.replace(
+    /([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-z]{2,})/g,
+    '<a href="mailto:$1" class="aboutEmail">$1</a>'
+  );
+}
+
   function escapeHtml(str) {
     return String(str)
       .replaceAll('&', '&amp;')
@@ -39,7 +47,7 @@
 
     const items = section.items.map((it) => {
       const title = escapeHtml(it.title);
-      const content = escapeHtml(it.content);
+      const content = linkifyEmail(it.content);
       const imageSrc = (it.image || '').trim();
 
       const media = imageSrc

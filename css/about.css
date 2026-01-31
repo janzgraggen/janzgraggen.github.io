@@ -151,3 +151,18 @@
 #about .aboutBox::-webkit-scrollbar {
   display: none;                /* Chrome / Safari */
 }
+
+.aboutEmail {
+  color: inherit;          /* use surrounding text color */
+  text-decoration: underline;
+}
+
+.aboutEmail:hover,
+.aboutEmail:focus {
+  color: inherit;
+  opacity: 0.75;
+}
+
+.aboutEmail:visited {
+  color: inherit;
+}
