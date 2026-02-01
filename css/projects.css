@@ -60,7 +60,7 @@
   height: 180px;
   border-radius: 12px;
   overflow: hidden;
-  background: #fff; /* ---------------------------------------------------set to none if  AMBIENT =*/
+  background: none; /* ---------------------------------------------------set to none if  AMBIENT  ow #fff  =*/
 }
 
 .projectThumb img {
@@ -68,7 +68,7 @@
   height: 100%;
   display: block;
   object-fit: contain;   /* ensures full image is visible */
-  background: #fff;     /* ---------------------------------------------------set to none if  AMBIENT =*/
+  background: none;     /* ---------------------------------------------------set to none if  AMBIENT  ow #fff =*/
 }
 
 .projectThumb.is-missing {
