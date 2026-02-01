@@ -2,7 +2,7 @@
     "id": "project-0",
     "title": "Topography aware weather forecasting in europe",
     "authors": ["Jan Zgraggen", "(supervisor)  Chang Xu, (head supervisor) Prof. Devis Tuia"],
-    "venue": "",
+    "venue": "Abstract (poster) submitted, under review",
     "type": "semester project",
     "description": "Developped GINR and EECR Frameworks for integrating topography into forcasting models.",
     "image": "assets/images/projects/topographyaware.png",
@@ -59,6 +59,22 @@
         "label": "Report",
         "url": "https://github.com/janzgraggen/EEGseizure_graphML/blob/main/documents/report.pdf",
         "icon": "report"
+      }
+    ]
+  },
+   {
+    "id": "project-hdd",
+    "title": "Hurricane Damage Detection from Satelite Imagery",
+    "authors": ["Jan Kolka","Mahlia Merville-Hipeau","Jan Zgraggen"],
+    "venue": "",
+    "type": "course project",
+    "description": "Finetuned vision foundation model heads (ResNext,ViT, DinoV3), applied posthoc calibration methods. Predicting infrastructure damage, along with a certainty measure.",
+    "image": "assets/images/projects/hdd.png",
+    "links": [
+      {
+        "label": "GitHub",
+        "url": "https://github.com/jankokla/ipeo-hurricane-damage-detection",
+        "icon": "github"
       }
     ]
   },
