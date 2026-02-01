@@ -116,7 +116,7 @@
 
     <g transform="translate(160,254)">
       <rect width="180" height="26" rx="6" ry="6" fill="none" stroke="#2563EB" stroke-width="2"/>
-      <text x="12" y="18">RK4</text>
+      <text x="12" y="18">Runge-Kutta</text>
     </g>
 
     <g transform="translate(160,284)">
