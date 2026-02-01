@@ -75,6 +75,11 @@
         "label": "GitHub",
         "url": "https://github.com/jankokla/ipeo-hurricane-damage-detection",
         "icon": "github"
+      },
+      {
+        "label": "Report",
+        "url": "docs/HDD_report.pdf",
+        "icon": "report"
       }
     ]
   },
