@@ -4,9 +4,13 @@ window.Site = window.Site || {};
    AMBIENT BACKGROUND CONFIG
 ============================================================ */
 
-const ENABLE_AMBIENT_BG = false; // toggle ambient blur system
+const ENABLE_AMBIENT_BG = true; // toggle ambient blur system
 const ENABLE_SECTION_NAV_BUTTONS = true; // toggle section up/down buttons
-const AMBIENT_DEFAULT_URL = 'assets/images/home/bg0.jpg';
+
+// Fixed ambient image (stable, not coupled to other backgrounds)
+const AMBIENT_FIXED_URL = 'assets/images/bg/bg.jpg'; // can reuse AMBIENT_DEFAULT_URL
+const AMBIENT_DEFAULT_URL = AMBIENT_FIXED_URL;
+
 const CREATIVE_DEFAULT_BG = 'assets/images/home/bg0Color.jpg';
 const AMBIENT_OPACITY = 0.82;
 
@@ -44,15 +48,22 @@ window.Site.setAmbientBackground = async (url) => {
   const layer = ensureAmbientLayer();
   if (!layer) return;
 
-  CURRENT_AMBIENT_URL = url;
-
   if (!ENABLE_AMBIENT_BG) {
+    CURRENT_AMBIENT_URL = null;
     layer.style.opacity = '0';
     layer.style.backgroundImage = '';
     return;
   }
 
+  // Avoid redundant work / flicker
+  if (CURRENT_AMBIENT_URL === url && layer.style.backgroundImage) {
+    // Ensure opacity is correct, but don't rewrite backgroundImage
+    layer.style.opacity = String(AMBIENT_OPACITY);
+    return;
+  }
+
   await preloadImage(url);
+  CURRENT_AMBIENT_URL = url;
   layer.style.backgroundImage = `url("${url}")`;
   layer.style.opacity = String(AMBIENT_OPACITY);
 };
@@ -64,6 +75,29 @@ window.Site.clearAmbientBackgroundToWhite = () => {
 
   layer.style.opacity = '0';
   layer.style.backgroundImage = '';
+};
+
+// Optional: clean hook for future UI toggling (no refactor)
+window.Site.setAmbientEnabled = async (enabled) => {
+  const layer = ensureAmbientLayer();
+  if (!layer) return;
+
+  if (!enabled) {
+    window.Site.clearAmbientBackgroundToWhite();
+    return;
+  }
+
+  // When enabling, always restore the fixed ambient
+  await window.Site.setAmbientBackground(AMBIENT_FIXED_URL);
+
+  // Re-apply section visibility rule immediately
+  const activeId = window.Site.getActiveSectionId?.() || document.querySelector('.section.is-active')?.id || null;
+  if (activeId) {
+    const opacity = (activeId === 'home') ? '0' : String(AMBIENT_OPACITY);
+    layer.style.opacity = opacity;
+  } else {
+    layer.style.opacity = String(AMBIENT_OPACITY);
+  }
 };
 
 /* ============================================================
@@ -104,15 +138,16 @@ window.Site.clearAmbientBackgroundToWhite = () => {
       return;
     }
 
-    // Hide blur on Home + Creative
-    if (activeId === 'home' ) {
+    // Keep hidden on Home (existing behavior)
+    if (activeId === 'home') {
       ambientLayer.style.opacity = '0';
       return;
     }
 
-    // Show blur elsewhere
-    if (CURRENT_AMBIENT_URL) {
-      ambientLayer.style.backgroundImage = `url("${CURRENT_AMBIENT_URL}")`;
+    // Ensure the fixed image is set once; avoid rewriting repeatedly
+    if (CURRENT_AMBIENT_URL !== AMBIENT_FIXED_URL || !ambientLayer.style.backgroundImage) {
+      CURRENT_AMBIENT_URL = AMBIENT_FIXED_URL;
+      ambientLayer.style.backgroundImage = `url("${AMBIENT_FIXED_URL}")`;
     }
 
     ambientLayer.style.opacity = String(AMBIENT_OPACITY);
@@ -400,7 +435,6 @@ window.Site.clearAmbientBackgroundToWhite = () => {
 
   const sectionNav = ENABLE_SECTION_NAV_BUTTONS ? createSectionNav() : null;
 
-
   function updateSectionNav() {
     if (!sectionNav) return;
     const btnUp = sectionNav.btnUp;
@@ -410,17 +444,16 @@ window.Site.clearAmbientBackgroundToWhite = () => {
     btnDown.disabled = currentIndex >= sections.length - 1;
 
     const next = sections[currentIndex + 1];
-  if (next) {
-  btnDown.textContent = formatSectionLabel();
-  btnDown.disabled = false;
-  btnDown.style.opacity = '1';
-} else {
-  // Last section: keep visible, but faded + inactive
-  btnDown.textContent = '↓ next';
-  btnDown.disabled = true;
-  btnDown.style.opacity = '0.35';
-}
-
+    if (next) {
+      btnDown.textContent = formatSectionLabel();
+      btnDown.disabled = false;
+      btnDown.style.opacity = '1';
+    } else {
+      // Last section: keep visible, but faded + inactive
+      btnDown.textContent = '↓ next';
+      btnDown.disabled = true;
+      btnDown.style.opacity = '0.35';
+    }
   }
 
   /* ============================================================
@@ -437,10 +470,10 @@ window.Site.clearAmbientBackgroundToWhite = () => {
     window.Site.setFrameBackground?.(CREATIVE_DEFAULT_BG, { fadeMs: 0 });
   }
 
-  // Initialize ambient background
+  // Initialize ambient background (fixed URL only)
   if (ENABLE_AMBIENT_BG) {
-    window.Site.setAmbientBackground(AMBIENT_DEFAULT_URL);
-    CURRENT_AMBIENT_URL = AMBIENT_DEFAULT_URL;
+    window.Site.setAmbientBackground(AMBIENT_FIXED_URL);
+    CURRENT_AMBIENT_URL = AMBIENT_FIXED_URL;
   } else {
     window.Site.clearAmbientBackgroundToWhite();
   }
@@ -468,11 +501,9 @@ window.Site.clearAmbientBackgroundToWhite = () => {
 
   // Keep buttons in sync
   if (ENABLE_SECTION_NAV_BUTTONS) {
-  updateSectionNav();
-  window.addEventListener('site:sectionchange', updateSectionNav);
+    updateSectionNav();
+    window.addEventListener('site:sectionchange', updateSectionNav);
   }
-
-
 })();
 
 /* ============================================================
@@ -534,8 +565,8 @@ window.Site.setFrameBackground = async (url, opts = {}) => {
 
   layer.classList.toggle('fit-contain', useContain);
 
-  // Update ambient reference for other sections
-  window.Site.setAmbientBackground?.(url);
+  // NOTE: Ambient no longer tracks this background (fixed ambient only)
+  // window.Site.setAmbientBackground?.(url);
 
   // Fade swap
   layer.style.transition = `opacity ${fadeMs}ms ease`;
