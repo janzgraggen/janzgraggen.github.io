@@ -67,9 +67,9 @@
     "title": "Geothermal Heat Pump Simulation",
     "authors": ["Jan Zgraggen"],
     "venue": "",
-    "type": "course project",
+    "type": "Tool (course proj.)",
     "description": "Developed a simulator for geothermal heat pump cycles to analyze component and setup dependencies. Simulates fluid flow and heat conduction through generic pipe geometries and transport media.",
-    "image": "assets/images/projects/heat_pump.jpeg",
+    "image": "assets/images/projects/heatpump.svg",
     "links": [
       {
         "label": "GitHub",
@@ -109,9 +109,9 @@
     "title": "ODE-Solver Software",
     "authors": ["Jan Zgraggen", "Nathan Kabas Kuroiwa"],
     "venue": "",
-    "type": "course project",
+    "type": "Tool (course proj.)",
     "description": "Developed a flexible and extensible C++ solver for ordinary differential equations (ODEs), supporting implicit and explicit methods including Runge-Kutta, Adams-Bashforth, and Euler.",
-    "image": "assets/images/projects/orbit.png",
+    "image": "assets/images/projects/ode.svg",
     "links": [
       {
         "label": "GitHub",
