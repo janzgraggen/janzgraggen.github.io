@@ -1,20 +1,37 @@
 window.Site = window.Site || {};
 
 /* ============================================================
-   AMBIENT BACKGROUND CONFIG
+   TOP-LEVEL CONFIG
 ============================================================ */
 
-const ENABLE_AMBIENT_BG = true; // toggle ambient blur system
-const ENABLE_SECTION_NAV_BUTTONS = true; // toggle section up/down buttons
+// Section navigation
+const ENABLE_SECTION_NAV_BUTTONS = true; // master toggle for up/down nav
+const ENABLE_AMBIENT_TOGGLE_BUTTON = true; // shows BLUR/WHITE toggle only if nav is enabled
 
-// Fixed ambient image (stable, not coupled to other backgrounds)
-const AMBIENT_FIXED_URL = 'assets/images/bg/bg.jpg'; // can reuse AMBIENT_DEFAULT_URL
+// Ambient background defaults
+const ENABLE_AMBIENT_BG = true; // default initial state (can be toggled at runtime)
+const AMBIENT_FIXED_URL = 'assets/images/bg/bg.jpg';
 const AMBIENT_DEFAULT_URL = AMBIENT_FIXED_URL;
+const AMBIENT_OPACITY = 1;
 
+// Creative background default (change to an existing file)
 const CREATIVE_DEFAULT_BG = 'assets/images/home/bg0Color.jpg';
-const AMBIENT_OPACITY = 0.82;
 
-let CURRENT_AMBIENT_URL = null;
+// Button labels/symbols (configure here)
+const NAV_UP_SYMBOL = '↑';
+const NAV_DOWN_LABEL = '↓';
+const AMBIENT_ON_LABEL = 'WHITE';
+const AMBIENT_OFF_LABEL = 'BLUR';
+
+// Optional: hide ambient toggle button on these section IDs
+const HIDE_AMBIENT_TOGGLE_ON_SECTIONS = new Set(['home', 'creative']);
+
+/* ============================================================
+   RUNTIME STATE
+============================================================ */
+
+let AMBIENT_ENABLED = ENABLE_AMBIENT_BG; // runtime ambient state (UI toggles this)
+let CURRENT_AMBIENT_URL = null;          // sticky ambient url (static now)
 
 /* ============================================================
    AMBIENT BACKGROUND HELPERS
@@ -48,7 +65,7 @@ window.Site.setAmbientBackground = async (url) => {
   const layer = ensureAmbientLayer();
   if (!layer) return;
 
-  if (!ENABLE_AMBIENT_BG) {
+  if (!AMBIENT_ENABLED) {
     CURRENT_AMBIENT_URL = null;
     layer.style.opacity = '0';
     layer.style.backgroundImage = '';
@@ -57,7 +74,6 @@ window.Site.setAmbientBackground = async (url) => {
 
   // Avoid redundant work / flicker
   if (CURRENT_AMBIENT_URL === url && layer.style.backgroundImage) {
-    // Ensure opacity is correct, but don't rewrite backgroundImage
     layer.style.opacity = String(AMBIENT_OPACITY);
     return;
   }
@@ -77,21 +93,27 @@ window.Site.clearAmbientBackgroundToWhite = () => {
   layer.style.backgroundImage = '';
 };
 
-// Optional: clean hook for future UI toggling (no refactor)
+// Clean hook for UI toggling (STATIC ambient only)
 window.Site.setAmbientEnabled = async (enabled) => {
+  AMBIENT_ENABLED = !!enabled;
+
   const layer = ensureAmbientLayer();
   if (!layer) return;
 
-  if (!enabled) {
+  if (!AMBIENT_ENABLED) {
     window.Site.clearAmbientBackgroundToWhite();
     return;
   }
 
-  // When enabling, always restore the fixed ambient
+  // Static: always use the same ambient image
   await window.Site.setAmbientBackground(AMBIENT_FIXED_URL);
 
   // Re-apply section visibility rule immediately
-  const activeId = window.Site.getActiveSectionId?.() || document.querySelector('.section.is-active')?.id || null;
+  const activeId =
+    window.Site.getActiveSectionId?.() ||
+    document.querySelector('.section.is-active')?.id ||
+    null;
+
   if (activeId) {
     const opacity = (activeId === 'home') ? '0' : String(AMBIENT_OPACITY);
     layer.style.opacity = opacity;
@@ -133,7 +155,7 @@ window.Site.setAmbientEnabled = async (enabled) => {
     const ambientLayer = document.getElementById('frame-ambient-layer');
     if (!ambientLayer) return;
 
-    if (!ENABLE_AMBIENT_BG) {
+    if (!AMBIENT_ENABLED) {
       ambientLayer.style.opacity = '0';
       return;
     }
@@ -144,10 +166,11 @@ window.Site.setAmbientEnabled = async (enabled) => {
       return;
     }
 
-    // Ensure the fixed image is set once; avoid rewriting repeatedly
-    if (CURRENT_AMBIENT_URL !== AMBIENT_FIXED_URL || !ambientLayer.style.backgroundImage) {
-      CURRENT_AMBIENT_URL = AMBIENT_FIXED_URL;
-      ambientLayer.style.backgroundImage = `url("${AMBIENT_FIXED_URL}")`;
+    const url = CURRENT_AMBIENT_URL || AMBIENT_DEFAULT_URL;
+
+    if (!ambientLayer.style.backgroundImage || CURRENT_AMBIENT_URL !== url) {
+      CURRENT_AMBIENT_URL = url;
+      ambientLayer.style.backgroundImage = `url("${url}")`;
     }
 
     ambientLayer.style.opacity = String(AMBIENT_OPACITY);
@@ -245,8 +268,6 @@ window.Site.setAmbientEnabled = async (enabled) => {
   }
 
   function shouldLetElementScroll(e, direction) {
-    // direction: +1 => next section (finger moves up / content would scroll down)
-    // direction: -1 => prev section (finger moves down / content would scroll up)
     const activeSection = sections[currentIndex];
     if (!activeSection) return false;
 
@@ -259,15 +280,8 @@ window.Site.setAmbientEnabled = async (enabled) => {
     const st = scrollParent.scrollTop;
     const max = scrollParent.scrollHeight - scrollParent.clientHeight;
 
-    // If the inner scroller can still scroll in the gesture direction, don't hijack it.
-    if (direction === 1) {
-      // user swipes up -> would normally scroll DOWN (increase scrollTop)
-      return st < max - 1;
-    }
-    if (direction === -1) {
-      // user swipes down -> would normally scroll UP (decrease scrollTop)
-      return st > 1;
-    }
+    if (direction === 1) return st < max - 1;
+    if (direction === -1) return st > 1;
     return false;
   }
 
@@ -293,7 +307,6 @@ window.Site.setAmbientEnabled = async (enabled) => {
     const dy = touchStartY - y; // positive => swipe up
     const dx = touchStartX - x;
 
-    // Don’t trigger until we’re confident it's vertical
     if (Math.abs(dy) < SWIPE_LOCK_AXIS_PX) return;
     if (Math.abs(dx) > Math.abs(dy)) return;
 
@@ -303,10 +316,8 @@ window.Site.setAmbientEnabled = async (enabled) => {
     if (Math.abs(dy) >= SWIPE_MIN_DISTANCE_PX) {
       const direction = dy > 0 ? 1 : -1;
 
-      // Allow inner scrollables to scroll naturally if they can.
       if (shouldLetElementScroll(e, direction)) return;
 
-      // We are taking over the gesture, so prevent native scroll/bounce.
       if (e.cancelable) e.preventDefault();
 
       swipeConsumed = true;
@@ -320,7 +331,7 @@ window.Site.setAmbientEnabled = async (enabled) => {
   }
 
   /* ============================================================
-     SECTION NAV UI (UP/DOWN)
+     SECTION NAV UI (UP/DOWN + AMBIENT TOGGLE)
   ============================================================ */
 
   function ensureSectionNavStyles() {
@@ -335,17 +346,18 @@ window.Site.setAmbientEnabled = async (enabled) => {
         bottom: 10px;
         transform: translateX(-50%);
         display: flex;
-        gap: 2px;
+        gap: 6px;
         z-index: 25;
         pointer-events: auto;
         align-items: center;
         font-family: inherit;
+        justify-content: flex-start;
       }
 
       .sectionNavBtn {
         border: none;
         background: rgba(255,255,255,0.16);
-         color: rgba(0, 0, 0, 0.30); /* adjust opacity + tone */
+        color: rgba(0, 0, 0, 0.34);
         cursor: pointer;
         backdrop-filter: blur(10px) saturate(140%);
         -webkit-backdrop-filter: blur(10px) saturate(140%);
@@ -369,26 +381,42 @@ window.Site.setAmbientEnabled = async (enabled) => {
       }
 
       .sectionNavBtn--up {
-        width: 56px;
-        height: 16px;
+        width: 66px;
+        height: 22px;
         border-radius: 999px;
-        font-size: 10px;
-        line-height: 16px;
+        font-size: 12px;
+        line-height: 22px;
         text-align: center;
         padding: 0;
       }
 
       .sectionNavBtn--down {
-        height: 16px;
+        width: 66px;
+        height: 22px;
         border-radius: 999px;
-        padding: 0 12px;
-        font-size: 10px;
+        padding: 0 14px;
+        font-size: 11px;
         letter-spacing: 0.02em;
-        line-height: 16px;
+        line-height: 22px;
+        white-space: nowrap;
+      }
+
+      .sectionNavBtn--toggle {
+        height: 22px;
+        border-radius: 999px;
+        padding: 0 10px;
+        font-size: 10px;
+        letter-spacing: 0.04em;
+        line-height: 22px;
+        text-transform: uppercase;
         white-space: nowrap;
       }
     `;
     document.head.appendChild(style);
+  }
+
+  function getAmbientToggleLabel() {
+    return AMBIENT_ENABLED ? AMBIENT_ON_LABEL : AMBIENT_OFF_LABEL;
   }
 
   function createSectionNav() {
@@ -410,7 +438,18 @@ window.Site.setAmbientEnabled = async (enabled) => {
     btnUp.type = 'button';
     btnUp.className = 'sectionNavBtn sectionNavBtn--up';
     btnUp.setAttribute('aria-label', 'Go to previous section');
-    btnUp.textContent = '↑';
+    btnUp.textContent = NAV_UP_SYMBOL;
+
+    // Conditionally create ambient toggle button
+    let btnToggle = null;
+    if (ENABLE_SECTION_NAV_BUTTONS && ENABLE_AMBIENT_TOGGLE_BUTTON) {
+      btnToggle = document.createElement('button');
+      btnToggle.type = 'button';
+      btnToggle.className = 'sectionNavBtn sectionNavBtn--toggle';
+      btnToggle.setAttribute('aria-label', 'Toggle ambient background');
+      btnToggle.setAttribute('aria-pressed', String(AMBIENT_ENABLED));
+      btnToggle.textContent = getAmbientToggleLabel();
+    }
 
     const btnDown = document.createElement('button');
     btnDown.type = 'button';
@@ -418,42 +457,66 @@ window.Site.setAmbientEnabled = async (enabled) => {
     btnDown.setAttribute('aria-label', 'Go to next section');
 
     btnUp.addEventListener('click', () => transitionTo(currentIndex - 1));
+
+    if (btnToggle) {
+      btnToggle.addEventListener('click', async () => {
+        AMBIENT_ENABLED = !AMBIENT_ENABLED;
+        btnToggle.setAttribute('aria-pressed', String(AMBIENT_ENABLED));
+        btnToggle.textContent = getAmbientToggleLabel();
+
+        await window.Site.setAmbientEnabled?.(AMBIENT_ENABLED);
+
+        const activeId = sections[currentIndex]?.id;
+        if (activeId) applyAmbientVisibility(activeId);
+
+        updateSectionNav();
+      });
+    }
+
     btnDown.addEventListener('click', () => transitionTo(currentIndex + 1));
 
     wrap.appendChild(btnUp);
+    if (btnToggle) wrap.appendChild(btnToggle);
     wrap.appendChild(btnDown);
 
     frame.appendChild(wrap);
 
-    return { wrap, btnUp, btnDown };
-  }
-
-  function formatSectionLabel(sectionId) {
-    const name = (SECTION_PATH[sectionId] || sectionId || '').toUpperCase();
-    return `↓ next`;
+    return { wrap, btnUp, btnToggle, btnDown };
   }
 
   const sectionNav = ENABLE_SECTION_NAV_BUTTONS ? createSectionNav() : null;
 
   function updateSectionNav() {
     if (!sectionNav) return;
+
+    const wrap = sectionNav.wrap;
     const btnUp = sectionNav.btnUp;
     const btnDown = sectionNav.btnDown;
+    const btnToggle = sectionNav.btnToggle;
 
-    btnUp.disabled = currentIndex <= 0;
-    btnDown.disabled = currentIndex >= sections.length - 1;
+    const activeId = sections[currentIndex]?.id;
+    const isFirst = currentIndex <= 0;
+    const isLast = currentIndex >= sections.length - 1;
 
-    const next = sections[currentIndex + 1];
-    if (next) {
-      btnDown.textContent = formatSectionLabel();
-      btnDown.disabled = false;
-      btnDown.style.opacity = '1';
-    } else {
-      // Last section: keep visible, but faded + inactive
-      btnDown.textContent = '↓ next';
-      btnDown.disabled = true;
-      btnDown.style.opacity = '0.35';
+    // Toggle button: only if it exists
+    if (btnToggle) {
+      const hideToggle = HIDE_AMBIENT_TOGGLE_ON_SECTIONS.has(activeId);
+      btnToggle.style.display = hideToggle ? 'none' : '';
+      btnToggle.setAttribute('aria-pressed', String(AMBIENT_ENABLED));
+      btnToggle.textContent = getAmbientToggleLabel();
     }
+
+    // Remove Up on first, remove Down on last
+    btnUp.style.display = isFirst ? 'none' : '';
+    btnDown.style.display = isLast ? 'none' : '';
+    btnUp.disabled = isFirst;
+    btnDown.disabled = isLast;
+
+    // Center what remains
+    if (wrap) wrap.style.justifyContent = 'center';
+
+    // Down label
+    if (!isLast) btnDown.textContent = NAV_DOWN_LABEL;
   }
 
   /* ============================================================
@@ -470,10 +533,9 @@ window.Site.setAmbientEnabled = async (enabled) => {
     window.Site.setFrameBackground?.(CREATIVE_DEFAULT_BG, { fadeMs: 0 });
   }
 
-  // Initialize ambient background (fixed URL only)
-  if (ENABLE_AMBIENT_BG) {
-    window.Site.setAmbientBackground(AMBIENT_FIXED_URL);
-    CURRENT_AMBIENT_URL = AMBIENT_FIXED_URL;
+  // Initialize ambient background
+  if (AMBIENT_ENABLED) {
+    window.Site.setAmbientEnabled(true);
   } else {
     window.Site.clearAmbientBackgroundToWhite();
   }
@@ -504,6 +566,12 @@ window.Site.setAmbientEnabled = async (enabled) => {
     updateSectionNav();
     window.addEventListener('site:sectionchange', updateSectionNav);
   }
+
+  /* ============================================================
+     TOUCH HANDLERS (defined after init to keep structure minimal)
+  ============================================================ */
+
+  // (functions already declared above; this comment just preserves the file layout)
 })();
 
 /* ============================================================
@@ -565,7 +633,7 @@ window.Site.setFrameBackground = async (url, opts = {}) => {
 
   layer.classList.toggle('fit-contain', useContain);
 
-  // NOTE: Ambient no longer tracks this background (fixed ambient only)
+  // NOTE: Ambient no longer tracks this background (ambient is static only)
   // window.Site.setAmbientBackground?.(url);
 
   // Fade swap
