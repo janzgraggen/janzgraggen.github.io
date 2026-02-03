@@ -6,7 +6,31 @@ window.Site = window.Site || {};
 
 // Section navigation
 const ENABLE_SECTION_NAV_BUTTONS = true; // master toggle for up/down nav
-const ENABLE_AMBIENT_TOGGLE_BUTTON = true; // shows BLUR/WHITE toggle only if nav is enabled
+const ENABLE_AMBIENT_TOGGLE_BUTTON = false; // shows BLUR/WHITE toggle only if nav is enabled
+
+// New navigation mode toggles (default true)
+const ENABLE_INTENT_SCROLL_NAV = true;     // scroll-and-hold section changes via wheel/touch boundary intent
+const ENABLE_KEYBOARD_SECTION_NAV = true;  // ArrowUp/ArrowDown section changes
+const ENABLE_SWIPE_SECTION_NAV = true;     // swipe gesture section changes (mobile)
+
+// Intent gesture tuning (only used if ENABLE_INTENT_SCROLL_NAV === true)
+const INTENT_PROGRESS_THRESHOLD = 320; // legacy scale for progress (now time-mapped)
+const INTENT_DECAY_MS = 260;           // (kept for compatibility; cancel is crisp)
+const INTENT_COOLDOWN_MS = 900;        // lock after transition
+const FRAME_NUDGE_PX = 28;             // visual nudge
+const INTENT_INDICATOR_HEIGHT_PX = 28; // reserved (text lives in revealed strip)
+
+// “scroll and hold” timing model (primary feel controls)
+const INTENT_HOLD_TO_CONFIRM_MS = 920; // time required to complete hold
+const INTENT_KEEPALIVE_MS = 450;       // touch-only keepalive (wheel should not depend on this)
+const INTENT_MIN_ACTIVITY_DELTA = 0.3; // ignore micro-noise
+
+// Extra intent guards (kept; now mostly redundant due to time gating)
+const INTENT_MIN_HOLD_MS = 380;        // legacy minimum time (kept)
+const INTENT_WHEEL_MAX_STEP = 34;      // legacy clamp (kept)
+const INTENT_TOUCH_MAX_STEP = 22;      // legacy clamp (kept)
+const INTENT_DAMP_FAST_DELTA = 140;    // legacy damp (kept)
+const INTENT_MIN_EVENT_DT_MS = 34;     // legacy damp (kept)
 
 // Ambient background defaults
 const ENABLE_AMBIENT_BG = true; // default initial state (can be toggled at runtime)
@@ -72,7 +96,6 @@ window.Site.setAmbientBackground = async (url) => {
     return;
   }
 
-  // Avoid redundant work / flicker
   if (CURRENT_AMBIENT_URL === url && layer.style.backgroundImage) {
     layer.style.opacity = String(AMBIENT_OPACITY);
     return;
@@ -93,7 +116,6 @@ window.Site.clearAmbientBackgroundToWhite = () => {
   layer.style.backgroundImage = '';
 };
 
-// Clean hook for UI toggling (STATIC ambient only)
 window.Site.setAmbientEnabled = async (enabled) => {
   AMBIENT_ENABLED = !!enabled;
 
@@ -105,10 +127,8 @@ window.Site.setAmbientEnabled = async (enabled) => {
     return;
   }
 
-  // Static: always use the same ambient image
   await window.Site.setAmbientBackground(AMBIENT_FIXED_URL);
 
-  // Re-apply section visibility rule immediately
   const activeId =
     window.Site.getActiveSectionId?.() ||
     document.querySelector('.section.is-active')?.id ||
@@ -160,7 +180,6 @@ window.Site.setAmbientEnabled = async (enabled) => {
       return;
     }
 
-    // Keep hidden on Home (existing behavior)
     if (activeId === 'home') {
       ambientLayer.style.opacity = '0';
       return;
@@ -182,30 +201,405 @@ window.Site.setAmbientEnabled = async (enabled) => {
     }));
   }
 
+  /* ============================================================
+     INTENT UI STATE (scroll-and-hold)
+  ============================================================ */
+
+  const frame = document.getElementById('frame');
+  const REVEAL_STRIP_PX = FRAME_NUDGE_PX + 16;
+
+  let intentDir = 0; // 1 => next, -1 => prev
+  let intentActive = false;
+  let intentStartT = 0;
+  let intentLastEventT = 0;
+  let cooldownUntilT = 0;
+  let intentCancelTimer = 0;
+  let intentRaf = 0;
+
+  // NEW: track the input source so we only use keepalive cancel for touch
+  let intentSource = ''; // 'wheel' | 'touch' | ''
+
+  function isInCooldown() {
+    return Date.now() < cooldownUntilT;
+  }
+
+  function markCooldown() {
+    cooldownUntilT = Date.now() + INTENT_COOLDOWN_MS;
+  }
+
+  function ensureIntentStyles() {
+    if (document.getElementById('site-intent-styles')) return;
+
+    const style = document.createElement('style');
+    style.id = 'site-intent-styles';
+    style.textContent = `
+      /* Outer underlay frame: matches #frame radius/shadow via JS */
+      #intent-underlay-frame {
+        position: absolute;
+        pointer-events: none;
+        z-index: 0;
+        opacity: 0;
+        overflow: hidden; /* clip to rounded corners */
+        background: transparent;
+      }
+
+      /* Inner reveal surface: clipped to thin strip */
+      #intent-underlay-reveal {
+        position: absolute;
+        inset: 0;
+        background: rgba(0,0,0,0.28);
+        clip-path: inset(100% 0 0 0);
+      }
+      #intent-underlay-frame.is-next #intent-underlay-reveal {
+        clip-path: inset(calc(100% - var(--reveal-strip)) 0 0 0);
+      }
+      #intent-underlay-frame.is-prev #intent-underlay-reveal {
+        clip-path: inset(0 0 calc(100% - var(--reveal-strip)) 0);
+      }
+
+      /* Intent label: two stacked layers (base + fill) */
+      #intent-label {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        width: min(520px, calc(76%));
+        font: inherit;
+        font-size: 10px;     /* adjust */
+        font-weight: 800;    /* adjust */
+        text-transform: uppercase;
+        white-space: nowrap;
+        overflow: hidden;
+        opacity: 0;
+      }
+
+      #intent-label .base,
+      #intent-label .fill {
+        display: block;
+        width: 100%;
+        text-align: center;
+      }
+
+      #intent-label .base {
+        color: rgba(0,0,0,0.28);
+      }
+
+      #intent-label .fillWrap {
+        position: absolute;
+        inset: 0;
+        overflow: hidden;
+        /* fill revealed from left -> right by clip-path */
+        clip-path: inset(0 100% 0 0);
+      }
+
+      #intent-label .fill {
+        color: rgba(0,0,0,0.68);
+      }
+    `;
+    document.head.appendChild(style);
+  }
+
+  function hardCleanupIntentArtifacts() {
+    const wrap = document.getElementById('intent-frame-wrap');
+    if (wrap && frame && wrap.contains(frame) && wrap.parentElement) {
+      const p = wrap.parentElement;
+      p.insertBefore(frame, wrap);
+      wrap.remove();
+    }
+
+    const u = document.getElementById('intent-underlay-frame');
+    if (u && frame && u.parentElement !== frame.parentElement) {
+      u.remove();
+    }
+  }
+
+  function alignUnderlayToFrame(underlay) {
+    if (!frame || !underlay) return;
+
+    const cs = getComputedStyle(frame);
+
+    // Match typography of the main frame
+    underlay.style.fontFamily = cs.fontFamily || '';
+    underlay.style.fontSize = cs.fontSize || '';
+    underlay.style.lineHeight = cs.lineHeight || '';
+    underlay.style.letterSpacing = cs.letterSpacing || '';
+
+    // Copy exact inset geometry from #frame so bounds match 1:1 in the same containing block.
+    underlay.style.top = cs.top;
+    underlay.style.right = cs.right;
+    underlay.style.bottom = cs.bottom;
+    underlay.style.left = cs.left;
+
+    // Match radius + shadow to main frame
+    underlay.style.borderRadius = cs.borderRadius || '12px';
+    underlay.style.boxShadow = cs.boxShadow || '';
+
+    if (!frame.style.zIndex) frame.style.zIndex = '1';
+
+    underlay.style.setProperty('--reveal-strip', `${Math.max(8, REVEAL_STRIP_PX)}px`);
+  }
+
+  function ensureUnderlayFrame() {
+    if (!frame) return null;
+    ensureIntentStyles();
+    hardCleanupIntentArtifacts();
+
+    const parent = frame.parentElement;
+    if (!parent) return null;
+
+    let underlay = document.getElementById('intent-underlay-frame');
+    if (!underlay) {
+      underlay = document.createElement('div');
+      underlay.id = 'intent-underlay-frame';
+      underlay.setAttribute('aria-hidden', 'true');
+
+      const reveal = document.createElement('div');
+      reveal.id = 'intent-underlay-reveal';
+      reveal.setAttribute('aria-hidden', 'true');
+
+      const label = document.createElement('div');
+      label.id = 'intent-label';
+      label.setAttribute('aria-hidden', 'true');
+
+      const base = document.createElement('span');
+      base.className = 'base';
+
+      const fillWrap = document.createElement('span');
+      fillWrap.className = 'fillWrap';
+
+      const fill = document.createElement('span');
+      fill.className = 'fill';
+
+      fillWrap.appendChild(fill);
+      label.appendChild(base);
+      label.appendChild(fillWrap);
+
+      reveal.appendChild(label);
+      underlay.appendChild(reveal);
+
+      parent.insertBefore(underlay, frame);
+    }
+
+    alignUnderlayToFrame(underlay);
+    return underlay;
+  }
+
+  function setFrameTranslateY(px, animateIn) {
+    if (!frame) return;
+
+    if (animateIn) frame.style.transition = 'transform 90ms ease';
+    else frame.style.transition = 'none';
+
+    frame.style.transform = px ? `translateY(${px}px)` : '';
+
+    if (!animateIn) {
+      requestAnimationFrame(() => { if (frame) frame.style.transition = ''; });
+    }
+  }
+
+  function setLabelPosition(dir) {
+    const label = document.getElementById('intent-label');
+    if (!label) return;
+
+    const strip = Math.max(8, REVEAL_STRIP_PX);
+    const desired = 6;
+    const offset = Math.min(desired, Math.max(1, strip - 18));
+
+    label.style.top = '';
+    label.style.bottom = '';
+    if (dir === -1) label.style.top = `${offset}px`;
+    else label.style.bottom = `${offset}px`;
+  }
+
+  function getTargetLabelForDir(dir) {
+    const idx = currentIndex + dir;
+    const target = sections[idx];
+    const targetId = target?.id || '';
+    const path = SECTION_PATH[targetId] || targetId || '';
+    const pretty = path ? `/${String(path).toUpperCase()}` : '/';
+    return dir === 1 ? `  GO TO  ${pretty} ` : `BACK TO ${pretty}`;
+  }
+
+  function setLabelProgress(progress01) {
+    const label = document.getElementById('intent-label');
+    if (!label) return;
+    const fillWrap = label.querySelector('.fillWrap');
+    if (!fillWrap) return;
+
+    const p = Math.max(0, Math.min(1, progress01));
+    fillWrap.style.clipPath = `inset(0 ${Math.round((1 - p) * 100)}% 0 0)`;
+  }
+
+  function showIntentUI(dir, progress01) {
+    const underlay = ensureUnderlayFrame();
+    if (!underlay) return;
+
+    underlay.classList.toggle('is-next', dir === 1);
+    underlay.classList.toggle('is-prev', dir === -1);
+    underlay.style.opacity = '1';
+
+    setLabelPosition(dir);
+
+    const label = document.getElementById('intent-label');
+    if (label) {
+      const txt = getTargetLabelForDir(dir);
+      const base = label.querySelector('.base');
+      const fill = label.querySelector('.fill');
+      if (base) base.textContent = txt;
+      if (fill) fill.textContent = txt;
+      label.style.opacity = '1';
+    }
+
+    setLabelProgress(progress01);
+
+    const signed = dir === 1 ? -1 : 1;
+    setFrameTranslateY(signed * FRAME_NUDGE_PX, true);
+
+    alignUnderlayToFrame(underlay);
+  }
+
+  function hideIntentUI() {
+    const underlay = document.getElementById('intent-underlay-frame');
+    if (underlay) {
+      underlay.style.opacity = '0';
+      underlay.classList.remove('is-next', 'is-prev');
+    }
+
+    const label = document.getElementById('intent-label');
+    if (label) {
+      label.style.opacity = '0';
+      setLabelProgress(0);
+      label.style.top = '';
+      label.style.bottom = '';
+    }
+  }
+
+  function stopIntentTicker() {
+    if (intentRaf) cancelAnimationFrame(intentRaf);
+    intentRaf = 0;
+  }
+
+  function cancelIntentImmediate() {
+    intentDir = 0;
+    intentActive = false;
+    intentStartT = 0;
+    intentLastEventT = 0;
+    intentSource = '';
+
+    stopIntentTicker();
+
+    if (intentCancelTimer) clearTimeout(intentCancelTimer);
+    intentCancelTimer = 0;
+
+    hideIntentUI();
+    setFrameTranslateY(0, false);
+  }
+
+  function scheduleKeepAliveCancelTouchOnly() {
+    // Touch has reliable "end"; keepalive is just a safety net.
+    if (intentSource !== 'touch') return;
+
+    if (intentCancelTimer) clearTimeout(intentCancelTimer);
+    intentCancelTimer = setTimeout(() => {
+      if (!intentActive) return;
+      const now = Date.now();
+      if (now - intentLastEventT > INTENT_KEEPALIVE_MS) {
+        cancelIntentImmediate();
+      } else {
+        scheduleKeepAliveCancelTouchOnly();
+      }
+    }, Math.max(80, INTENT_KEEPALIVE_MS + 10));
+  }
+
+  function tickIntent() {
+    if (!intentActive || !intentDir) { stopIntentTicker(); return; }
+    if (isTransitioning || isInCooldown()) { cancelIntentImmediate(); return; }
+
+    const now = Date.now();
+    const elapsed = now - intentStartT;
+    const p01 = Math.max(0, Math.min(1, elapsed / INTENT_HOLD_TO_CONFIRM_MS));
+
+    showIntentUI(intentDir, p01);
+
+    if (elapsed >= INTENT_HOLD_TO_CONFIRM_MS && elapsed >= INTENT_MIN_HOLD_MS) {
+      const nextIdx = currentIndex + intentDir;
+      cancelIntentImmediate();
+      markCooldown();
+      transitionTo(nextIdx);
+      return;
+    }
+
+    intentRaf = requestAnimationFrame(tickIntent);
+  }
+
+  function startIntentIfNeeded(dir, source) {
+    if (!ENABLE_INTENT_SCROLL_NAV) return;
+    if (isTransitioning || isInCooldown()) { cancelIntentImmediate(); return; }
+    if (!dir) return;
+
+    const nextIdx = currentIndex + dir;
+    if (nextIdx < 0 || nextIdx >= sections.length) {
+      cancelIntentImmediate();
+      return;
+    }
+
+    const now = Date.now();
+
+    if (!intentActive) {
+      intentActive = true;
+      intentDir = dir;
+      intentStartT = now;
+      intentLastEventT = now;
+      intentSource = source || '';
+
+      showIntentUI(dir, 0);
+
+      // IMPORTANT CHANGE:
+      // - Wheel/trackpad: DO NOT arm keepalive cancel (mac hold emits no events).
+      // - Touch: keepalive is ok.
+      scheduleKeepAliveCancelTouchOnly();
+
+      stopIntentTicker();
+      intentRaf = requestAnimationFrame(tickIntent);
+      return;
+    }
+
+    // Direction reversal cancels immediately
+    if (intentDir !== dir) {
+      cancelIntentImmediate();
+      return;
+    }
+
+    // Keep-alive ping (touch only uses it for cancel safety)
+    intentLastEventT = now;
+    if (intentSource !== source && source) intentSource = source;
+    scheduleKeepAliveCancelTouchOnly();
+  }
+
+  /* ============================================================
+     TRANSITIONS
+  ============================================================ */
+
   function transitionTo(index) {
     if (isTransitioning || index === currentIndex) return;
     if (index < 0 || index >= sections.length) return;
 
+    cancelIntentImmediate();
     isTransitioning = true;
 
     const fromId = sections[currentIndex].id;
     const toId = sections[index].id;
 
-    // Hide creative sharp BG when leaving creative
     if (fromId === 'creative' && toId !== 'creative') {
       window.Site?.clearFrameBackground?.({ immediate: true, clearImage: false });
     }
 
-    // Set transition label text
     if (transitionLabel) {
       transitionLabel.textContent = SECTION_PATH[toId] || toId;
       transitionLabel.style.opacity = '0';
     }
 
-    // Fade out current section
     sections[currentIndex].classList.remove('is-active');
 
-    // Fade to white
     mask.style.opacity = '1';
     if (transitionLabel) transitionLabel.style.opacity = '1';
 
@@ -221,7 +615,6 @@ window.Site.setAmbientEnabled = async (enabled) => {
 
       applyAmbientVisibility(activeId);
 
-      // Fade back in
       if (transitionLabel) transitionLabel.style.opacity = '0';
       mask.style.opacity = '0';
 
@@ -232,15 +625,87 @@ window.Site.setAmbientEnabled = async (enabled) => {
     }, TRANSITION_DURATION);
   }
 
-  function onWheel(e) {
-    if (isTransitioning) return;
+  /* ============================================================
+     SCROLL CONTAINER RESOLUTION
+  ============================================================ */
 
-    if (e.deltaY > 40) transitionTo(currentIndex + 1);
-    else if (e.deltaY < -40) transitionTo(currentIndex - 1);
+  function getScrollableParent(el, boundaryEl) {
+    let node = el;
+    while (node && node !== document.body && node !== boundaryEl) {
+      if (node instanceof HTMLElement) {
+        const style = window.getComputedStyle(node);
+        const overflowY = style.overflowY;
+        const canScrollY =
+          (overflowY === 'auto' || overflowY === 'scroll') &&
+          node.scrollHeight > node.clientHeight + 2;
+        if (canScrollY) return node;
+      }
+      node = node.parentElement;
+    }
+    return null;
+  }
+
+  function resolveScrollContainerFromEventTarget(target) {
+    const activeSection = sections[currentIndex];
+    if (!activeSection) return null;
+
+    const el = target instanceof Element ? target : null;
+    if (!el) return activeSection;
+
+    return getScrollableParent(el, activeSection) || activeSection;
+  }
+
+  function canScrollInDirection(container, dir) {
+    if (!container || !(container instanceof HTMLElement)) return false;
+    const max = container.scrollHeight - container.clientHeight;
+    if (max <= 1) return false;
+    const st = container.scrollTop;
+    if (dir === 1) return st < max - 1;
+    if (dir === -1) return st > 1;
+    return false;
+  }
+
+  function atBoundary(container, dir) {
+    if (!container || !(container instanceof HTMLElement)) return true;
+    const max = container.scrollHeight - container.clientHeight;
+    if (max <= 1) return true;
+    const st = container.scrollTop;
+    if (dir === 1) return st >= max - 1;
+    if (dir === -1) return st <= 1;
+    return true;
   }
 
   /* ============================================================
-     TOUCH SWIPE (MOBILE)
+     WHEEL HANDLING (native scroll first; hold-to-confirm at edges)
+  ============================================================ */
+
+  function onWheel(e) {
+    if (!ENABLE_INTENT_SCROLL_NAV) return;
+    if (isTransitioning || isInCooldown()) { cancelIntentImmediate(); return; }
+
+    const dy = e.deltaY || 0;
+    const abs = Math.abs(dy);
+    if (abs < INTENT_MIN_ACTIVITY_DELTA) return;
+
+    const dir = dy > 0 ? 1 : -1;
+    const container = resolveScrollContainerFromEventTarget(e.target);
+
+    if (canScrollInDirection(container, dir)) {
+      if (intentActive) cancelIntentImmediate();
+      return;
+    }
+
+    if (!atBoundary(container, dir)) {
+      if (intentActive) cancelIntentImmediate();
+      return;
+    }
+
+    if (e.cancelable) e.preventDefault();
+    startIntentIfNeeded(dir, 'wheel');
+  }
+
+  /* ============================================================
+     TOUCH (swipe + boundary hold intent; respects scrollables)
   ============================================================ */
 
   const SWIPE_MIN_DISTANCE_PX = 80;
@@ -252,38 +717,7 @@ window.Site.setAmbientEnabled = async (enabled) => {
   let touchStartT = 0;
   let touchActive = false;
   let swipeConsumed = false;
-
-  function getScrollableParent(el, boundaryEl) {
-    let node = el;
-    while (node && node !== document.body && node !== boundaryEl) {
-      if (node instanceof HTMLElement) {
-        const style = window.getComputedStyle(node);
-        const overflowY = style.overflowY;
-        const canScrollY = (overflowY === 'auto' || overflowY === 'scroll') && node.scrollHeight > node.clientHeight + 2;
-        if (canScrollY) return node;
-      }
-      node = node.parentElement;
-    }
-    return null;
-  }
-
-  function shouldLetElementScroll(e, direction) {
-    const activeSection = sections[currentIndex];
-    if (!activeSection) return false;
-
-    const target = e.target instanceof Element ? e.target : null;
-    if (!target) return false;
-
-    const scrollParent = getScrollableParent(target, activeSection);
-    if (!scrollParent) return false;
-
-    const st = scrollParent.scrollTop;
-    const max = scrollParent.scrollHeight - scrollParent.clientHeight;
-
-    if (direction === 1) return st < max - 1;
-    if (direction === -1) return st > 1;
-    return false;
-  }
+  let touchLastY = 0;
 
   function onTouchStart(e) {
     if (isTransitioning) return;
@@ -295,39 +729,95 @@ window.Site.setAmbientEnabled = async (enabled) => {
     touchStartY = e.touches[0].clientY;
     touchStartX = e.touches[0].clientX;
     touchStartT = Date.now();
+    touchLastY = touchStartY;
+
+    if (intentActive) cancelIntentImmediate();
   }
 
   function onTouchMove(e) {
     if (!touchActive || swipeConsumed) return;
-    if (isTransitioning) return;
+    if (isTransitioning || isInCooldown()) { cancelIntentImmediate(); return; }
     if (!e.touches || e.touches.length !== 1) return;
 
     const y = e.touches[0].clientY;
     const x = e.touches[0].clientX;
-    const dy = touchStartY - y; // positive => swipe up
-    const dx = touchStartX - x;
 
-    if (Math.abs(dy) < SWIPE_LOCK_AXIS_PX) return;
-    if (Math.abs(dx) > Math.abs(dy)) return;
+    const dyTotal = touchStartY - y;
+    const dxTotal = touchStartX - x;
 
-    const dt = Date.now() - touchStartT;
-    if (dt > SWIPE_MAX_TIME_MS) return;
+    if (Math.abs(dyTotal) < SWIPE_LOCK_AXIS_PX) { touchLastY = y; return; }
+    if (Math.abs(dxTotal) > Math.abs(dyTotal)) { touchLastY = y; return; }
 
-    if (Math.abs(dy) >= SWIPE_MIN_DISTANCE_PX) {
-      const direction = dy > 0 ? 1 : -1;
+    const direction = dyTotal > 0 ? 1 : -1;
 
-      if (shouldLetElementScroll(e, direction)) return;
-
-      if (e.cancelable) e.preventDefault();
-
-      swipeConsumed = true;
-      transitionTo(currentIndex + direction);
+    const container = resolveScrollContainerFromEventTarget(e.target);
+    if (canScrollInDirection(container, direction)) {
+      if (intentActive) cancelIntentImmediate();
+      touchLastY = y;
+      return;
     }
+
+    if (ENABLE_INTENT_SCROLL_NAV) {
+      const dyStep = touchLastY - y;
+      const absStep = Math.abs(dyStep);
+      const effortDir = dyStep > 0 ? 1 : -1;
+
+      if (absStep >= INTENT_MIN_ACTIVITY_DELTA) {
+        if (effortDir !== direction) {
+          if (intentActive) cancelIntentImmediate();
+        } else {
+          if (e.cancelable) e.preventDefault();
+          startIntentIfNeeded(direction, 'touch');
+        }
+      }
+    }
+
+    if (ENABLE_SWIPE_SECTION_NAV) {
+      const dt = Date.now() - touchStartT;
+      if (dt <= SWIPE_MAX_TIME_MS && Math.abs(dyTotal) >= SWIPE_MIN_DISTANCE_PX) {
+        if (e.cancelable) e.preventDefault();
+        swipeConsumed = true;
+        cancelIntentImmediate();
+        markCooldown();
+        transitionTo(currentIndex + direction);
+      }
+    }
+
+    touchLastY = y;
   }
 
   function onTouchEnd() {
     touchActive = false;
     swipeConsumed = false;
+    if (intentActive) cancelIntentImmediate();
+  }
+
+  /* ============================================================
+     KEYBOARD SHORTCUTS (optional)
+  ============================================================ */
+
+  function isTextInputLike(el) {
+    if (!el) return false;
+    const tag = (el.tagName || '').toLowerCase();
+    if (tag === 'input' || tag === 'textarea' || tag === 'select') return true;
+    if (el.isContentEditable) return true;
+    return false;
+  }
+
+  function onKeyDown(e) {
+    if (!ENABLE_KEYBOARD_SECTION_NAV) return;
+    if (isTransitioning) return;
+
+    const a = document.activeElement;
+    if (isTextInputLike(a)) return;
+
+    if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      transitionTo(currentIndex + 1);
+    } else if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      transitionTo(currentIndex - 1);
+    }
   }
 
   /* ============================================================
@@ -370,9 +860,11 @@ window.Site.setAmbientEnabled = async (enabled) => {
         user-select: none;
       }
 
-      .sectionNavBtn:active {
-        transform: scale(0.98);
+      @media (hover: hover) and (pointer: fine) {
+        .sectionNavBtn:hover { transform: scale(1.05); }
       }
+
+      .sectionNavBtn:active { transform: scale(0.98); }
 
       .sectionNavBtn[disabled] {
         opacity: 0.35;
@@ -422,8 +914,8 @@ window.Site.setAmbientEnabled = async (enabled) => {
   function createSectionNav() {
     ensureSectionNavStyles();
 
-    const frame = document.getElementById('frame');
-    if (!frame) return null;
+    const frameEl = document.getElementById('frame');
+    if (!frameEl) return null;
 
     if (document.getElementById('sectionNav')) {
       return document.getElementById('sectionNav');
@@ -440,9 +932,8 @@ window.Site.setAmbientEnabled = async (enabled) => {
     btnUp.setAttribute('aria-label', 'Go to previous section');
     btnUp.textContent = NAV_UP_SYMBOL;
 
-    // Conditionally create ambient toggle button
     let btnToggle = null;
-    if (ENABLE_SECTION_NAV_BUTTONS && ENABLE_AMBIENT_TOGGLE_BUTTON) {
+    if (ENABLE_SECTION_NAV_BUTTONS && ENABLE_AMBIENT_TOGGLE_BUTTON && ENABLE_AMBIENT_BG) {
       btnToggle = document.createElement('button');
       btnToggle.type = 'button';
       btnToggle.className = 'sectionNavBtn sectionNavBtn--toggle';
@@ -468,7 +959,6 @@ window.Site.setAmbientEnabled = async (enabled) => {
 
         const activeId = sections[currentIndex]?.id;
         if (activeId) applyAmbientVisibility(activeId);
-
         updateSectionNav();
       });
     }
@@ -479,7 +969,7 @@ window.Site.setAmbientEnabled = async (enabled) => {
     if (btnToggle) wrap.appendChild(btnToggle);
     wrap.appendChild(btnDown);
 
-    frame.appendChild(wrap);
+    frameEl.appendChild(wrap);
 
     return { wrap, btnUp, btnToggle, btnDown };
   }
@@ -487,7 +977,7 @@ window.Site.setAmbientEnabled = async (enabled) => {
   const sectionNav = ENABLE_SECTION_NAV_BUTTONS ? createSectionNav() : null;
 
   function updateSectionNav() {
-    if (!sectionNav) return;
+    if (!sectionNav || !sectionNav.wrap) return;
 
     const wrap = sectionNav.wrap;
     const btnUp = sectionNav.btnUp;
@@ -498,7 +988,6 @@ window.Site.setAmbientEnabled = async (enabled) => {
     const isFirst = currentIndex <= 0;
     const isLast = currentIndex >= sections.length - 1;
 
-    // Toggle button: only if it exists
     if (btnToggle) {
       const hideToggle = HIDE_AMBIENT_TOGGLE_ON_SECTIONS.has(activeId);
       btnToggle.style.display = hideToggle ? 'none' : '';
@@ -506,16 +995,12 @@ window.Site.setAmbientEnabled = async (enabled) => {
       btnToggle.textContent = getAmbientToggleLabel();
     }
 
-    // Remove Up on first, remove Down on last
     btnUp.style.display = isFirst ? 'none' : '';
     btnDown.style.display = isLast ? 'none' : '';
     btnUp.disabled = isFirst;
     btnDown.disabled = isLast;
 
-    // Center what remains
     if (wrap) wrap.style.justifyContent = 'center';
-
-    // Down label
     if (!isLast) btnDown.textContent = NAV_DOWN_LABEL;
   }
 
@@ -523,17 +1008,14 @@ window.Site.setAmbientEnabled = async (enabled) => {
      INIT
   ============================================================ */
 
-  // Initial state
   setActiveSection(currentIndex);
   const initialId = sections[currentIndex].id;
   emitSectionChange(initialId);
 
-  // If Creative is first (or when entering Creative later), set default image
   if (initialId === 'creative') {
     window.Site.setFrameBackground?.(CREATIVE_DEFAULT_BG, { fadeMs: 0 });
   }
 
-  // Initialize ambient background
   if (AMBIENT_ENABLED) {
     window.Site.setAmbientEnabled(true);
   } else {
@@ -542,7 +1024,6 @@ window.Site.setAmbientEnabled = async (enabled) => {
 
   applyAmbientVisibility(initialId);
 
-  // Public hooks
   window.Site.goTo = (sectionId) => {
     const idx = sections.findIndex((s) => s.id === sectionId);
     if (idx !== -1) transitionTo(idx);
@@ -550,9 +1031,10 @@ window.Site.setAmbientEnabled = async (enabled) => {
 
   window.Site.getActiveSectionId = () => sections[currentIndex]?.id ?? null;
 
-  window.addEventListener('wheel', onWheel, { passive: true });
+  if (ENABLE_INTENT_SCROLL_NAV) {
+    window.addEventListener('wheel', onWheel, { passive: false });
+  }
 
-  // Touch handlers: attach to viewport so it works on mobile reliably.
   const viewport = document.getElementById('viewport') || window;
   if (viewport && viewport.addEventListener) {
     viewport.addEventListener('touchstart', onTouchStart, { passive: true });
@@ -561,17 +1043,22 @@ window.Site.setAmbientEnabled = async (enabled) => {
     viewport.addEventListener('touchcancel', onTouchEnd, { passive: true });
   }
 
-  // Keep buttons in sync
+  if (ENABLE_KEYBOARD_SECTION_NAV) {
+    window.addEventListener('keydown', onKeyDown, { passive: false });
+  }
+
   if (ENABLE_SECTION_NAV_BUTTONS) {
     updateSectionNav();
     window.addEventListener('site:sectionchange', updateSectionNav);
   }
 
-  /* ============================================================
-     TOUCH HANDLERS (defined after init to keep structure minimal)
-  ============================================================ */
-
-  // (functions already declared above; this comment just preserves the file layout)
+  if (ENABLE_INTENT_SCROLL_NAV) {
+    ensureUnderlayFrame();
+    window.addEventListener('resize', () => {
+      const u = document.getElementById('intent-underlay-frame');
+      if (u) alignUnderlayToFrame(u);
+    });
+  }
 })();
 
 /* ============================================================
@@ -611,7 +1098,6 @@ window.Site.setFrameBackground = async (url, opts = {}) => {
   const blurLayer = layer.querySelector('.bg-blur');
   const imgEl = layer.querySelector('.bg-main img');
 
-  // preload & measure image
   const { w, h } = await new Promise((resolve) => {
     const img = new Image();
     img.onload = async () => {
@@ -633,10 +1119,6 @@ window.Site.setFrameBackground = async (url, opts = {}) => {
 
   layer.classList.toggle('fit-contain', useContain);
 
-  // NOTE: Ambient no longer tracks this background (ambient is static only)
-  // window.Site.setAmbientBackground?.(url);
-
-  // Fade swap
   layer.style.transition = `opacity ${fadeMs}ms ease`;
   layer.style.opacity = '0';
 
