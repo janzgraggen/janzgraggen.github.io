@@ -9,7 +9,7 @@ const ENABLE_SECTION_NAV_BUTTONS = true; // master toggle for up/down nav
 const ENABLE_AMBIENT_TOGGLE_BUTTON = false; // shows BLUR/WHITE toggle only if nav is enabled
 
 // New navigation mode toggles (default true)
-const ENABLE_INTENT_SCROLL_NAV = true;     // scroll-and-hold section changes via wheel/touch boundary intent
+const ENABLE_INTENT_SCROLL_NAV = false;     // scroll-and-hold section changes via wheel/touch boundary intent
 const ENABLE_KEYBOARD_SECTION_NAV = true;  // ArrowUp/ArrowDown section changes
 const ENABLE_SWIPE_SECTION_NAV = true;     // swipe gesture section changes (mobile)
 
@@ -23,7 +23,7 @@ const INTENT_INDICATOR_HEIGHT_PX = 28; // reserved (text lives in revealed strip
 // “scroll and hold” timing model (primary feel controls)
 const INTENT_HOLD_TO_CONFIRM_MS = 920; // time required to complete hold
 const INTENT_KEEPALIVE_MS = 450;       // touch-only keepalive (wheel should not depend on this)
-const INTENT_MIN_ACTIVITY_DELTA = 0.3; // ignore micro-noise
+const INTENT_MIN_ACTIVITY_DELTA = 0.1; // ignore micro-noise
 
 // Extra intent guards (kept; now mostly redundant due to time gating)
 const INTENT_MIN_HOLD_MS = 380;        // legacy minimum time (kept)
