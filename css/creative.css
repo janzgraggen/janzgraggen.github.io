@@ -65,7 +65,7 @@
 }
 
 /* Small screens: stack */
-@media (max-width: 700px) {
+@media (max-width: 920px) {
   #creative .creativeControls {
     left: 12px;
     top: 56px;
