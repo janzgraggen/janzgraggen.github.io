@@ -14,7 +14,7 @@
 
   const MOBILE_BREAK = 920;
   
-  const SECTION_THEME = {
+  const SECTION_THEME = window.Site?.SECTION_THEME || {
     home: 'dark',    
     about: 'light',
     projects: 'light',
@@ -118,21 +118,17 @@
       return;
     }
 
-  function applyCircleTheme(theme) {
-        if (theme === 'light') {
-            circle.style.backgroundColor = 'black';
-            circle.style.opacity = '1';
-        }
-
-        if (theme === 'dark') {
-            circle.style.backgroundColor = 'white';
-            circle.style.opacity = '1';
-        }
-
-        if (theme === 'transparent') {
-            circle.style.backgroundColor = 'white';
-            circle.style.opacity = '0.35';
-        }
+    function applyCircleTheme(currentTheme) {
+      if (currentTheme === 'light') {
+        circle.style.backgroundColor = 'black';
+        circle.style.opacity = '1';
+      } else if (currentTheme === 'dark') {
+        circle.style.backgroundColor = 'white';
+        circle.style.opacity = '1';
+      } else if (currentTheme === 'transparent') {
+        circle.style.backgroundColor = 'white';
+        circle.style.opacity = '0.35';
+      }
     }
 
     circle.style.opacity = '1';

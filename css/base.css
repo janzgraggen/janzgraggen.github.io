@@ -42,9 +42,10 @@ body {
   height: 100%;
 
   position: relative;
+  z-index: 2;
 }
 
-/* –––––––––––– Section controll
+/* –––––––––––– Section control */
 
 /* Section baseline */
 .section {
@@ -60,7 +61,7 @@ body {
 }
 
 
-/* –––––––––––––– Transition Style
+/* –––––––––––––– Transition Style */
 /* Transition mask */
 #transition-mask{
   position: absolute;
@@ -106,7 +107,7 @@ body {
   pointer-events: auto;
 }
 
-/* ––––––––––––––––– Additions
+/* ––––––––––––––––– Additions */
 /* Subtle frame elevation */
 #frame {
   box-shadow:
@@ -212,12 +213,6 @@ body {
   object-fit: contain;
 }
 
-/* Ensure content stays above background */
-#content-root {
-  position: relative;
-  z-index: 1;
-}
-
 /**  ambient BACKGROUND. */
 
 /* Ambient frame background (default for non-home sections) */
@@ -237,8 +232,3 @@ body {
   transition: opacity 260ms ease;
 }
 
-
-#content-root {
-  position: relative;
-  z-index: 2;
-}

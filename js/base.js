@@ -1,5 +1,12 @@
 window.Site = window.Site || {};
 
+window.Site.SECTION_THEME = window.Site.SECTION_THEME || {
+  home: 'dark',
+  about: 'light',
+  projects: 'light',
+  creative: 'transparent',
+};
+
 /* ============================================================
    TOP-LEVEL CONFIG
 ============================================================ */

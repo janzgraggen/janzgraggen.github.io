@@ -10,18 +10,18 @@
     creative: '/janzgraggen',
   };
 
-const SECTION_THEME = {
-  home: 'dark',
-  about: 'light',
-  projects: 'light',
-  creative: 'transparent',
-};
+  const SECTION_THEME = window.Site?.SECTION_THEME || {
+    home: 'dark',
+    about: 'light',
+    projects: 'light',
+    creative: 'transparent',
+  };
 
 
-function applyThemeFromSection(sectionId) {
-  el.classList.remove('theme-light', 'theme-dark', 'theme-transparent');
-  el.classList.add(`theme-${SECTION_THEME[sectionId] || 'light'}`);
-}
+  function applyThemeFromSection(sectionId) {
+    el.classList.remove('theme-light', 'theme-dark', 'theme-transparent');
+    el.classList.add(`theme-${SECTION_THEME[sectionId] || 'light'}`);
+  }
 
   function setTitlePath(sectionId) {
     el.textContent = PATHS[sectionId] || PATHS.home;

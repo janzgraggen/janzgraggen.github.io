@@ -24,6 +24,7 @@
 
   function formatAuthors(authors) {
   const MY_NAME = 'Jan Zgraggen'; // change once here
+  const myNameLower = MY_NAME.toLowerCase();
 
   if (!authors) return '';
 
@@ -31,7 +32,7 @@
 
   return list.map(name => {
     const trimmed = name.trim();
-    const isMe = trimmed.toLowerCase() === MY_NAME.toLowerCase();
+    const isMe = trimmed.toLowerCase() === myNameLower;
 
     return isMe
       ? `<strong class="author-me">${trimmed}</strong>`
@@ -106,7 +107,7 @@
 
   function renderProject(project) {
     const title = esc(project.title || 'Untitled');
-    const authors = esc(normalizeAuthors(project.authors));
+    const hasAuthors = Boolean(normalizeAuthors(project.authors));
     const venue = esc(project.venue || '');
     const description = esc(project.description || '');
     const type = project.type ? `<div class="projectTag">${esc(project.type)}</div>` : '';
@@ -136,7 +137,7 @@
             ${type || ''}
           </div>
 
-          ${authors ? `<div class="projectAuthors">${formatAuthors(project.authors)}</div>` : ''}
+          ${hasAuthors ? `<div class="projectAuthors">${formatAuthors(project.authors)}</div>` : ''}
           ${venue ? `<div class="projectVenue">${venue}</div>` : ''}
 
 
