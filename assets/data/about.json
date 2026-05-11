@@ -9,8 +9,9 @@
     {
       "title": "Work.",
       "items": [
-        { "title": "Research Intern @NokiaBellLabs, Paris France", "content": "Neural Algorithmic Reasoning and Graph Machine Learning for Network Optimization.", "image": "assets/icons/Nokia_Bell_Labs.png" },
-        { "title": "Project Intern @ECEOLab, Sion Switzerland", "content": "Topography aware weather forecasting in Europe.", "image": "assets/icons/eceo.png" }
+        { "title": "Summer Intern @THL4, Lausanne Switzerland, [Aug26-Sep26]" , "content": "I will be working with Prof M.Kapralov at the Theory of Computation Laboratory 4 of the Theory Group at EPFL's IC School. My research will be about the 'needle in the haystack' problem using sketching ideas.", "image": "assets/icons/THL4.png" },
+        { "title": "Research Intern @NokiaBellLabs, Paris France, [Feb26-Jul26]", "content": "Neural Algorithmic Reasoning and Graph Machine Learning for Network Optimization.", "image": "assets/icons/Nokia_Bell_Labs.png" },
+        { "title": "Project Intern @ECEOLab, Sion Switzerland, [Sep25-Jan26]", "content": "Topography aware weather forecasting in Europe.", "image": "assets/icons/eceo.png" }
       ]
     },
     {
