@@ -2,7 +2,7 @@
     "id": "project-0",
     "title": "Topography aware weather forecasting in europe",
     "authors": ["Jan Zgraggen", "(supervisor)  Chang Xu, (head supervisor) Prof. Devis Tuia"],
-    "venue": "Abstract (poster) submitted, under review",
+    "venue": "Short paper accepted @ClimateInformatics2026, best conference poster award: 2nd place",
     "type": "semester project",
     "description": "Developped GINR and EECR Frameworks for integrating topography into forcasting models.",
     "image": "assets/images/projects/topographyaware.png",
@@ -16,6 +16,16 @@
         "label": "Report",
         "url": "https://github.com/janzgraggen/CerrOroCast/Documents/Semester_project_Report_ECEO.pdf",
         "icon": "report"
+      },
+      {
+        "label": "ShortPaper",
+        "url": "https://github.com/freddy0218/ClimateInformatics2026/blob/main/Extended_Abstract/ID62_Topography-aware%20Temperature%20Forecasting%20in%20Europe.pdf",
+        "icon": "ci"
+      },
+      {
+        "label": "Poster",
+        "url": "https://github.com/janzgraggen/CerrOroCast/blob/main/Documents/Poster.pdf",
+        "icon": "ciposter"
       }
     ]
   },

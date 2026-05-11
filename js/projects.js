@@ -6,6 +6,8 @@
   const ICONS = {
     report: 'assets/icons/report_pdf.png',
     github: 'assets/icons/GitHub_Logo.png',
+    ci: 'assets/icons/ci_logo-removebg-preview.png',
+    ciposter: 'assets/icons/poster.png',
   };
 
   function esc(str) {
