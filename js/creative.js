@@ -14,7 +14,10 @@
   };
 
   const cache = { p: null, i: null };
-  const lastPicked = { p: null, i: null };
+  const orderState = {
+    p: { order: [], index: 0 },
+    i: { order: [], index: 0 },
+  };
 
   async function loadManifest(kind) {
     if (cache[kind]) return cache[kind];
@@ -41,6 +44,26 @@
       if (pick !== last) break;
     }
     return pick;
+  }
+
+  function shuffle(files) {
+    const order = [...files];
+    for (let i = order.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [order[i], order[j]] = [order[j], order[i]];
+    }
+    return order;
+  }
+
+  function nextInOrder(kind, files) {
+    const state = orderState[kind];
+
+    if (!state.order.length || state.order.length !== files.length || state.index >= state.order.length) {
+      state.order = shuffle(files);
+      state.index = 0;
+    }
+
+    return state.order[state.index++];
   }
 
   async function preloadAndDecode(url) {
@@ -73,14 +96,13 @@
 
     const MAX_RETRIES = Math.min(5, files.length);
     for (let attempt = 0; attempt < MAX_RETRIES; attempt++) {
-      const pick = pickRandom(files, lastPicked[kind]);
+      const pick = nextInOrder(kind, files);
       if (!pick) break;
 
       const url = `${DIR[kind]}${pick}`;
 
       try {
         await preloadAndDecode(url);
-        lastPicked[kind] = pick;
         await window.Site.setFrameBackground(url, { fadeMs: 320 });
         return;
       } catch (e) {
