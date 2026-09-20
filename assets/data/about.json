@@ -3,37 +3,101 @@
     {
       "title": "Hey there.",
       "items": [
-        { "title": "", "content": "[scroll ↓]", "image": "" }
+        {
+          "title": "",
+          "content": "[scroll ↓]",
+          "image": ""
+        }
       ]
     },
     {
       "title": "Work.",
       "items": [
-        { "title": "Summer Intern @THL4, Lausanne Switzerland, [Aug26-Sep26]" , "content": "I will be working with Prof M.Kapralov at the Theory of Computation Laboratory 4 of the Theory Group at EPFL's IC School. My research will be about the 'needle in the haystack' problem using sketching ideas.", "image": "assets/icons/THL4.png" },
-        { "title": "Research Intern @NokiaBellLabs, Paris France, [Feb26-Jul26]", "content": "Neural Algorithmic Reasoning and Graph Machine Learning for Network Optimization.", "image": "assets/icons/Nokia_Bell_Labs.png" },
-        { "title": "Project Intern @ECEOLab, Sion Switzerland, [Sep25-Jan26]", "content": "Topography aware weather forecasting in Europe.", "image": "assets/icons/eceo.png" }
+        {
+          "title": "Visiting Research Student @LIDS, Cambridge Massachussents, [Oct26-Mar27]",
+          "content": "Earth intelligence lab (Laboratory for information and decision systems) with Prof S.Wang",
+          "image": "assets/icons/Lids logo-maroon.png"
+        },
+        {
+          "title": "Summer Research Intern @THL4, Lausanne Switzerland, [Aug26-Sep26]",
+          "content": "Theory of Computation Laboratory 4 with Prof M.Kapralov",
+          "image": "assets/icons/THL4.png"
+        },
+        {
+          "title": "Research Intern @NokiaBellLabs, Paris France, [Feb26-Jul26]",
+          "content": "BellLabsAIRL-ML&Sys. AI research for accelerating traffic engineering.",
+          "image": "assets/icons/Nokia_Bell_Labs.png"
+        },
+        {
+          "title": "Research Semester Project @ECEOLab, Sion Switzerland, [Sep25-Jan26]",
+          "content": "Topography bias mitigation in weather forecasting ViTs with Prof D.Tuia",
+          "image": "assets/icons/eceo.png"
+        }, 
+        {
+          "title": "Research Semester Project @HessBellwaldLab, Lausanne Switzerland, [Feb25-Jul26]",
+          "content": "Brain-cell morphology cls, w/ algebraic topology & GNNs with L.Kanari PhD",
+          "image": ""
+        }
       ]
     },
     {
       "title": "Education.",
       "items": [
-        { "title": "MSc Computational Scinece and Engineering @EPFL, Lausanne Switzerland", "content": "TA for the class CS-450 Advanced Algorithms with Prof. M. Kapralov (Fall Semester 2025) | TCS-Coursework: Advanced Algorithms, Sublinear Algorithms, Topics in Theoretical CS (Randomized Algorithms) ; ML-Coursework: Machine Learning, Network Machine Learning, Foudnation Models and Generative AI, Learning in Neuronal Nets (Reinforcement Learning, Neuroplausible ML), Image Processing for Earth Observation", "image": "assets/icons/EPFL.png" },
-        { "title": "BSc Exchange @HKUST, Hong Kong SAR, China ", "content": " Selected coursework: Design and Analysis of Algorithms, Discrete Maths for CS, Data Analysis (Ocean Science)", "image": "assets/icons/HKUST.png" },
-        { "title": "BSc Environmental Science and Engineering @EPFL, Lausanne Switzerland", "content": "", "image": "" }
+        {
+          "title": "MSc Master's Thesis @MIT, Cambridge Massachussets",
+          "content": "AI for Earth Observation",
+          "image": "assets/icons/Massachusetts_Institute_of_Technology-Logo.wine.png"
+        },
+        {
+          "title": "MSc Computational Science and Engineering @EPFL, Lausanne Switzerland",
+          "content": "Theoretical CS & AI/ML\n\n[Theory]: Advanced Algorithms, Sublinear Algorithms, Topics in TCS: Randomized Algorithms\n\n[AI/ML]: GNN, Foundation Models & GenAI, RL & NeuroplausibleAI, Image Processing for Earth Observation",
+          "image": "assets/icons/EPFL.png"
+        },
+        {
+          "title": "BSc Exchange @HKUST, Hong Kong SAR, China ",
+          "content": " [Selected coursework]: Design and Analysis of Algorithms, Discrete Maths for CS, Data Analysis (Ocean Science)",
+          "image": "assets/icons/HKUST.png"
+        },
+        {
+          "title": "BSc Environmental Science and Engineering @EPFL, Lausanne Switzerland",
+          "content": "",
+          "image": "assets/icons/EPFL.png"
+        }
+      ]
+    },
+    {
+      "title": "Teaching.",
+      "items": [
+        {
+          "title": "Graduate Teaching Assistant",
+          "content": "TA for the class CS-450 Advanced Algorithms with Prof. M. Kapralov (Fall Semester 2025)",
+          "image": "assets/icons/EPFL.png"
+        }
       ]
     },
     {
       "title": "About.",
       "items": [
-        { "title": "I like to spend my time..", "content": "..traveling, in nature, doing sports, following sports, doing crafts, photography, or vibecoding my website;) ", "image": "" },
-        { "title": "I geek about..", "content": "Algorithms (randomized, sublinear) | Machine Learning (gml ,earth observation, neuro) | Graph Modelling (algo & gml).", "image": "" }
-        
+        {
+          "title": "I like to spend my time..",
+          "content": "..traveling, in nature, doing sports, following sports, doing crafts, photography, or vibecoding my website;) ",
+          "image": ""
+        },
+        {
+          "title": "I geek about..",
+          "content": "Algorithms (randomized, sublinear) | Machine Learning (gml ,earth observation, neuro) | Graph Modelling (algo & gml).",
+          "image": ""
+        }
       ]
     },
     {
       "title": "Get in touch.",
       "items": [
-        { "title": "", "content": "Write me an email [contact@janzgraggen.com] or click one of the social buttons in the menu." , "image": "" }
+        {
+          "title": "",
+          "content": "Write me an email [contact@janzgraggen.com] or click one of the social buttons in the menu.",
+          "image": ""
+        }
       ]
     }
   ]

@@ -82,6 +82,7 @@
 }
 
 #about .aboutItemContent {
+  white-space: pre-line;
   margin-top: 4px;
   font-size: 0.92rem;
   font-weight: 300;
