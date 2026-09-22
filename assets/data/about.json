@@ -14,7 +14,7 @@
       "title": "Work.",
       "items": [
         {
-          "title": "Visiting Research Student @LIDS, Cambridge Massachussents, [Oct26-Mar27]",
+          "title": "Visiting Research Student @LIDS, Cambridge Massachusetts, [Oct26-Mar27]",
           "content": "Earth intelligence lab (Laboratory for information and decision systems) with Prof S.Wang",
           "image": "assets/icons/Lids logo-maroon.png"
         },
@@ -44,7 +44,7 @@
       "title": "Education.",
       "items": [
         {
-          "title": "MSc Master's Thesis @MIT, Cambridge Massachussets",
+          "title": "MSc Master's Thesis @MIT, Cambridge Massachusetts",
           "content": "AI for Earth Observation",
           "image": "assets/icons/Massachusetts_Institute_of_Technology-Logo.wine.png"
         },
@@ -80,12 +80,12 @@
       "items": [
         {
           "title": "I like to spend my time..",
-          "content": "..traveling, in nature, doing sports, following sports, doing crafts, photography, or vibecoding my website;) ",
+          "content": "..traveling, in nature, doing sports, following sports, doing crafts, photography, or vibecoding my website;) (i did this before LLMs started to oneshot these kind of things, so yes I had to debug gpt) ",
           "image": ""
         },
         {
           "title": "I geek about..",
-          "content": "Algorithms (randomized, sublinear) | Machine Learning (gml ,earth observation, neuro) | Graph Modelling (algo & gml).",
+          "content": "Randomized and sublinear algos | Machine intelligences, Representation Learning, Earth AI | Graph Modelling (algo & gml).",
           "image": ""
         }
       ]
